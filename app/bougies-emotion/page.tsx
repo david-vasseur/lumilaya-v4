@@ -1,8 +1,10 @@
-import React from 'react'
+import Hero from '@/components/layout/landing/product_page/Hero';
 
 function page() {
     return (
-        <div className="h-[200vh] bg-blue-400">page Bougie Emotion</div>
+        <div className="min-h-screen bg-[#FDFBF7]">
+            <Hero image={"/images/landing/emotion_collection.webp"} url={"bougies-emotion"} title={"Emotions <br/>& <br/>Plaisirs"} />
+        </div>
     )
 }
 
