@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export interface ProductCardProps {
     slug: string
+    collection: string,
     image: string
     name: string
     duration: string
@@ -13,10 +14,10 @@ export interface ProductCardProps {
     price: number
 }
 
-function ProductCard({ slug, image, name, duration, intro, price }: ProductCardProps) {
+function ProductCard({ slug, collection, image, name, duration, intro, price }: ProductCardProps) {
     return (
         <Link
-            href={`/bougies-emotions/${slug}`}
+            href={`/${collection}/${slug}`}
             className="product-grid-card group"
         >
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">

@@ -7,6 +7,7 @@ import { ProductCardProps } from '@/components/ui/ProductCard';
 export const mockProducts: ProductCardProps[] = [
     {
         slug: 'bougie-magie',
+        collection: "bougies-emotion",
         image: '/images/products/magie.webp',
         name: 'Bougie Magie',
         duration: '12',
@@ -15,6 +16,7 @@ export const mockProducts: ProductCardProps[] = [
     },
     {
         slug: 'bougie-tendresse',
+        collection: "bougies-emotion",
         image: '/images/products/tendresse.webp',
         name: 'Bougie Tendresse',
         duration: '10',
@@ -23,6 +25,7 @@ export const mockProducts: ProductCardProps[] = [
     },
     {
         slug: 'bougie-douceur',
+        collection: "bougies-emotion",
         image: '/images/products/douceur.webp',
         name: 'Bougie Douceur',
         duration: '8',
@@ -31,6 +34,7 @@ export const mockProducts: ProductCardProps[] = [
     },
     {
         slug: 'bougie-vitalite',
+        collection: "bougies-emotion",
         image: '/images/products/vitalite.webp',
         name: 'Bougie Vitalité',
         duration: '14',
@@ -39,6 +43,7 @@ export const mockProducts: ProductCardProps[] = [
     },
     {
         slug: 'bougie-harmonie',
+        collection: "bougies-emotion",
         image: '/images/products/harmonie.webp',
         name: 'Bougie Harmonie',
         duration: '12',
