@@ -9,15 +9,8 @@ services:
       - .env
     networks:
       - nginx-network
-      - mysql-network
-      - redis-network
 
 # Réseaux externes existants
 networks:
   nginx-network:
     external: true
-  mysql-network:
-    external: true
-  redis-network:
-    external: true
-
