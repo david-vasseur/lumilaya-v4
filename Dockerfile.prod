@@ -2,7 +2,6 @@
 FROM node:22-bullseye AS builder
 
 WORKDIR /app
-ENV SKIP_BUILD_STATIC_GENERATION=true
 
 # Copier uniquement package.json et package-lock.json pour le cache Docker
 COPY package*.json ./
@@ -25,16 +24,6 @@ FROM node:22-bullseye
 
 WORKDIR /app
 ENV NODE_ENV=production
-
-# Installer les dépendances système nécessaires pour Prisma et TLS
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends \
-#         bash \
-#         openssl \
-#         libc6 \
-#         ca-certificates \
-#         curl \
-#     && rm -rf /var/lib/apt/lists/*
 
 # Copier node_modules et le code depuis le builder
 COPY --from=builder /app/ ./
