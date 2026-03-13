@@ -37,7 +37,7 @@ function Hero({ image, url, title }: HeroProps) {
 
     return (
         <div ref={heroRef} className="relative h-[80vh] overflow-hidden">
-            <Image fill alt="image d'une bougie" src={`/images/produits/${image}`} className="object-cover object-bottom" />
+            <Image fill alt="image d'une bougie" src={`${image}`} className="object-cover object-bottom" />
             {/* Contenu Hero */}
             <div className="relative h-full flex items-center justify-center">
                 <div className="hero-content text-center px-6 max-w-4xl">
