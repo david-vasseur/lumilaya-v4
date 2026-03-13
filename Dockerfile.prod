@@ -24,6 +24,7 @@ FROM node:20-bullseye
 
 WORKDIR /app
 ENV NODE_ENV=production
+ENV NODE_OPTIONS="--max-old-space-size=256"
 
 # Copier node_modules et le code depuis le builder
 COPY --from=builder /app/ ./
