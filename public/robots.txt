@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Bloquer les pages techniques / sensibles
+Disallow: /api/
+Disallow: /checkout
+Disallow: /checkout-success
+Disallow: /checkout-cancel
+Disallow: /_next/
+
+# Autoriser explicitement les pages importantes
+Allow: /bougies-emotions/
+Allow: /bougies-rituel/
+Allow: /contact
+Allow: /notre-histoire
+
+# Sitemap
+Sitemap: https://www.lumilaya.fr/sitemap.xml
