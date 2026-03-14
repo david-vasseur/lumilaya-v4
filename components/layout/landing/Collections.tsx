@@ -100,10 +100,10 @@ function Collections() {
                 
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="category-card relative aspect-square overflow-hidden rounded-2xl">
+                        <div className="category-card relative w-full aspect-square overflow-hidden rounded-2xl">
                             <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Cire végétale pure, essences botaniques brutes, pour une atmosphère authentique' href='/bougies-emotion'  />
                         </div>
-                        <div className="category-card relative aspect-square overflow-hidden rounded-2xl">
+                        <div className="category-card relative w-full aspect-square overflow-hidden rounded-2xl">
                             <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Compositions olfactives raffinées, notes envoûtantes, pour une expérience luxueuse' href='/bougies-rituel'  />
                         </div>                       
                     </div>
