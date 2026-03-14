@@ -1,5 +1,5 @@
 # ==== Phase 1 : Builder ====
-FROM node:20-bullseye AS builder
+FROM node:24-bullseye AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY . .
 RUN npm run build
 
 # ==== Phase 2 : Image finale légère ====
-FROM node:20-bullseye
+FROM node:24-bullseye
 
 WORKDIR /app
 ENV NODE_ENV=production
