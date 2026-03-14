@@ -12,7 +12,7 @@ function CollectionCard({ href, imageUrl, title, resume }: ICollectionCard) {
     return (
         <Link
             href={href}
-            className="group w-full h-full relative rounded-lg overflow-hidden shadow-xl"
+            className="category-card group w-full h-full relative rounded-lg overflow-hidden shadow-xl"
             >
                 <img
                     src={imageUrl}

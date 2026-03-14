@@ -99,12 +99,11 @@ function Collections() {
                 
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="category-card w-full relative aspect-square overflow-hidden rounded-2xl">
-                            <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Une collection aux parfums gourmands, floraux et réconfortants, pour éveiller les sens et créer du plaisir au quotidien.' href='/bougies-emotion'  />
-                        </div>
-                        <div className="category-card h-100 w-100 relative aspect-square overflow-hidden rounded-2xl">
-                            <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Une collection inspirée des énergies subtiles, pensée comme de petits rituels de lumière pour accompagner votre chemin intérieur.' href='/bougies-rituel'  />
-                        </div>                       
+    
+                        <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Une collection aux parfums gourmands, floraux et réconfortants, pour éveiller les sens et créer du plaisir au quotidien.' href='/bougies-emotion'  />
+                    
+                        <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Une collection inspirée des énergies subtiles, pensée comme de petits rituels de lumière pour accompagner votre chemin intérieur.' href='/bougies-rituel'  />
+                                            
                     </div>
                 </div>
             </section>
