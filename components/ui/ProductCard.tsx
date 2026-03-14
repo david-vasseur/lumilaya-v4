@@ -22,12 +22,12 @@ function ProductCard({ slug, collection, image, name, duration, intro, price }: 
         >
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-80 overflow-hidden">
-                    {/* <Image 
-                        fill 
-                        src={image} 
-                        alt={name}
-                        className="object-cover group-hover:scale-110 transition-transform duration-700" 
-                    /> */}
+                    <img
+                        src={image}    
+                        alt={name}    
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                    />
                     <div className="absolute inset-0 bg-linear-to-t from-[#2C2C2C]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {/* Badge */}

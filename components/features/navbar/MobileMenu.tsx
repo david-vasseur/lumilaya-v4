@@ -74,13 +74,14 @@ function MobileMenu({ items }: { items: INavItem[] }) {
                 </div>
 
                 <div className="aspect-1137/710 w-20 relative -my-4">
-                    {/* <Image
-                        fill
+                    <img
                         src="/images/logo.webp"
                         alt="Logo Lumilaya"
-                        sizes="80px"
-                        priority
-                    /> */}
+                        width={80}      
+                        height={80}      
+                        loading="lazy"  
+                        className="w-20 h-20" 
+                    />
                 </div>
 
                 <div onClick={() => setIsMenuOpen(!isMenuOpen)}>
