@@ -48,7 +48,7 @@ function Quality() {
 			title: "Ingrédients sains & 100% naturels",
 			subTitle: "La pureté au cœur de chaque création",
 			description:
-			"Nous sélectionnons avec une exigence absolue chaque ingrédient qui compose nos bougies. Des cires végétales premium aux parfums naturels certifiés, en passant par nos mèches en coton biologique : aucun compromis n'est fait sur la qualité. Votre santé, votre bien-être et celui de votre famille sont notre priorité.",
+			"Chaque bougie est créé avec soin à partir d'ingredients simples et naturels: cire végétale, parfum délicat et mèche en coton. Nous choisissons chaque élément avec attention pour offrir une flamme douce et une athmosphere chaleureuse, propice au calme et au bien être. Ces bougies sont pensées comme de petits rituels cocooning, pour vous offrir un moment de douceur et de reconnexion à vous-même.",
 			image: "/images/landing/quality_1.webp",
 			features: [
 			{
@@ -102,7 +102,7 @@ function Quality() {
 			title: "Fabriqué à la main en Occitanie",
 			subTitle: "L'artisanat au service de la perfection",
 			description:
-			"Dans notre atelier occitan, chaque bougie est une œuvre unique. Nos artisans experts maîtrisent l'art ancestral de la coulée à la main, combiné aux techniques modernes les plus avancées. Petites séries, attention minutieuse aux détails, contrôle qualité rigoureux : nous prenons le temps nécessaire pour créer l'excellence.",
+			"Dans notre atelier du sud, chaque bougie est coulée à la main avec patience et intention. Nous prenons le temps de créer chaque pièce en petite série, en portant une attention particulière aux détails et à la qualité. Chaque bougie est pensée comme un objet unique, fait pour apporter une lumière douce et une ambiance chaleureuse dans votre intérieur.",
 			image: "/images/landing/quality_2.webp",
 			features: [
 			{
@@ -156,7 +156,7 @@ function Quality() {
 			title: "Qualité Premium & Services Exclusifs",
 			subTitle: "L’excellence dans chaque détail",
 			description:
-			"Nous sélectionnons les meilleurs matériaux et assurons un service client irréprochable. Livraison rapide, packaging soigné, et une expérience haut de gamme pour chaque bougie.",
+			"Nous portons une attention particulière à chaque détail. Chaque commande est préparé avec soin dans un packaging délicat, comme un petit cadeau que vous vous offrez à vous-même. Notre intention est de vous offrir une expérience douce et inspirante dès l'ouverture de votre bougie jusqu'à la dernière lueur de sa flamme.",
 			image: "/images/landing/quality_3.webp",
 			features: [
 			{

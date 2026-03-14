@@ -15,11 +15,11 @@ function Hero() {
             {/* IMAGE */}
             <div ref={imageRef} className="absolute inset-0 z-0">
                 <img
-                    src="/images/landing/hero.webp"
+                    src="/images/landing/hero_mobile1.webp"
                     alt="Himalaya avec bougie naturelle"
                     width={939}
                     height={704}
-                    className="w-full h-full object-cover object-bottom-right"
+                    className="w-full h-full object-cover object-bottom"
                     loading="lazy"
                 />
             </div>
