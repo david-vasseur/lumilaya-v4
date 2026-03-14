@@ -30,7 +30,7 @@ function Interlude() {
     return (
         <div ref={interludeRef} className="relative -mt-20 xl:-mt-32 max-w-7xl mx-auto px-6">
             <div className="intermediate-section relative bg-linear-to-br from-[#7A9B8E]/90 to-[#5A7B6E]/90 backdrop-blur-sm rounded-3xl shadow-lg p-12 md:p-16 lg:p-20 text-zinc-100 max-w-3xl ml-auto">
-                <Image fill src={"/images/landing/footer.webp"} alt='logo' className="object-contain opacity-40"/>
+                {/* <Image fill src={"/images/landing/footer.webp"} alt='logo' className="object-contain opacity-40"/> */}
                 <p className="text-lg relative z-5 leading-relaxed mb-4">
                     Parce que chaque création <span className="font-ballet text-2xl italic">Lumi'laya</span> est une invitation à savourer ce qui fait du bien.
                 </p>

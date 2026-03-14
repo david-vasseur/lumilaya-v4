@@ -15,13 +15,13 @@ function Hero() {
         <section ref={heroRef} className="relative h-screen overflow-hidden">
             {/* IMAGE */}
             <div ref={imageRef} className="absolute inset-0 z-0">
-                <Image
+                {/* <Image
                     width={939}
                     height={704}
                     src="/images/landing/hero.webp"
                     alt="Himalaya avec bougie naturelle"
                     className="w-full h-full object-cover object-bottom-right"
-                />
+                /> */}
             </div>
             {/* OVERLAY */}
             <div
