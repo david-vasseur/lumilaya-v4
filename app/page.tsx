@@ -1,3 +1,4 @@
+import Collections from "@/components/layout/landing/Collections";
 import Hero from "@/components/layout/landing/Hero";
 import Quality from "@/components/layout/landing/Quality";
 
@@ -8,6 +9,7 @@ export default async function Home() {
 		<>
 			<Hero />
 			<Quality />
+			<Collections />
 		</>
     );
 }

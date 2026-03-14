@@ -39,7 +39,8 @@ function Hero({ image, url, title }: HeroProps) {
             <img
                 src={image} // variable contenant le chemin de l'image
                 alt="image d'une bougie"
-                className="w-full h-full object-cover object-bottom"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center 70%' }}
                 loading="lazy"
             />
             {/* Contenu Hero */}

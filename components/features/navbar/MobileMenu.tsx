@@ -79,8 +79,7 @@ function MobileMenu({ items }: { items: INavItem[] }) {
                         alt="Logo Lumilaya"
                         width={80}      
                         height={80}      
-                        loading="lazy"  
-                        className="w-20 h-20" 
+                        loading="lazy" 
                     />
                 </div>
 

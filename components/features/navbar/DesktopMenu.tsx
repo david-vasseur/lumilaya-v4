@@ -19,8 +19,7 @@ function DesktopMenu({ items }: {items: INavItem[]}) {
                         alt="logo lumilaya"
                         width={80} 
                         height={80}     
-                        loading="lazy"  
-                        className="w-20 h-20" 
+                        loading="lazy" 
                     />
                 </div>
             </Link>
