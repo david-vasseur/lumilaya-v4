@@ -3,7 +3,6 @@
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ArrowRight, Leaf } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 
@@ -37,7 +36,12 @@ function Hero({ image, url, title }: HeroProps) {
 
     return (
         <div ref={heroRef} className="relative h-[80vh] overflow-hidden">
-            {/* <Image fill alt="image d'une bougie" src={`${image}`} className="object-cover object-bottom" /> */}
+            <img
+                src={image} // variable contenant le chemin de l'image
+                alt="image d'une bougie"
+                className="w-full h-full object-cover object-bottom"
+                loading="lazy"
+            />
             {/* Contenu Hero */}
             <div className="relative h-full flex items-center justify-center">
                 <div className="hero-content text-center px-6 max-w-4xl">
