@@ -17,11 +17,11 @@ function CollectionCard({ href, imageUrl, title, resume }: ICollectionCard) {
                 <img
                     src={imageUrl}
                     alt={`image de la ${title}`}
-                    className="absolute w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="absolute z-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                 />
-            <div className="absolute inset-0 bg-[#2C2C2C]/40 group-hover:bg-[#2C2C2C]/10 transition-colors duration-500" />
-            <div className="relative h-full flex flex-col items-center justify-evenly p-2 text-[#FDFBF7]">
+            <div className="absolute z-10 inset-0 bg-[#2C2C2C]/40 group-hover:bg-[#2C2C2C]/10 transition-colors duration-500" />
+            <div className="relative z-20 h-full flex flex-col items-center justify-evenly p-2 text-[#FDFBF7]">
                 <div className="p-1 backdrop-blur-[2px] rounded-2xl">
                     <h3 className="text-3xl font-black mb-4 tracking-wider text-[#44524c]">{title}</h3>
                 </div>                
