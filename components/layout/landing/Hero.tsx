@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowDown } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 
@@ -15,13 +14,14 @@ function Hero() {
         <section ref={heroRef} className="relative h-screen overflow-hidden">
             {/* IMAGE */}
             <div ref={imageRef} className="absolute inset-0 z-0">
-                {/* <Image
-                    width={939}
-                    height={704}
+                <img
                     src="/images/landing/hero.webp"
                     alt="Himalaya avec bougie naturelle"
+                    width={939}
+                    height={704}
                     className="w-full h-full object-cover object-bottom-right"
-                /> */}
+                    loading="lazy"
+                />
             </div>
             {/* OVERLAY */}
             <div
