@@ -82,8 +82,7 @@ function Collections() {
             <section className="brand-section relative z-5 pt-32 px-6 bg-[#FDFBF7]">
                 <div ref={brandRef} className="max-w-4xl relative mx-auto text-center bg-linear-to-br from-[#7A9B8E] via-[#6A8B7E] to-[#5A7B6E] px-10 py-20 overflow-hidden rounded-lg shadow-xl">
                     <p className="brand-text relative text-2xl md:text-3xl font-light text-zinc-200 leading-relaxed z-2">
-                        Chaque bougie <span className="font-ballet text-4xl md:text-5xl">Lumi'laya</span> est une invitation au voyage sensoriel,
-                        fabriquée à la main avec des ingrédients 100% naturels et des mèches en coton bio.
+                        Chaque bougie <span className="font-ballet text-4xl md:text-5xl">Lumi'laya</span> naît d'une attention: apporter dans votre espace, une lumière appaisante, propice au lâcher-prise et à la douceur intérieure.
                     </p>
                     <img
                         src="/images/landing/footer.webp"
@@ -101,10 +100,10 @@ function Collections() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="category-card h-100 w-100 relative aspect-square overflow-hidden rounded-2xl">
-                            <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Cire végétale pure, essences botaniques brutes, pour une atmosphère authentique' href='/bougies-emotion'  />
+                            <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Une collection aux parfums gourmands, floraux et réconfortants, pour éveiller les sens et créer du plaisir au quotidien.' href='/bougies-emotion'  />
                         </div>
                         <div className="category-card h-100 w-100 relative aspect-square overflow-hidden rounded-2xl">
-                            <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Compositions olfactives raffinées, notes envoûtantes, pour une expérience luxueuse' href='/bougies-rituel'  />
+                            <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Une collection inspirée des énergies subtiles, pensée comme de petits rituels de lumière pour accompagner votre chemin intérieur.' href='/bougies-rituel'  />
                         </div>                       
                     </div>
                 </div>
