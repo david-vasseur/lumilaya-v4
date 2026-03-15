@@ -107,7 +107,7 @@ function Best({ products }: IBest) {
         <img
             src="/images/landing/wave.svg"
             alt="image de fond"
-            className="absolute inset-0 w-full h-full object-cover -z-10"
+            className="absolute inset-0 w-full h-full object-cover -z-10 transform rotate-180"
         />
       {/* ---------------- Header ---------------- */}
       <div className="max-w-7xl mx-auto text-center mb-16 px-4">
@@ -130,7 +130,7 @@ function Best({ products }: IBest) {
                     <img
                         src={product.image}
                         alt={product.name}
-                        className="absolute inset-0 w-full h-full object-cover transform rotate-180"
+                        className="absolute inset-0 w-full h-full object-cover"
                     />
                     {index === 0 ? (
                         <Award className="absolute top-0 right-0 w-8 h-8" style={{ color: 'gold' }} />
