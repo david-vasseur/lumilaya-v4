@@ -1,7 +1,7 @@
-import Final from '@/components/layout/product_page/Final';
-import Hero from '@/components/layout/product_page/Hero';
-import Interlude from '@/components/layout/product_page/Interlude';
-import ProductsList from '@/components/layout/product_page/ProductsList';
+import Final from '@/components/layout/product_list_page/Final';
+import Hero from '@/components/layout/product_list_page/Hero';
+import Interlude from '@/components/layout/product_list_page/Interlude';
+import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { ProductCardProps } from '@/components/ui/ProductCard';
 
 export const mockProducts: ProductCardProps[] = [
