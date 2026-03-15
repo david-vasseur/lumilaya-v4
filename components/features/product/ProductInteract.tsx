@@ -1,6 +1,6 @@
 "use client"
 
-import { IProduct } from '@/app/bougies-emotion/[slug]/page';
+import { IProduct } from '@/types/product';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
 

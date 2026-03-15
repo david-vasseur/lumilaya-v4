@@ -1,4 +1,5 @@
-import { IProduct } from '@/app/bougies-emotion/[slug]/page';
+import { IProduct } from "@/types/product";
+
 
 function Description({ product, variant }: { product: IProduct, variant: number }) {
 
@@ -34,7 +35,7 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                         {/* Section pierres */}
                         <div className="space-y-6">
                             <h3 className="font-medium text-[#2C2C2C] mb-4">
-                                Ce que les pierres de cette bougie font :
+                                Les pierres et leurs bienfaits :
                             </h3>
                             {wellness.stones.map((stone) => (
                             <div key={stone.name}>

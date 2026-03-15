@@ -1,10 +1,10 @@
 "use client"
 
-import { IProduct } from "@/app/bougies-emotion/[slug]/page";
 import ReviewProduct from "@/components/ui/ReviewProduct";
 import ProductInteract from "./ProductInteract";
 import { Dispatch, SetStateAction } from "react";
 import Secure from "@/components/ui/Secure";
+import { IProduct } from "@/types/product";
 
 type Props = {
     product: IProduct, 
