@@ -5,20 +5,24 @@ import Title from "@/components/ui/Title";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Award, ShoppingCart, Sparkles } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 interface IBest {
   products: IBestProduct[];
 }
 
+
+
 function Best({ products }: IBest) {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const pathName = usePathname();
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const mobileTrackRef = useRef<HTMLDivElement>(null);
   const titleRefs = useRef<{ titleRef: HTMLHeadingElement | null; spanRef: HTMLSpanElement | null }>(null);
+  const isHome = pathName === "/";
+  
 
   /* --------------------------------
      GSAP – animation card active
@@ -110,34 +114,38 @@ function Best({ products }: IBest) {
             className="absolute inset-0 w-full h-full object-cover -z-10 transform rotate-180"
         />
       {/* ---------------- Header ---------------- */}
-      <div className="max-w-7xl mx-auto text-center mb-16 px-4">
-        {/* <h2 className="text-4xl md:text-5xl font-light text-[#2C2C2C] mb-4">
-          Nos Best-Sellers
-        </h2>
-        <span className="block w-24 h-0.5 mx-auto bg-[#7A9B8E]" /> */}
+      {isHome && (
+        <div className="max-w-7xl mx-auto text-center mb-16 px-4">
         <Title ref={titleRefs} title="Nos Best-Sellers" id="best-seller" />
         <p className="mt-6 text-[#2C2C2C]/70 max-w-2xl mx-auto">
           Les bougies préférées de notre communauté
         </p>
       </div>
+      )}
 
       {/* ================= DESKTOP GRID ================= */}
       <div className="hidden md:grid max-w-7xl mx-auto grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {products.map((product, index) => (
             <div key={index} className="bg-white rounded-2xl shadow-lg">
-                <Link href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotions"}/${product.slug}`}>
+                <Link href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotion"}/${product.slug}`}>
                 <div className="relative aspect-square overflow-hidden rounded-t-2xl">
                     <img
                         src={product.image}
                         alt={product.name}
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {index === 0 ? (
-                        <Award className="absolute top-0 right-0 w-8 h-8" style={{ color: 'gold' }} />
-                    ) : index === 1 ? (
-                        <Award className="absolute top-0 right-0 w-8 h-8" style={{ color: 'silver' }} />
-                    ) : (
-                        <Award className="absolute top-0 right-0 w-8 h-8" style={{ color: '#cd7f32' }} />
+                    {!isHome ? (
+                      <></>
+                    ): (
+                      <>
+                        {index === 0 ? (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'gold' }} />
+                        ) : index === 1 ? (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'silver' }} />
+                        ) : (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: '#cd7f32' }} />
+                        )}
+                      </>
                     )}
                     <div className="absolute top-4 left-4">
                         <span className="flex items-center gap-1 bg-[#7A9B8E]/80 text-zinc-200 px-3 py-1.5 rounded-full text-xs">
@@ -209,7 +217,7 @@ function Best({ products }: IBest) {
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                 {/* Image */}
                 <Link
-                  href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotions"}/${product.slug}`}
+                  href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotion"}/${product.slug}`}
                 >
                   <div className="relative aspect-square overflow-hidden">
                     <img
@@ -217,12 +225,18 @@ function Best({ products }: IBest) {
                         alt={product.name}
                         className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {index === 0 ? (
-                        <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'gold' }} />
-                    ) : index === 1 ? (
-                        <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'silver' }} />
-                    ) : (
-                        <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: '#cd7f32' }} />
+                    {!isHome ? (
+                      <></>
+                    ): (
+                      <>
+                        {index === 0 ? (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'gold' }} />
+                        ) : index === 1 ? (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: 'silver' }} />
+                        ) : (
+                            <Award className="absolute top-0 right-0 w-10 h-10" style={{ color: '#cd7f32' }} />
+                        )}
+                      </>
                     )}
 
                     {/* Badge */}

@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import gsap from 'gsap';
 import { useDeviceStore } from '@/lib/store/deviceStore';
+import Footer from '@/components/features/footer/Footer';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -21,6 +22,7 @@ function Template({ children }: {children: React.ReactNode}) {
     return (
         <>
             {children}
+            <Footer />
         </>
     )
 }

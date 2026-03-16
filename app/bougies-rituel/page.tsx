@@ -46,8 +46,13 @@ export const mockProducts: ProductCardProps[] = [
 function page() {
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
-            <Hero image={"/images/landing/rituel_collection.webp"} url={"bougies-rituel"} title={"Entre Terre <br/>& <br/>Ciel"} />
-            <Interlude />
+            <Hero 
+                image={"/images/landing/rituel_collection.webp"} 
+                url={"bougies-rituel"} 
+                subtitle={"Des bougies à intention qui accompagnent les moments de recentrage et de transformation intérieure. <br/>Associant parfums subtils et pierres naturelles, elles soutiennent l’équilibre émotionnel et la connexion à soi."}
+                title={"Entre Terre <br/>& <br/>Ciel"} 
+            />
+            <Interlude collection='Rituel' />
             <ProductsList products={mockProducts} />
             <Final />
         </div>

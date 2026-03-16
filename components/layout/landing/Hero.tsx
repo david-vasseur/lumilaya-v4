@@ -114,7 +114,7 @@ function Hero() {
                         className="group relative inline-flex items-center gap-3 bg-white text-[#2C2C2C] 
                         px-6 py-3 text-lg
                         md:px-8 md:py-4 md:text-base
-                        xl:px-10 xl:py-5 xl:text-xl
+                        xl:px-10 xl:py-5 xl:text-2xl
                         rounded-full font-medium hover:bg-white/90 transition-colors"
                     >
                         Découvrir la collection
@@ -126,7 +126,7 @@ function Hero() {
                         className="bg-white/10 text-white 
                         px-6 py-3 text-lg
                         md:px-8 md:py-4 md:text-base
-                        xl:px-10 xl:py-5 xl:text-xl
+                        xl:px-10 xl:py-5 xl:text-2xl
                         rounded-full font-medium hover:bg-white/20 transition-colors"
                     >
                         Nos meilleures ventes

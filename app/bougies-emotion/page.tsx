@@ -55,8 +55,13 @@ export const mockProducts: ProductCardProps[] = [
 function page() {
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
-            <Hero image={"/images/landing/emotion_collection.webp"} url={"bougies-emotion"} title={"Emotions <br/>& <br/>Plaisirs"} />
-            <Interlude />
+            <Hero 
+                image={"/images/landing/emotion_collection.webp"} 
+                url={"bougies-emotion"} 
+                title={"Emotions <br/>& <br/>Plaisirs"} 
+                subtitle={"Des bougies parfumées qui éveillent les sens et enveloppent le quotidien de douceur. <br/>Une invitation à créer une atmosphère chaleureuse et à savourer des instants de réconfort et de plaisir."} 
+            />
+            <Interlude collection='Emotion' />
             <ProductsList products={mockProducts} />
             <Final />
         </div>

@@ -11,13 +11,13 @@ function Final() {
 
     useGSAP(()=> {
 
-        gsap.from('.final-section', {
+        gsap.from(finalRef.current, {
 			y: 60,
 			opacity: 0,
 			duration: 1,
 			ease: 'power3.out',
 			scrollTrigger: {
-				trigger: '.final-section',
+				trigger: finalRef.current,
 				start: 'top 80%'
 			}
 		});
@@ -25,7 +25,7 @@ function Final() {
     }, {scope: finalRef})
 
     return (
-        <div ref={finalRef} className="final-section relative rounded-3xl overflow-hidden">
+        <div ref={finalRef} className="relative rounded-3xl overflow-hidden mb-20">
             <div className="absolute inset-0 bg-linear-to-br from-[#7A9B8E] to-[#5A7B6E]">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-10 right-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
