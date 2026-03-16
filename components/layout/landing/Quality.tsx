@@ -6,8 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import StickyCard from "@/components/ui/StickyCard";
 
-gsap.registerPlugin(ScrollTrigger)
-
 interface Feature {
 	title: string;
 	para: string;
