@@ -6,9 +6,9 @@ import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
     product: IProduct,
-    selectedSize: string,
+    selectedSize: number,
     quantity: number,
-    setSelectedSize: Dispatch<SetStateAction<string>>;
+    setSelectedSize: Dispatch<SetStateAction<number>>;
     setQuantity: Dispatch<SetStateAction<number>>; 
     variant: number,
 }
@@ -23,28 +23,19 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
                     Taille
                 </label>
                 <div className="flex gap-3">
-                    {product.meta.collection === "Emotion" ? (
-                    ['150g'].map((size) => (
-                    <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
+                    {product.variants.map((variant) => (
+                        <button
+                        key={variant.id}
+                        onClick={() => setSelectedSize(variant.weight)}
                         className={`px-6 py-3 rounded-lg border-2 transition-all ${
-                        selectedSize === size
-                            ? 'border-[#7A9B8E] bg-[#7A9B8E]/5 text-[#7A9B8E]'
-                            : 'border-[#2C2C2C]/10 text-[#2C2C2C]/60 hover:border-[#7A9B8E]/50'
+                            selectedSize === variant.weight
+                            ? "border-[#7A9B8E] bg-[#7A9B8E]/5 text-[#7A9B8E]"
+                            : "border-[#2C2C2C]/10 text-[#2C2C2C]/60 hover:border-[#7A9B8E]/50"
                         }`}
-                    >
-                        {size}
-                    </button>
-                    ))
-                    ) : (
-                    <button
-                        className={`px-6 py-3 rounded-lg border-2 transition-all border-[#7A9B8E] bg-[#7A9B8E]/5 text-[#7A9B8E]`}
-                    >
-                        200g
-                    </button>
-                    )}
-                    
+                        >
+                        {variant.weight}g
+                        </button>
+                    ))}
                 </div>
                 <p className="text-sm text-[#2C2C2C]/50 mt-2">≈ {product.variants[variant].duration} - {Math.round(Number(product.variants[variant].duration) + 5)}h de combustion</p>
             </div>

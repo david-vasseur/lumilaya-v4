@@ -9,15 +9,15 @@ import { IProduct } from '@/types/product';
 function Principal({ product }: { product: IProduct }) {
 
     const [quantity, setQuantity] = useState(1);
-    const [selectedSize, setSelectedSize] = useState('150g');
-    let variant: number = selectedSize === '150g' ? 0 : 1; 
+    const [selectedSize, setSelectedSize] = useState(150);
+    let variant: number = selectedSize === 150 ? 0 : 1; 
 
     return (
         <>
             <div className="grid lg:grid-cols-2 gap-5 mb-20">
             
                 {/* Galerie images */}
-                <ProductCaroussel images={product.images.images} />
+                <ProductCaroussel images={product.images} />
 
                 {/* Informations produit */}
                 <ProductInfo product={product} quantity={quantity} setQuantity={setQuantity} selectedSize={selectedSize} setSelectedSize={setSelectedSize} variant={variant} averageRating={4.5} reviewCount={8} />

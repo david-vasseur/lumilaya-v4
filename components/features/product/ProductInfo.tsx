@@ -11,9 +11,9 @@ type Props = {
     variant: number, 
     averageRating: number, 
     reviewCount: number,
-    selectedSize: string,
+    selectedSize: number,
     quantity: number,
-    setSelectedSize: Dispatch<SetStateAction<string>>;
+    setSelectedSize: Dispatch<SetStateAction<number>>;
     setQuantity: Dispatch<SetStateAction<number>>; 
 }
 
