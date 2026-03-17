@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware";
 
 interface CartItem {
     productId: number;
-    id: number;
+    id: string;
     name: string;
     price: number;
     qty: number;
@@ -23,7 +23,7 @@ interface CartState {
     items: CartItem[];
     ship: ShipItem;
     addItem: (item: CartItem) => void;
-    deleteItem: (id: number) => void;
+    deleteItem: (id: string) => void;
     clearCart: () => void;
     total: () => number;
     setShip: (value: ShipItem) => void;

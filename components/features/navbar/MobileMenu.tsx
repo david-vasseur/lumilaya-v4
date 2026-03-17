@@ -1,16 +1,21 @@
 "use client"
 
-import { MenuIcon, ShoppingCart, X } from 'lucide-react'
-import Image from 'next/image'
+import { MenuIcon, ShoppingCart, X } from 'lucide-react';
 import Link from 'next/link';
-import React, { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react';
 import { INavItem } from './items';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import Cart from '../other/Cart';
+import { useModalStore } from '@/lib/store/modalStore';
+import { useCartStore } from '@/lib/store/cartStore';
 
 function MobileMenu({ items }: { items: INavItem[] }) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const { openModal } = useModalStore();
+    const cartItems = useCartStore((state) => state.items)
 
     const mobileNavRef = useRef<HTMLDivElement | null>(null);
     const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -69,8 +74,9 @@ function MobileMenu({ items }: { items: INavItem[] }) {
                 <div className="flex gap-2 cursor-pointer">
                     <ShoppingCart
                         className="w-6 h-6 text-white"
+                        onClick={() => {openModal(<Cart />)} }
                     />
-                    <span className="text-white font-bold">0</span>
+                    <span className="text-white font-bold">{cartItems.length}</span>
                 </div>
 
                 <div className="aspect-1137/710 w-20 relative -my-4">

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Herr_Von_Muellerhoff } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/features/navbar/Nav";
+import { Toaster } from "sonner";
+import Modal from "@/components/features/modal/Modal";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -134,8 +136,10 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} ${ballet?.variable ?? ''} antialiased overflow-x-hidden`}
 			>
-				<Nav />
+				<Toaster />
+				<Nav />				
 				{children}
+				<Modal />
 			</body>
 		</html>
 	);

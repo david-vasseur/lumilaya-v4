@@ -1,8 +1,10 @@
 "use client"
 
+import { useCartStore } from '@/lib/store/cartStore';
 import { IProduct } from '@/types/product';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
 import { Dispatch, SetStateAction } from 'react';
+import { toast } from 'sonner';
 
 type Props = {
     product: IProduct,
@@ -14,6 +16,11 @@ type Props = {
 }
 
 function ProductInteract({ product, selectedSize, setSelectedSize, quantity, setQuantity, variant }: Props) {
+
+    if (!product) return
+
+    const { addItem } = useCartStore();
+    const finalPrice = product.meta.promo && product.meta.promo > 0 ? product!.variants[variant].price * (1 - product.meta.promo / 100) : product?.variants[variant].price;
 
     return (
         <div className="md:col-start-2">
@@ -61,8 +68,8 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
                 </div>
 
                 <button onClick={() => {
-                    // addItem({ productId: product.id, id: product?.variants[variant].id, name: product?.variants[variant].name, promo: product.promo ?? 0, price: Number(finalPrice?.toFixed(2) ?? 0), image: product?.images[0] || "", qty: quantity  }); 
-                    // toast.success("Produit ajouté au panier") #TODO
+                    addItem({ productId: product.meta.id, id: `${product.meta.id}-${product?.variants[variant].name}`, name: product?.variants[variant].name, promo: product.meta.promo ?? 0, price: Number(finalPrice?.toFixed(2) ?? 0), image: product?.images[0] || "", qty: quantity  }); 
+                    toast.success("Produit ajouté au panier")
                     }} 
                     className="cursor-pointer flex-1 bg-[#7A9B8E] text-white py-4 rounded-lg hover:bg-[#6A8B7E] transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl">
                     <ShoppingCart className="w-5 h-5" />

@@ -20,14 +20,14 @@ function Event() {
         },
         {
             date: "26 avril 2026",
-            city: "Saint andiol (30)",
-            place: "fête du printemps",
+            city: "Saint Andiol (13)",
+            place: "Fête du printemps",
             image: "/images/landing/fete_printemps.webp",
             url: "#"
         },
         {
             date: "10 Mai 2026",
-            city: "Vedene (13)",
+            city: "Vedene (84)",
             place: "Marché artisanal",
             image: "/images/landing/marche_vedene.webp",
             url: "#"
