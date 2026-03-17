@@ -1,13 +1,12 @@
 "use client"
 
-import { ShoppingCart } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { INavItem } from './items'
-import { usePathname } from 'next/navigation'
-import Cart from '../other/Cart'
-import { useModalStore } from '@/lib/store/modalStore'
-import { useCartStore } from '@/lib/store/cartStore'
+import { ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
+import { INavItem } from './items';
+import { usePathname } from 'next/navigation';
+import Cart from '../other/Cart';
+import { useModalStore } from '@/lib/store/modalStore';
+import { useCartStore } from '@/lib/store/cartStore';
 
 function DesktopMenu({ items }: {items: INavItem[]}) {
 

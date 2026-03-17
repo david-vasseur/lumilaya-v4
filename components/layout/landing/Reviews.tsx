@@ -1,6 +1,5 @@
 import ReviewCaroussel from '@/components/ui/ReviewCaroussel';
 import { Star } from 'lucide-react';
-import React from 'react'
 
 
 export interface IReview {

@@ -1,6 +1,4 @@
 import { useCartStore } from '@/lib/store/cartStore';
-import { Trash2 } from 'lucide-react';
-import Image from 'next/image';
 
 interface IShipItem {
     name: string,
