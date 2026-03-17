@@ -12,24 +12,24 @@ function Event() {
 
     const events = [
         {
-            date: "12 Avril 2026",
-            city: "Narbonne",
-            place: "Marché des créateurs",
-            image: "/images/events/narbonne.webp",
+            date: "18 Avril 2026",
+            city: "Caissargues (30)",
+            place: "Salon du bien-être",
+            image: "/images/landing/salon_bien_etre.webp",
             url: "#"
         },
         {
-            date: "3 Mai 2026",
-            city: "Montpellier",
-            place: "Salon Bien-être & Nature",
-            image: "/images/events/montpellier.webp",
+            date: "26 avril 2026",
+            city: "Saint andiol (30)",
+            place: "fête du printemps",
+            image: "/images/landing/fete_printemps.webp",
             url: "#"
         },
         {
-            date: "29 Mai 2026",
-            city: "Valence",
-            place: "Salon Bien-être & Nature",
-            image: "/images/events/montpellier.webp",
+            date: "10 Mai 2026",
+            city: "Vedene (13)",
+            place: "Marché artisanal",
+            image: "/images/landing/marche_vedene.webp",
             url: "#"
         }
     ]
@@ -75,7 +75,7 @@ function Event() {
     })
 
     return (
-        <section className="events-section py-24 px-6 bg-linear-to-b from-[#5A7B6E] to-[#FDFBF7]">
+        <section className="events-section py-24 px-6 bg-[#F5F1EB]">
             <div className="max-w-7xl mx-auto">
 
                 <Title ref={titleRefs} title="Prochains événements" id='events' />
@@ -85,7 +85,7 @@ function Event() {
                     salons bien-être et événements artisanaux.
                 </p>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 bg-[#5A7B6E] p-4 rounded-2xl shadow-xl">
 
                 {events.map((event, i) => (
                     <EventCard key={i} {...event} />

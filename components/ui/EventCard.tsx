@@ -15,7 +15,7 @@ function EventCard({ date, city, place, image, url }: EventCardProps) {
             <img
                 src={image}
                 alt={place}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover object-top"
             />
             <div className="p-6">
 
