@@ -1,4 +1,4 @@
-import { ShippingType } from "../lib/generated/prisma/enums";
+import { ShippingType } from "../lib/generated/prisma/enums.ts";
 import { prisma } from "../lib/prisma/prisma";
 
 const shippingPrices = [
