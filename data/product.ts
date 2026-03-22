@@ -1,5 +1,39 @@
 import { IProduct } from "@/types/product";
 
+export type ShippingType = "REL" | "DOM" | "OFF";
+
+export type ShippingPrice = {
+  name: string;
+  zone: string;          // ISO country code
+  shippingType: ShippingType;
+  price: number;
+};
+
+
+export const shippingPrices: ShippingPrice[] = [
+  { name: "France",  zone: "FR", shippingType: "DOM", price: 6.79 },
+  { name: "France",  zone: "FR", shippingType: "REL", price: 4.3 },
+  { name: "France",  zone: "FR", shippingType: "OFF", price: 0 },
+  { name: "Allemagne",  zone: "DE", shippingType: "REL", price: 8.05 },
+  { name: "Espagne",  zone: "ES", shippingType: "REL", price: 7.5 },
+  { name: "Italie",  zone: "IT", shippingType: "REL", price: 7.5 },
+  { name: "Belgique",  zone: "BE", shippingType: "REL", price: 5.9 },
+  { name: "Pays-bas",  zone: "NL", shippingType: "REL", price: 6.4 },
+  { name: "Portugal",  zone: "PT", shippingType: "REL", price: 7.5 },
+  { name: "Autriche",  zone: "AT", shippingType: "REL", price: 10.66 },
+  { name: "Suisse",  zone: "CH", shippingType: "REL", price: 7.5 },
+  { name: "Luxembourg",  zone: "LU", shippingType: "REL", price: 5.9 },
+  { name: "Irlande",  zone: "IE", shippingType: "REL", price: 10.6 },
+  { name: "Danemark",  zone: "DK", shippingType: "REL", price: 5.9 },
+  { name: "Suède",  zone: "SE", shippingType: "REL", price: 10.6 },
+  { name: "Norvège",  zone: "NO", shippingType: "REL", price: 10.6 },
+  { name: "Finlande",  zone: "FI", shippingType: "REL", price: 10.6 },
+  { name: "Pologne",  zone: "PL", shippingType: "REL", price: 8.1 },
+  { name: "République Tchèque",  zone: "CZ", shippingType: "REL", price: 8.1 },
+  { name: "Royaume-uni",  zone: "GR", shippingType: "REL", price: 10.5 },
+];
+
+
 export const products: IProduct[] = [
 
 /* =========================
@@ -35,7 +69,7 @@ images:[
 ],
 variants:[
   { 
-    id:1,
+    id: "tend-150",
     name:"Bougie Tendresse 150g",
     duration :25,
     weight: 150,
@@ -72,7 +106,7 @@ images:[
 "/images/products/vitalite3.webp"
 ],
 variants:[
-{ id:1,name:"Bougie Vitalité 150g",duration:25, weight: 150, price:19.9 }
+{ id: "vit-150",name:"Bougie Vitalité 150g",duration:25, weight: 150, price:19.9 }
 ]
 },
 
@@ -104,7 +138,7 @@ images:[
 "/images/products/douceur4.webp"
 ],
 variants:[
-{ id:1,name:"Bougie Douceur 150g",duration:25, weight:150, price:19.9 }
+{ id: "dou-150",name:"Bougie Douceur 150g",duration:25, weight:150, price:19.9 }
 ]
 },
 
@@ -136,7 +170,7 @@ images:[
 "/images/products/magie4.webp"
 ],
 variants:[
-{ id:1,name:"Bougie Magie 150g",duration:25, weight:150,price:19.9 }
+{ id: "mag-150",name:"Bougie Magie 150g",duration:25, weight:150,price:19.9 }
 ]
 
 },
@@ -169,7 +203,7 @@ images:[
 "/images/products/harmonie(4).webp"
 ],
 variants:[
-{ id:1,name:"Bougie Harmonie 150g",duration:25, weight:150,price:19.9 }
+{ id: "har-150",name:"Bougie Harmonie 150g",duration:25, weight:150,price:19.9 }
 ]
 
 },
@@ -207,7 +241,7 @@ images:[
 "/images/products/ancrage5.webp"
 ],
 variants:[
-{ id:1,name:"Bougie Ancrage 200g",duration:30, weight: 200,price:32 }
+{ id: "anc-200",name:"Bougie Ancrage 200g",duration:30, weight: 200,price:32 }
 ],
 
 wellness:{
@@ -267,7 +301,7 @@ images:[
 "/images/products/introspection4.webp"
 ],
 variants:[
-{ id:1,name:"Bougie Introspection 200g",duration:30, weight: 200,price:32 }
+{ id: "int-200",name:"Bougie Introspection 200g",duration:30, weight: 200,price:32 }
 ],
 wellness:{
 idealFor:[
@@ -325,7 +359,7 @@ benefits:[
       "/images/products/protection5.webp"
     ],
   variants: [
-    { id: 1, name: "Bougie Protection 200g", duration: 30, weight:200, price: 32 }
+    { id:  "pro-200", name: "Bougie Protection 200g", duration: 30, weight:200, price: 32 }
   ],
   wellness: {
     idealFor: [
@@ -384,7 +418,7 @@ benefits:[
       "/images/products/liberation5.webp"
     ],
   variants: [
-    { id: 1, name: "Bougie Libération 200g", duration: 30, weight: 200, price: 32 }
+    { id: "lib-200", name: "Bougie Libération 200g", duration: 30, weight: 200, price: 32 }
   ],
   wellness: {
     idealFor: [
@@ -419,3 +453,58 @@ benefits:[
 }
 
 ];
+
+export const tags = [
+  {
+    id: 0,
+    name: "vanille"
+  },
+  {
+    id: 1,
+    name: "coco"
+  },
+  {
+    id: 2,
+    name: "beurre"
+  },
+  {
+    id: 3,
+    name: "lait"
+  },
+  {
+    id: 4,
+    name: "praline"
+  },
+  {
+    id: 5,
+    name: "lotus"
+  },
+  {
+    id: 6,
+    name: "seringa"
+  },
+  {
+    id: 7,
+    name: "coton"
+  },
+  {
+    id: 8,
+    name: "mimosa"
+  },
+  {
+    id: 9,
+    name: "iris"
+  },
+  {
+    id: 10,
+    name: "musc"
+  },
+  {
+    id: 11,
+    name: "santal"
+  },
+  {
+    id: 12,
+    name: "muscade"
+  },
+]

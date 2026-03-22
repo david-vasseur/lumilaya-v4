@@ -9,7 +9,7 @@ export interface IProductWellness {
 }
 
 export interface IVariant {
-  id: number
+  id: string
   name: string
   duration: number
   weight: number

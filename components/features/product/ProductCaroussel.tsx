@@ -1,10 +1,13 @@
 "use client"
 
+import { useModalStore } from '@/lib/store/modalStore';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 
 function ProductCaroussel({ images }: { images: string[] }) {
+
+    const { openModal } = useModalStore();
 
     if (!images || images.length === 0) return null;
 
@@ -26,6 +29,13 @@ function ProductCaroussel({ images }: { images: string[] }) {
                     src={images[currentImage] || ""} 
                     alt={`Image ${currentImage + 1}`} 
                     className="absolute inset-0 object-cover" 
+                    onClick={() => openModal(
+                        <img 
+                            src={images[currentImage]} 
+                            alt={`Image ${currentImage + 1}`}
+                            className="w-full h-auto max-h-[90vh] object-cover rounded-lg"
+                        />
+                    )}
                 />
                 {/* Navigation carousel */}
                 <button 

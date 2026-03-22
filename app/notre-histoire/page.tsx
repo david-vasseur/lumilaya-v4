@@ -156,7 +156,7 @@ const NotreHistoirePage = () => {
                 <img 
                     src={"/images/histoire/histoire7.webp"} 
                     alt='image hero' 
-                    className="hero-image absolute inset-0 h-full object-cover" 
+                    className="hero-image absolute inset-0 h-full w-full object-cover" 
                 />
                 {/* <div className="hero-image absolute inset-0 -z-10">
                     
@@ -167,7 +167,7 @@ const NotreHistoirePage = () => {
                     </div>
                 </div> */}
 
-                <div className="relative translate-y-50 text-center px-6 max-w-5xl">
+                <div className="relative -translate-y-20 text-center px-6 max-w-5xl">
                     <div className="overflow-hidden mb-8">
                         <h1 className="text-7xl md:text-9xl font-extralight text-zinc-100 tracking-tight leading-none">
                             <span className="hero-title-word inline-block">Notre</span>{' '}

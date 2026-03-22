@@ -12,33 +12,24 @@ import ShipItem from "@/components/ui/ShipItem";
 
 function Cart() {
 
-    const [total, setTotal] = useState<number>(0);
+    const [totalwithShip, setTotalWithShip] = useState<number>(0);
     const [shippment, setShipment] = useState({name: "", price: 0});
-    const { items, ship, } = useCartStore();
+    const { items, ship, total } = useCartStore();
     const { closeModal, isOpen } = useModalStore();
     const path = usePathname();
     
-   useEffect(() => {
-    const fetchTotal = async () => {
-        const serverItems = items.map(item => ({
-            productId: item.productId,
-            variantId: item.id,
-            name: item.name,
-            qty: item.qty
-        }));
+    useEffect(() => {
 
-        // const result = await TotalProduct(serverItems);
-        // setTotal(result);
-    };
+        if (ship.shipping) {
+            setTotalWithShip(total() + ship.fee);
+        } else {
+            setTotalWithShip(total);
+        }
+        
+    
+    }, [ship.shipping]);
 
-    if (items.length > 0) {
-        fetchTotal();
-    } else {
-        setTotal(0);
-    }
-}, [items]);
-
-useEffect(() => {
+// useEffect(() => {
     // const fetchShipping = async () => {
     //     const result = await AddShippingPrice(ship.code, total);
 
@@ -52,7 +43,7 @@ useEffect(() => {
     // if (ship.shipping && ship.code && total > 0) {
     //     fetchShipping();
     // }
-}, [ship.shipping, ship.code, total]);
+// }, [ship.shipping, ship.code, total]);
     
     return (
         <div className="flex flex-col gap-10 items-center">
@@ -73,10 +64,10 @@ useEffect(() => {
                     <CartItem key={index} id={item.id} name={item.name} image={item.image} price={Number((item.price * item.qty).toFixed(2))} qty={item.qty} />
                 ))}
                 {ship.shipping && (
-                    <ShipItem name={shippment.name} price={shippment.price}  />
+                    <ShipItem />
                 )}                
             </div>
-            <span className="px-6 py-3 bg-[#7A9B8E]/10 text-[#34423d] rounded-lg font-semibold shadow-2xl">Total de commande : {ship.shipping ? (shippment.price + total).toFixed(2) : total.toFixed(2)} € *</span>
+            <span className="px-6 py-3 bg-[#7A9B8E]/10 text-[#34423d] rounded-lg font-semibold shadow-2xl">Total de commande : {totalwithShip.toFixed(2)} € {!ship.shipping && "*"}</span>
             {path !== "/checkout" && isOpen  && (
                 <Link 
                     href={"/checkout"}
@@ -86,7 +77,9 @@ useEffect(() => {
                     Valider le panier
                 </Link>
             )}
-            <span className="text-red-400 text-sm">* Prix hors livraison</span>
+            {!ship.shipping && (
+                <span className="text-sm ">* Prix Hors Livraison</span>
+            )}
         </div>
     )
 }

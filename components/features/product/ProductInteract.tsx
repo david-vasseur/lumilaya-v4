@@ -68,7 +68,7 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
                 </div>
 
                 <button onClick={() => {
-                    addItem({ productId: product.meta.id, id: `${product.meta.id}-${product?.variants[variant].name}`, name: product?.variants[variant].name, promo: product.meta.promo ?? 0, price: Number(finalPrice?.toFixed(2) ?? 0), image: product?.images[0] || "", qty: quantity  }); 
+                    addItem({ productId: product.meta.id, id: product?.variants[variant].id, name: product?.variants[variant].name, promo: product.meta.promo ?? 0, price: Number(finalPrice?.toFixed(2) ?? 0), image: product?.images[0] || "", qty: quantity  }); 
                     toast.success("Produit ajouté au panier")
                     }} 
                     className="cursor-pointer flex-1 bg-[#7A9B8E] text-white py-4 rounded-lg hover:bg-[#6A8B7E] transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl">
@@ -77,9 +77,9 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
                 </button>
             </div>
 
-            {/* Actions secondaires */}
+            {/* Actions secondaires */} 
             {/* <div className="flex gap-3 mb-10">
-                <FavoriteButton product={product} />                
+                <FavoriteButton product={product} />    #TODO            
                 <ShareButton product={product} />
             </div> #TODO */}
         </div>

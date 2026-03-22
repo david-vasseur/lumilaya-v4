@@ -9,8 +9,11 @@ services:
       - .env
     networks:
       - nginx-network
+      - postgres-network
 
 # Réseaux externes existants
 networks:
   nginx-network:
+    external: true
+  postgres-network:
     external: true
