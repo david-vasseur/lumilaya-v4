@@ -4,7 +4,7 @@ import { useCartStore } from "@/lib/store/cartStore";
 
 function ShipItem() {
 
-    const ship = useCartStore((state) => state.ship);
+    const { ship }= useCartStore();
 
     return (
         <div className="grid grid-cols-[60%_10%_15%_15%] items-center justify-between py-4 border-b border-zinc-400">
