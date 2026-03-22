@@ -27,13 +27,9 @@ ENV NODE_ENV=production
 ENV NODE_OPTIONS="--max-old-space-size=256"
 ENV NEXT_TELEMETRY_DISABLED=1
 # Copier node_modules et le code depuis le builder
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
-
-ENV PORT=4004
+COPY --from=builder /app/ ./
 
 # Exposer le port de l'app
 EXPOSE 4004
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
