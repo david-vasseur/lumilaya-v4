@@ -40,7 +40,8 @@ export const getShippingPrice = (zone: string, type: string) => {
 		const price = shippingPrices.find((element) => element.zone === zone && element.shippingType === type);
 		return price?.price
 	} else {
-		return
+		const price = shippingPrices.find((element) => element.zone === zone && element.shippingType === type);
+		return price?.price
 	}
 }
 
