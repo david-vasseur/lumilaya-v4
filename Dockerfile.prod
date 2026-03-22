@@ -11,10 +11,10 @@ RUN npm ci
 
 # Copier le code source et le schema Prisma
 COPY . .
-# COPY prisma ./prisma
+COPY prisma ./prisma
 
 # Générer le client Prisma au build
-# RUN npx prisma generate
+RUN npx prisma generate
 
 # Builder Next.js
 RUN npm run build
