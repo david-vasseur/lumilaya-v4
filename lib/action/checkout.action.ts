@@ -1,7 +1,8 @@
-"use client" // #TODO A CHANGER
+"use server" // #TODO A CHANGER
 
 
 import { shippingPrices } from "@/data/product";
+import { prisma } from "../prisma/prisma";
 
 type PricePerProduct = {
 	productId: number;
@@ -35,13 +36,15 @@ type ServerItem = {
 
 ////////////////////// OBTENIR PRIX DE LIVRAISON ///////////////////////////
 
-export const getShippingPrice = (zone: string, type: string) => {
-	if (process.env.NODE_ENV === "development") {
-		const price = shippingPrices.find((element) => element.zone === zone && element.shippingType === type);
-		return price?.price
-	} else {
-		const price = shippingPrices.find((element) => element.zone === zone && element.shippingType === type);
-		return price?.price
-	}
+export const getShippingPrice = async (zone: string, type: "OFF" | "DOM" | "REL") => {
+	
+		const price = await prisma.shippingPrice.findFirst({
+			where: {
+				zone: zone,
+				shippingType: type
+			}
+		})
+
+		return Number(price?.price) ?? 0;
 }
 

@@ -9,6 +9,7 @@ import { useCartStore } from "@/lib/store/cartStore";
 // import { AddShippingPrice, handleCheckout } from "./CheckOut.action";
 import { CheckoutSchema, ICheckout } from "@/schema/checkout";
 import { getShippingPrice } from '@/lib/action/checkout.action';
+import { ShippingType } from '@/lib/generated/prisma/enums';
 
 type ServerItem = {
   productId: number;
@@ -392,13 +393,13 @@ export const CheckoutForm = () => {
                                                 aria-invalid={state.meta.errors.length > 0 && state.meta.isTouched}
                                                 value={state.value}
                                                 onBlur={handleBlur}
-                                                onChange={(e) => {
+                                                onChange={async (e) => {
                                                     const newCountry = e.target.value;
 
                                                     handleChange(newCountry);
 
                                                     if (newCountry !== "FR") {
-                                                        const price = getShippingPrice(
+                                                        const price = await getShippingPrice(
                                                         newCountry,
                                                         "REL"
                                                         );
@@ -464,12 +465,12 @@ export const CheckoutForm = () => {
                                                             <select
                                                                 value={state.value}
                                                                 onBlur={handleBlur}
-                                                                onChange={(e) => {
-                                                                    const shipType = e.target.value;
+                                                                onChange={async (e) => {
+                                                                    const shipType = e.target.value as ShippingType;
 
                                                                     handleChange(shipType);
 
-                                                                        const price = getShippingPrice(
+                                                                        const price = await getShippingPrice(
                                                                             "FR",
                                                                             shipType
                                                                         );
