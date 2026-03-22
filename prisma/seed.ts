@@ -1,5 +1,5 @@
-import { ShippingType } from "@/lib/generated/prisma/enums";
-import { prisma } from "@/lib/prisma/prisma";
+import { ShippingType } from "../lib/generated/prisma/enums";
+import { prisma } from "../lib/prisma/prisma";
 
 const shippingPrices = [
   { name: "France", zone: "FR", shippingType: ShippingType.DOM, price: 6.79 },
