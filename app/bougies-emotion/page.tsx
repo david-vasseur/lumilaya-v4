@@ -5,6 +5,8 @@ import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { ProductCardProps } from '@/components/ui/ProductCard';
 import { getProductsByCollection } from '@/lib/action/product.action';
 
+export const dynamic = 'force-dynamic';
+
 // export const mockProducts: ProductCardProps[] = [
 //     {
 //         slug: 'bougie-magie',
