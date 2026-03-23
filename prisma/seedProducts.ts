@@ -310,26 +310,34 @@ const products = [
         ],
         wellness:{
             idealFor:[
-                "Vous ressentez un manque de stabilité",
-                "Vous souhaitez renforcer votre confiance",
-                "Vous traversez un nouveau départ"
+                "Vous ressentez le besoin de faire le point",
+                "Vous souhaitez écouter votre intuition plus profondément",
+                "Vous traversez une période de réflexion",
+                "Vous voulez observer vos émotions avec plus de conscience",
+                "Vous avez besoin d’un moment de méditation et de calme",
+                "Vous cherchez à revenir à votre centre",
+                "Vous souhaitez vous reconnecter à votre vérité intérieure"
             ],
 
             stones:[
                 {
-                    name:"Jaspe Rouge",
+                    name:"Améthyste",
                     benefits:[
-                        "Renforce la confiance en soi",
-                        "Apporte courage et détermination",
-                        "Stabilise les émotions"
+                        "Pierre de sagesse et d’élévation intérieure",
+                        "Favorise la clarté mentale",
+                        "Apaise le mental et les pensées envahissantes",
+                        "Soutient la méditation et l’intuition",
+                        "Aide à prendre du recul émotionnel"
                     ]
                 },
                 {
-                    name:"Obsidienne Noire",
+                    name:"Labradorite",
                     benefits:[
-                        "Favorise l'enracinement profond",
-                        "Aide à libérer les peurs",
-                        "Apporte lucidité"
+                        "Pierre d’intuition et de protection énergétique",
+                        "Aide à mieux comprendre ses émotions",
+                        "Favorise l’introspection profonde",
+                        "Soutient les périodes de réflexion intérieure",
+                        "Protège des influences extérieures"
                     ]
                 }
             ] 
