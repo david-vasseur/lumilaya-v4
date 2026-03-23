@@ -1,4 +1,4 @@
-import { Prisma } from "../lib/generated/prisma/client";
+import { Prisma } from "../lib/generated/prisma/client.ts";
 import { prisma } from "../lib/prisma/prisma.ts";
 
 
