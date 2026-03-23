@@ -1,5 +1,5 @@
-import { Prisma } from "@/lib/generated/prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
+import { Prisma } from "../lib/generated/prisma/client";
+import { prisma } from "../lib/prisma/prisma.ts";
 
 
 const products = [
