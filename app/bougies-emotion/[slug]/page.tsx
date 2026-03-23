@@ -2,7 +2,6 @@ import ProductCar from '@/components/features/product/ProductCar';
 import ProductConseil from '@/components/features/product/ProductConseil';
 import Principal from '@/components/layout/product_page/Principal';
 import Suggest, { ISuggProduct } from '@/components/layout/product_page/Suggest';
-import { products } from '@/data/product';
 import { getOneProductBySlug } from '@/lib/action/product.action';
 
 interface Props {

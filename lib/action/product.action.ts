@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma/prisma";
 import { ProductCardProps } from "@/components/ui/ProductCard";
-import { products } from "@/data/product";
 import { IProduct, IProductTheme } from "@/types/product";
 import { isProductTheme, isProductWellness } from "@/utils/dbFunction";
 
