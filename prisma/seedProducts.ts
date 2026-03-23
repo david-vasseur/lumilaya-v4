@@ -518,6 +518,7 @@ async function main() {
                 create: { name: tag },
             })),
             },
+            wellness: p.wellness ? p.wellness : undefined,
         },
         });
     }
