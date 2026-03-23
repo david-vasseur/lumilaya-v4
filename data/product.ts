@@ -76,6 +76,7 @@ variants:[
     price:19.9 
   }
 ]
+//Tags : lait, praline, coco, beure, vanille
 },
 
 {
@@ -108,6 +109,7 @@ images:[
 variants:[
 { id: "vit-150",name:"Bougie Vitalité 150g",duration:25, weight: 150, price:19.9 }
 ]
+// TAGS : citron vert, pamplemousse, verveine, eucalyptus, gingembre, cardamone, vanille
 },
 
 {
@@ -140,6 +142,7 @@ images:[
 variants:[
 { id: "dou-150",name:"Bougie Douceur 150g",duration:25, weight:150, price:19.9 }
 ]
+// TAGS: lotus, seringa, coton, mimosa, iris, vanille, santal, musc
 },
 
 {
@@ -172,7 +175,7 @@ images:[
 variants:[
 { id: "mag-150",name:"Bougie Magie 150g",duration:25, weight:150,price:19.9 }
 ]
-
+// TAGS : muscade, gingembre, orange, pomme, canelle, anis, miel, caramel, lait
 },
 
 {
@@ -205,7 +208,7 @@ images:[
 variants:[
 { id: "har-150",name:"Bougie Harmonie 150g",duration:25, weight:150,price:19.9 }
 ]
-
+// TAGS : bergamote, verveine, citron, musc, orange, gingembre, canelle, patchouli, menthe
 },
 
 /* =========================
@@ -269,6 +272,7 @@ benefits:[
 ]
 }
 ]
+// TAGS : citron, citron vert, encens, cèdre, santal, vanille, musc, tonka
 }
 
 },
@@ -328,6 +332,7 @@ benefits:[
 ]
 }
 ]
+// TAGS : bergamote, citron, iris, magnolia, cèdre, musc, maté
 }
 
 },
@@ -389,6 +394,7 @@ benefits:[
       }
     ]
   }
+  // TAGS : cardamone, patchouli, cèdre, iris, santal, musc, ambre
 },
 {
   meta: {
@@ -450,6 +456,7 @@ benefits:[
       }
     ]
   }
+  //TAGS : bergamote, rose, jasmin, muguet, iris, santal, musc
 }
 
 ];

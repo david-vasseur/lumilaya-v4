@@ -1,4 +1,4 @@
-"use server" // #TODO A CHANGER
+"use server"
 
 
 import { shippingPrices } from "@/data/product";
