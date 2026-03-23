@@ -48,7 +48,7 @@ export const dynamic = 'force-dynamic';
 
 async function page() {
 
-    const products = await getProductsByCollection('Rituel');
+    const products = await getProductsByCollection('Terre');
     
     if (!products) return;
 

@@ -9,7 +9,7 @@ export interface IProductWellness {
 }
 
 export interface IVariant {
-  id: string
+  id: number
   name: string
   duration: number
   weight: number
@@ -28,7 +28,7 @@ export interface IProductMeta {
   name: string
   slug: string
   intro: string
-  theme: IProductTheme
+  theme: IProductTheme | null
   createdAt: Date
   stock: boolean
   promo?: number

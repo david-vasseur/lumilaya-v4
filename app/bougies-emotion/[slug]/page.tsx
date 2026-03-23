@@ -3,16 +3,21 @@ import ProductConseil from '@/components/features/product/ProductConseil';
 import Principal from '@/components/layout/product_page/Principal';
 import Suggest, { ISuggProduct } from '@/components/layout/product_page/Suggest';
 import { products } from '@/data/product';
+import { getOneProductBySlug } from '@/lib/action/product.action';
 
 interface Props {
     params: { slug: string };
 }
 
+export const dynamic = "force-dynamic";
+
 async function page({ params }: Props) {
 
     const { slug } = await params;
 
-    const product = products.find((product) => product.meta.slug === slug)!
+    // const product = products.find((product) => product.meta.slug === slug)!
+
+    const product = await getOneProductBySlug(slug);
 
     if (!product) return;
 

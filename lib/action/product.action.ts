@@ -3,6 +3,8 @@
 import { prisma } from "@/lib/prisma/prisma";
 import { ProductCardProps } from "@/components/ui/ProductCard";
 import { products } from "@/data/product";
+import { IProduct, IProductTheme } from "@/types/product";
+import { isProductTheme, isProductWellness } from "@/utils/dbFunction";
 
 /////// ACTION POUR RECUPERER TOUS LES PRODUITS D'UNE COLLECTION //////////////////
 
@@ -47,8 +49,7 @@ export const getProductsByCollection = async (collection: string) => {
 
 /////// ACTION POUR RECUPERER UN PRODUIT //////////////////
 
-export const getOneProductBySlug = async (slug: string) => {
-	
+export const getOneProductBySlug = async (slug: string): Promise<IProduct | null> => {
 	const product = await prisma.product.findFirst({
 		where: {
 			meta: {
@@ -57,12 +58,35 @@ export const getOneProductBySlug = async (slug: string) => {
 		},
 		include: {
 			meta: true,
-			variants: true
+			variants: true,
 		}
 	})
 
-	return product;
-}
+	if (!product) return null;
+
+	const theme = isProductTheme(product.meta.theme)
+		? product.meta.theme
+		: null; 
+
+	const wellness = isProductWellness(product.wellness)
+		? product.wellness
+		: undefined;
+
+	return {
+		...product,
+		meta: {
+			...product.meta,
+			theme,
+			promo: product.meta.promo ?? undefined,
+			like: product.meta.like ?? undefined
+		},
+		variants: product.variants.map(v => ({
+			...v,
+			price: v.price.toNumber()
+		})),
+		wellness
+	};
+};
 
 /////// ACTION POUR RECUPERER LES SUGGESTIONS D'UN PRODUIT ////////////////// #TODO
 
