@@ -3,7 +3,7 @@ import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ICartItem {
-    id: string,
+    id: number,
     image: string,
     name: string,
     price: number,
