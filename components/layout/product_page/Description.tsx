@@ -7,6 +7,8 @@ function Description({ product, variant }: { product: IProduct, variant: number 
     const desc = product.description;
     const wellness = product.wellness;
 
+    if (!product.meta.theme) return;
+
     const notes = [
         { label: "Tête", value: product.meta.theme.top },
         { label: "Cœur", value: product.meta.theme.heart },
