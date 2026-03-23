@@ -21,7 +21,7 @@ const shippingPrices = [
   { name: "Finlande", zone: "FI", shippingType: ShippingType.REL, price: 10.6 },
   { name: "Pologne", zone: "PL", shippingType: ShippingType.REL, price: 8.1 },
   { name: "République Tchèque", zone: "CZ", shippingType: ShippingType.REL, price: 8.1 },
-  { name: "Royaume-uni", zone: "GR", shippingType: ShippingType.REL, price: 10.5 },
+  { name: "Grèce", zone: "GR", shippingType: ShippingType.REL, price: 10.5 },
 ];
 
 async function main() {
