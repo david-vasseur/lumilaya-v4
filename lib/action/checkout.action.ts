@@ -1,7 +1,5 @@
 "use server"
 
-
-import { shippingPrices } from "@/data/product";
 import { prisma } from "../prisma/prisma";
 
 type PricePerProduct = {
