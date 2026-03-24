@@ -1,5 +1,7 @@
 "use client"
 
+import FavoriteButton from '@/components/ui/FavoriteButton';
+import ShareButton from '@/components/ui/ShareButton';
 import { useCartStore } from '@/lib/store/cartStore';
 import { IProduct } from '@/types/product';
 import { Minus, Plus, ShoppingCart } from 'lucide-react';
@@ -78,10 +80,10 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
             </div>
 
             {/* Actions secondaires */} 
-            {/* <div className="flex gap-3 mb-10">
+            <div className="flex gap-3 mb-10">
                 <FavoriteButton product={product} />    #TODO            
                 <ShareButton product={product} />
-            </div> #TODO */}
+            </div> #TODO
         </div>
     )
 }

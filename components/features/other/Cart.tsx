@@ -4,16 +4,13 @@ import { useCartStore } from "@/lib/store/cartStore";
 import Link from "next/link";
 import { useModalStore } from "@/lib/store/modalStore";
 import { usePathname } from "next/navigation";
-// import { TotalProduct } from "../actions/product.action";
 import { useEffect, useState } from "react";
-// import { AddShippingPrice } from "./form/CheckOut.action";
 import CartItem from "@/components/ui/CarItem";
 import ShipItem from "@/components/ui/ShipItem";
 
 function Cart() {
 
     const [totalwithShip, setTotalWithShip] = useState<number>(0);
-    const [shippment, setShipment] = useState({name: "", price: 0});
     const { items, ship, total } = useCartStore();
     const { closeModal, isOpen } = useModalStore();
     const path = usePathname();
@@ -28,22 +25,6 @@ function Cart() {
         
     
     }, [ship.shipping, total, items]);
-
-// useEffect(() => {
-    // const fetchShipping = async () => {
-    //     const result = await AddShippingPrice(ship.code, total);
-
-    //     setShipment({
-    //         name: result.shipping?.name ?? "Livraison Offerte",
-    //         price: result.shipping?.price ?? 0
-    //     });
-    // };
-
-    // évite les appels inutiles ou invalides
-    // if (ship.shipping && ship.code && total > 0) {
-    //     fetchShipping();
-    // }
-// }, [ship.shipping, ship.code, total]);
     
     return (
         <div className="flex flex-col gap-10 items-center">
