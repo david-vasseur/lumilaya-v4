@@ -109,6 +109,9 @@ export const getSuggestedProduct = async (id: number) => {
 			}
 		},
 		take: 3,
+		orderBy: {
+			createdAt: 'desc' 
+		},
 		select: {
 			id: true,
 			images: true,
