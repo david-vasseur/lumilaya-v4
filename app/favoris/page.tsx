@@ -5,12 +5,28 @@ import { Heart } from "lucide-react";
 import { useFavoritesStore } from "@/lib/store/favoriteStore";
 import ProductCard, { ProductCardProps } from "@/components/ui/ProductCard";
 import { getFavoriteProductsByIds } from "@/lib/action/product.action";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 
 export default function FavoritesPage() {
     const { favorites } = useFavoritesStore();
     const [products, setProducts] = useState<ProductCardProps[]>([]);
     const [loading, setLoading] = useState(true);
+
+    useGSAP(() => {
+		gsap.from('.product-grid-card', {
+			y: 80,
+			opacity: 0,
+			duration: 0.6,
+			stagger: 0.1,
+			ease: 'power3.out',
+			scrollTrigger: {
+				trigger: '.products-grid',
+				start: 'top 70%'
+			}
+		});
+	})
 
     useEffect(() => {
         const loadFavorites = async () => {
@@ -58,9 +74,11 @@ export default function FavoritesPage() {
                 Mes favoris
             </h1>
 
-            <div className="products-grid grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                {products.map((product) => (
-                    <ProductCard  {...product} />
+            <div className="products-grid grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                {products.map((product, index) => (
+                    <div key={index} className="product-grid-card">
+                        <ProductCard  {...product} />
+                    </div>
                 ))}
             </div>
         </div>
