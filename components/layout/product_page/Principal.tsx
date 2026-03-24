@@ -13,7 +13,7 @@ function Principal({ product, reviews }: { product: IProduct, reviews: IReview[]
     const [selectedSize, setSelectedSize] = useState(150);
     let variant: number = selectedSize === 150 ? 0 : 1; 
 
-    const average = reviews.reduce((acc, review) => acc + review.note, 0) / reviews.length
+    const average = reviews.length ? reviews.reduce((acc, review) => acc + review.note, 0) / reviews.length : 0
 
     return (
         <>
