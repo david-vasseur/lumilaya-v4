@@ -27,7 +27,7 @@ function Cart() {
         }
         
     
-    }, [ship.shipping, total]);
+    }, [ship.shipping, total, items]);
 
 // useEffect(() => {
     // const fetchShipping = async () => {
