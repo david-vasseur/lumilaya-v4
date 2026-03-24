@@ -61,7 +61,7 @@ const ContactPage = async () => {
             {/* Hero Section */}
             <div className="relative h-[50vh] overflow-hidden">
                 <img 
-                    src={"/images/montain.svg"} 
+                    src={"/images/landing/hero.webp"} 
                     alt="image de fond" 
                     className="absolute inset-0 h-full object-cover" />
 
