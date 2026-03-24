@@ -36,6 +36,7 @@ export interface IProductMeta {
 }
 
 export interface IProduct {
+  id:number
   meta: IProductMeta
   description: string[]
   images: string[]

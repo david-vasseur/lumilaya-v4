@@ -41,9 +41,6 @@ export const getProductsByCollection = async (collection: string) => {
 	return cards;
 }
 
-/////// ACTION POUR RECUPERER LES PRODUITS D'UNE COLLECTION //////////////////
-
-
 
 
 /////// ACTION POUR RECUPERER UN PRODUIT //////////////////
@@ -87,17 +84,64 @@ export const getOneProductBySlug = async (slug: string): Promise<IProduct | null
 	};
 };
 
-/////// ACTION POUR RECUPERER LES SUGGESTIONS D'UN PRODUIT ////////////////// #TODO
+/////// ACTION POUR RECUPERER LES SUGGESTIONS D'UN PRODUIT ////////////////// 
 
 export const getSuggestedProduct = async (id: number) => {
 
-	const products = await prisma.product.findMany({
+	const currentProduct = await prisma.product.findUnique({
+		where: { id },
+		include: {
+			tags: true,
+		},
+	});
+
+	if (!currentProduct) return [];
+
+	const tagIds = currentProduct.tags.map(tag => tag.id);
+
+	const suggestedProducts = await prisma.product.findMany({
 		where: {
-
+			id: { not: id },
+			tags: {
+				some: {
+					id: { in: tagIds }
+				}
+			}
+		},
+		take: 3,
+		select: {
+			id: true,
+			images: true,
+			meta: {
+				select: {
+					collection: true,
+					name: true,
+					slug: true,
+				}
+			},
+			variants: {
+				select: {
+					id: true,
+					name: true,
+					duration: true,
+					price: true,
+				}
+			}
 		}
-	})
+	});
 
-}
+	return suggestedProducts.map(p => ({
+		id: p.id,
+		collection: p.meta.collection,
+		name: p.meta.name,
+		slug: p.meta.slug,
+		image: p.images[0], 
+		variants: p.variants.map(v => ({
+			...v,
+			price: v.price.toNumber()
+		}))
+	}));
+};
 
 /////// ACTION POUR RECUPERER LES PRIX DU PANIER DEPUIS LE SERVEUR //////////////////
 

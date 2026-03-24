@@ -113,7 +113,7 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                     </div>
                     <div className="flex justify-between py-3 border-b border-[#2C2C2C]/10">
                         <span className="text-[#2C2C2C]/60">Durée de combustion</span>
-                        <span className="text-[#2C2C2C] font-medium">{product.variants[variant].duration} - {Math.round(Number(product.variants[variant].duration) + 10)} heures</span>
+                        <span className="text-[#2C2C2C] font-medium">{product.variants[variant].duration} - {Math.round(Number(product.variants[variant].duration) + 5)} heures</span>
                     </div>
                     <div className="flex justify-between py-3 border-b border-[#2C2C2C]/10">
                         <span className="text-[#2C2C2C]/60 flex gap-2 items-center">Poids net <Info className="w-4 h-4 text-green-800/60" /></span>

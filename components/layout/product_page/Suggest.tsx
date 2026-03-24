@@ -12,7 +12,7 @@ export interface ISuggProduct {
 export interface IBestSuggVariant {
     id: number,
     name: string,
-    duration: string,
+    duration: number,
     price: number
 }
 

@@ -14,7 +14,7 @@ export interface IBestProduct {
 export interface IBestVariant {
     id: number,
     name: string,
-    duration: string,
+    duration: number,
     price: number
 }
 
@@ -27,7 +27,7 @@ function BestProducts() {
             slug: "bougie-magie",            
             image: "/images/products/magie.webp",            
             variants: [
-                { id: 1, name: "Bougie Magie 150g", duration: "25", price: 19.90 } // sera affiché 25 -30h
+                { id: 1, name: "Bougie Magie 150g", duration: 25, price: 19.90 } // sera affiché 25 -30h
             ]
         },
         {
@@ -37,7 +37,7 @@ function BestProducts() {
             slug: "bougie-liberation",
             image: "/images/products/liberation.webp",
             variants: [
-                { id: 1, name: "Bougie Libération 200g", duration: "30", price: 32 }
+                { id: 1, name: "Bougie Libération 200g", duration: 30, price: 32 }
             ],
         },
         {
@@ -47,7 +47,7 @@ function BestProducts() {
             slug: "bougie-protection",
             image: "/images/products/protection.webp",
             variants: [
-                { id: 1, name: "Bougie Protection 200g", duration: "30", price: 32 }
+                { id: 1, name: "Bougie Protection 200g", duration: 30, price: 32 }
             ]
         }
     ]
