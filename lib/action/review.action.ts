@@ -1,3 +1,5 @@
+"use server"
+
 import { IReview } from "@/schema/review";
 import { prisma } from "../prisma/prisma";
 
