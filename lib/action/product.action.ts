@@ -184,3 +184,27 @@ export async function getFavoriteProductsByIds(ids: number[]) {
 
 	return cards;
 }
+
+
+/////// ACTION POUR RECUPERER L'ID D'UN PRODUIT POUR AVOIR LES REVIEWS  //////////////////
+
+export const getIdProductBySlug = async (slug: string) => {
+	const product = await prisma.product.findFirst({
+		where: {
+			meta: {
+				slug
+			}
+		},
+		include: {
+			meta: true,
+			variants: true
+		}
+	})
+
+	const newProduct = {
+		id: product?.id,
+		name: product?.meta.name
+	}
+
+	return newProduct;
+}
