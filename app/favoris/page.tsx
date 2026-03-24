@@ -27,7 +27,7 @@ export default function FavoritesPage() {
         };
 
         loadFavorites();
-    }, [favorites]);
+    }, []);
 
     if (loading) {
         return (
