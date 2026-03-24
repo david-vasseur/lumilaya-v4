@@ -23,7 +23,7 @@ function Cart() {
         if (ship.shipping) {
             setTotalWithShip(total() + ship.fee);
         } else {
-            setTotalWithShip(total);
+            setTotalWithShip(total());
         }
         
     
