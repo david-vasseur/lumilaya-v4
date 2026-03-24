@@ -10,7 +10,7 @@ export default function FavoriteButton({ product }: { product: IProduct }) {
 	const favorite = isFavorite(product.id);
 
 	const handleClick = () => {
-		toggleFavorite(product);
+		toggleFavorite(product.id);
 		toast.success(
 		favorite ? "Retiré des favoris" : "Ajouté aux favoris"
 		);

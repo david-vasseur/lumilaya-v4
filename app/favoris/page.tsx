@@ -14,20 +14,21 @@ export default function FavoritesPage() {
 
     useEffect(() => {
         const loadFavorites = async () => {
+            setLoading(true);
+
             if (!favorites.length) {
                 setProducts([]);
                 setLoading(false);
                 return;
             }
 
-            const ids = favorites.map((f) => f.id);
-            const result = await getFavoriteProductsByIds(ids);
-            setProducts(result)
+            const result = await getFavoriteProductsByIds(favorites);
+            setProducts(result);
             setLoading(false);
         };
 
         loadFavorites();
-    }, []);
+    }, [favorites]);
 
     if (loading) {
         return (
