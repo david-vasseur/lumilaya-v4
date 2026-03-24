@@ -146,12 +146,7 @@ export const getSuggestedProduct = async (id: number) => {
 	}));
 };
 
-/////// ACTION POUR RECUPERER LES PRIX DU PANIER DEPUIS LE SERVEUR //////////////////
+/////// ACTION POUR RECUPERER LES PRODUITS FAVORIS VIA UNE LISTE D'ID //////////////////
 
-// export async function getPrices(items) {
-// 	if (process.env.NODE_ENV === "development") {
-		
-// 	} else {
-// 		return
-// 	}
+// export async function getFavoriteProductsByIds(ids) {
 // }

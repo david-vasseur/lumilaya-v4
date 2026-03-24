@@ -81,9 +81,9 @@ function ProductInteract({ product, selectedSize, setSelectedSize, quantity, set
 
             {/* Actions secondaires */} 
             <div className="flex gap-3 mb-10">
-                <FavoriteButton product={product} />    #TODO            
+                <FavoriteButton product={product} />          
                 <ShareButton product={product} />
-            </div> #TODO
+            </div>
         </div>
     )
 }
