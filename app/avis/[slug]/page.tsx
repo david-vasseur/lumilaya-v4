@@ -26,8 +26,8 @@ async function page({ params }: Props) {
     const reviews = await getReviewById(product.id);
 
     return (
-        <div className="max-w-5xl min-h-svh pt-16 mx-auto p-6">
-            <h1 className="text-3xl font-semibold mb-6">Avis pour la bougie {product.name}</h1>
+        <div className="max-w-5xl min-h-svh pt-25 mx-auto p-6">
+            <h1 className="text-3xl font-semibold mb-6">Ce que vous avez pensé de la bougie {product.name}</h1>
 
             {/* Liste des avis */}
             <div className="mt-8 space-y-6">
