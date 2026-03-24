@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 import { useModalStore } from "@/lib/store/modalStore";
 import { toast } from "sonner";
 import { createReview } from "@/lib/action/review.action";
-import { IReview, ReviewSchema } from "@/schema/review";
+import { IReview, ReviewSchema } from "../../schema/review";
 
 function ReviewForm({
     productId
