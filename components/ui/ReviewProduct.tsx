@@ -25,9 +25,6 @@ function ReviewProduct({ productId, productSlug, averageRating, reviewCount }: P
             </Link>
             <div onClick={() => openModal(<ReviewForm productId={productId} />)} className="text-[#7A9B8E] cursor-pointer underline">
                 Laisser un avis
-            </div>  
-            <div className="text-[#7A9B8E] cursor-pointer underline">
-                Laisser un avis
             </div>
         </div>
     )
