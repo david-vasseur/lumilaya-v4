@@ -33,7 +33,7 @@ function ProductInfo({ product, selectedSize, setSelectedSize, quantity, setQuan
                 {product?.meta.name}
             </h1>
 
-            <ReviewProduct productId={product.meta.id} productSlug={product.meta.slug} productName={product.meta.name} averageRating={averageRating} reviewCount={reviewCount} />
+            <ReviewProduct productId={product.meta.id} productSlug={product.meta.slug} averageRating={averageRating} reviewCount={reviewCount} />
 
             <p className="text-lg text-[#2C2C2C]/70 leading-relaxed mb-8">
                 {product?.meta.intro}

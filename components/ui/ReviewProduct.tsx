@@ -1,17 +1,18 @@
+import { useModalStore } from '@/lib/store/modalStore';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
+import ReviewForm from '../form/ReviewForm';
 
 type Props = { 
-    productId: number; 
-    productName: string; 
+    productId: number;  
     productSlug: string; 
     averageRating: number; 
     reviewCount: number; 
 };
 
-function ReviewProduct({ productId, productSlug, productName, averageRating, reviewCount }: Props) {
+function ReviewProduct({ productId, productSlug, averageRating, reviewCount }: Props) {
 
-    // const { openModal } = useModalStore();  #TODO
+    const { openModal } = useModalStore();
     const fullStars = Math.floor(averageRating);
 
     return (
@@ -22,10 +23,9 @@ function ReviewProduct({ productId, productSlug, productName, averageRating, rev
                 ))}
                 <span className="ml-2 text-[#2C2C2C]/60">({reviewCount} avis)</span>
             </Link>
-            {/* #TODO
-            <div onClick={() => openModal(<ReviewForm productId={productId} productName={productName} />)} className="text-[#7A9B8E] cursor-pointer underline">
+            <div onClick={() => openModal(<ReviewForm productId={productId} />)} className="text-[#7A9B8E] cursor-pointer underline">
                 Laisser un avis
-            </div> */} 
+            </div>  
             <div className="text-[#7A9B8E] cursor-pointer underline">
                 Laisser un avis
             </div>
