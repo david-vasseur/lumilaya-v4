@@ -148,5 +148,39 @@ export const getSuggestedProduct = async (id: number) => {
 
 /////// ACTION POUR RECUPERER LES PRODUITS FAVORIS VIA UNE LISTE D'ID //////////////////
 
-// export async function getFavoriteProductsByIds(ids) {
-// }
+
+export async function getFavoriteProductsByIds(ids: number[]) {
+
+	if (!ids.length) return [];
+
+	const products = await prisma.product.findMany({
+		where: {
+			id: {
+				in: ids
+			}
+		},
+		select: { 
+			images: true,
+			variants: {
+				select: { price: true, duration: true },
+				orderBy: { price: 'asc' },
+				take: 1
+			},
+			meta: {
+				select: { slug: true, collection: true, name: true, intro: true }
+			}
+		}
+	})
+
+	const cards = products.map(p => ({
+		slug: p.meta.slug,
+		collection: p.meta.collection,
+		image: p.images[0],                   
+		name: p.meta.name,
+		intro: p.meta.intro,
+		duration: `${p.variants[0]?.duration}`,
+		price: p.variants[0]?.price.toNumber()
+	}))
+
+	return cards;
+}
