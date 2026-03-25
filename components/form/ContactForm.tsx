@@ -1,3 +1,5 @@
+"use client"
+
 import { ContactSchema, IContact } from '@/schema/contact';
 import { useForm } from '@tanstack/react-form';
 
