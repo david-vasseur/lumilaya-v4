@@ -129,6 +129,9 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 
 		// 1️⃣ Recalculer TOUS les prix côté serveur ////////////
 		const securePrices = await getPricesForStripe(clientItems);
+		console.log(securePrices);
+		
+
 		if (!securePrices.length) {
 			throw new Error("Panier invalide.");
 		}
