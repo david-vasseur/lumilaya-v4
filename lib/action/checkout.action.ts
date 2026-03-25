@@ -151,7 +151,7 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 
 		const shippingLineItem = {
 			name: isFreeShipping ? "Livraison offerte" : "Livraison",
-			price: shippingPrice * 100,
+			price: Math.round(shippingPrice * 100),
 		}
 		console.log(shippingLineItem);
 		
