@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "@/lib/store/cartStore";
 // import { AddShippingPrice, handleCheckout } from "./CheckOut.action";
 import { CheckoutSchema, ICheckout } from "@/schema/checkout";
-import { getShippingPrice } from '@/lib/action/checkout.action';
+import { getShippingPrice, handleCheckout } from '@/lib/action/checkout.action';
 import { ShippingType } from '@/lib/generated/prisma/enums';
 
 type ServerItem = {
@@ -64,7 +64,7 @@ export const CheckoutForm = () => {
             shippingCity: "",
             shippingPostalCode: "",
             shippingCountry: "NULL",
-            shippingType: "NULL",
+            shippingType: "REL",
             
             // Adresse de facturation
             billingAddress: "",
@@ -80,39 +80,30 @@ export const CheckoutForm = () => {
         },
         onSubmit: async ({ value }) => {
             console.log(value);
-            
-            // Transformer les items front vers ServerItem            
-            // const serverItems: ServerItem[] = items.map(i => ({
-            //     productId: i.productId,
-            //     variantId: i.id,
-            //     name: i.name,
-            //     qty: i.qty,
-            // }));
 
-            // 1️⃣ Calcul serveur du prix final par produit
-            // const pricesForStripe = await getPricesForStripe(serverItems);
 
-            // 2️⃣ Créer la session Stripe avec les prix serveur
-            // const result = await handleCheckout(pricesForStripe, {
-            //     firstName: value.firstName,
-            //     lastName: value.lastName,
-            //     email: value.email,
-            //     phone: value.phone,
-            //     shippingAddress: value.shippingAddress,
-            //     shippingCity: value.shippingCity,
-            //     shippingPostalCode: value.shippingPostalCode,
-            //     shippingCountry: value.shippingCountry,
-            //     billingAddress: value.billingAddress,
-            //     billingCity: value.billingCity,
-            //     billingPostalCode: value.billingPostalCode,
-            //     billingCountry: value.billingCountry,
-            //     acceptCGV: value.acceptCGV
-            // });
 
-            // 3️⃣ Redirection vers Stripe
-            // if (result?.url) {
-            //     window.location.href = result.url; 
-            // }
+            const result = await handleCheckout(items, {
+                firstName: value.firstName,
+                lastName: value.lastName,
+                email: value.email,
+                phone: value.phone,
+                shippingAddress: value.shippingAddress,
+                shippingCity: value.shippingCity,
+                shippingPostalCode: value.shippingPostalCode,
+                shippingCountry: value.shippingCountry,
+                shippingType: value.shippingType,
+                billingAddress: value.billingAddress,
+                billingCity: value.billingCity,
+                billingPostalCode: value.billingPostalCode,
+                billingCountry: value.billingCountry,
+                acceptCGV: value.acceptCGV
+            });
+
+
+            if (result?.url) {
+                window.location.href = result.url; 
+            }
         }
     })
 

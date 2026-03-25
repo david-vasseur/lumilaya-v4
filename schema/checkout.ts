@@ -8,7 +8,7 @@ const AddressSchema = z.object({
     .string()
     .min(2, "Le code postal doit contenir au moins 2 caractères"),
   country: z.string().min(2, "Le pays doit être renseigné"),
-  shipping: z.string().min(2, "Le type de livraison doit être enseigné"),
+  shipping: z.enum(["OFF", "DOM", "REL"]),
 });
 
 export const CheckoutSchema = z.object({
