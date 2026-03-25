@@ -92,12 +92,12 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 
 			const discountFactor = Math.max(0, 1 - promo / 100);
 
-			const finalPrice = Math.round(price * item.qty * discountFactor * 100);
+			const unitPrice = Math.round(price * discountFactor * 100);
 
 			return {
 				productId: item.id,
 				qty: item.qty,
-				price: finalPrice,
+				price: unitPrice,
 			}
 		})
 	)
@@ -136,7 +136,7 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 			throw new Error("Panier invalide.");
 		}
 
-		const totalProducts = securePrices.reduce((acc, item) => acc + item.price, 0);
+		const totalProducts = securePrices.reduce((acc, item) => acc + item.price * item.qty, 0);
 
 
 
