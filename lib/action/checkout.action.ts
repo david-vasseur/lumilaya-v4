@@ -150,6 +150,8 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 			name: isFreeShipping ? "Livraison offerte" : "Livraison",
 			price: shippingPrice * 100,
 		}
+		console.log(shippingLineItem);
+		
 		// const shippingResult = await AddShippingPrice(customer.shippingCountry, totalProducts);
 		// let shippingLineItem = { name: "", price: 0 };
 

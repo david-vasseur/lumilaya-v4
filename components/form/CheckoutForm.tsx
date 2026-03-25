@@ -142,7 +142,6 @@ export const CheckoutForm = () => {
     //         });
     //     }
     // }, [total, form.state.values.shippingCountry])
-    console.log(ship);
     
 
     return (
