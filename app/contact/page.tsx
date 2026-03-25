@@ -1,14 +1,11 @@
+import ContactForm from '@/components/form/ContactForm';
 import { 
-    MapPin, 
     Phone, 
     Mail, 
     Clock, 
-    Send, 
     MessageCircle,
     Instagram,
     Facebook,
-    Youtube,
-    Sparkles
 } from 'lucide-react';
 
 // Interface pour le formulaire de contact
@@ -63,7 +60,7 @@ const ContactPage = async () => {
                 <img 
                     src={"/images/landing/hero.webp"} 
                     alt="image de fond" 
-                    className="absolute inset-0 h-full object-cover" />
+                    className="absolute inset-0 h-full w-full object-cover" />
 
                 <div className="contact-hero relative h-full flex items-center justify-center text-center px-6">
                     <div>
@@ -130,7 +127,7 @@ const ContactPage = async () => {
                             Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais
                         </p>
 
-                        
+                        <ContactForm />
                     </div>
 
                     {/* Social */}

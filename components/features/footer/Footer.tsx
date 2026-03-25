@@ -123,7 +123,7 @@ const Footer = () => {
 
 							<a
 								href="https://www.tiktok.com/@bougies.lumilaya?_r=1&_t=ZN-92FCWgfpN3r"
-								aria-label="X (Twitter) Lumilaya"
+								aria-label="Tiktok Lumilaya"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="footer-social p-1.5 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all"
