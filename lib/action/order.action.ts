@@ -12,7 +12,7 @@ export const sendOrderEmailToCompany = async (order: OrderEmailData, products: O
         <html>
             <body style="font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 20px;">
                 <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding: 20px;">
-                <h1 style="color: #FF6600; text-align: center;">Nouvelle commande #${order.id}</h1>
+                <h1 style="color: #FF6600; text-align: center;">Nouvelle commande #${order.stripeSessionId}</h1>
                 <p style="font-size: 16px; color: #333;">Bonjour, une nouvelle commande a été passée :</p>
 
                 <h2 style="font-size: 18px; margin-top: 20px; color: #333;">Détails du client</h2>
@@ -43,7 +43,7 @@ export const sendOrderEmailToCompany = async (order: OrderEmailData, products: O
     await resend.emails.send({
         from: "Commandes <no-reply@lumilaya.fr>",
         to: ["entreprise.lumilaya@outlook.fr"],
-        subject: `Nouvelle commande #${order.id}`,
+        subject: `Nouvelle commande #${order.stripeSessionId}`,
         html
     });
 }

@@ -2,6 +2,7 @@ import { Decimal } from "@prisma/client/runtime/client";
 
 export type OrderEmailData = {
   id: number;
+  stripeSessionId: string;
   firstName: string;
   lastName: string;
   email: string;
