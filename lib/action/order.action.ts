@@ -41,7 +41,7 @@ export const sendOrderEmailToCompany = async (order: OrderEmailData, products: O
 
 
     await resend.emails.send({
-        from: "Commandes <contact@david-vasseur.fr>",
+        from: "Commandes",
         to: ["entreprise.lumilaya@outlook.fr"],
         subject: `Nouvelle commande #${order.id}`,
         html
