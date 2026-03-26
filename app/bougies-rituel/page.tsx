@@ -30,7 +30,7 @@ export async function generateMetadata() {
             siteName: "Lumilaya",
             images: [
                 {
-                    url: "/images/landing/rituel_collection.webp",
+                    url: "https://lumilaya.fr/images/landing/rituel_collection.webp",
                     width: 1200,
                     height: 630,
                     alt: "Bougies rituelles et énergétiques",

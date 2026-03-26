@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props) {
             siteName: "Lumilaya",
             images: [
                 {
-                    url: product.images?.[0] || "",
+                    url: `https://lumilaya.fr${product.images?.[0] || ""}`,
                     width: 1200,
                     height: 630,
                     alt: product.meta.name,
@@ -70,7 +70,7 @@ async function page({ params }: Props) {
         "@type": "Product",
         name: product.meta.name,
         description: product.meta.intro,
-        image: product.images?.[0] || "",
+        image: `https://lumilaya.fr${product.images?.[0] || ""}`,
         sku: product.id,
         brand: {
             "@type": "Brand",

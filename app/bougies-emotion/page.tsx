@@ -31,7 +31,7 @@ export async function generateMetadata() {
             siteName: "Lumilaya",
             images: [
                 {
-                    url: "/images/landing/emotion_collection.webp",
+                    url: "https://lumilaya.fr/images/landing/emotion_collection.webp",
                     width: 1200,
                     height: 630,
                     alt: "Bougies parfumées émotions",
