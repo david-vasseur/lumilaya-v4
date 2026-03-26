@@ -60,50 +60,38 @@ export const getShippingPrice = async (zone: string, type: "OFF" | "DOM" | "REL"
 export const getPricesForStripe = async (items: CartItem[]) => {
 	const results = await Promise.all(
 		items.map(async (item) => {
-			const product = await prisma.product.findUnique({
-				where: { id: item.id },
-				select: {
-				meta: {
-					select: {
-					promo: true,
-					},
-				},
-				variants: {
-					where: { id: item.productId },
-					select: {
-					price: true,
-					},
-				},
-				},
-			})
+		const product = await prisma.product.findUnique({
+			where: { id: item.id },
+			select: {
+			meta: { select: { name: true, promo: true } },
+			variants: { 
+				where: { id: item.productId },
+				select: { id: true, price: true },
+			},
+			},
+		});
 
-			if (!product) {
-				throw new Error(`Produit introuvable: ${item.id}`);
-			}
+		if (!product) throw new Error(`Produit introuvable: ${item.id}`);
+		const variant = product.variants[0];
+		if (!variant) throw new Error("Variant introuvable");
 
-			const variant = product.variants[0];
+		const price = variant.price.toNumber();
+		const promo = product.meta.promo ?? 0;
+		const discountFactor = Math.max(0, 1 - promo / 100);
+		const unitPrice = price * discountFactor; // en euros
 
-			if (!variant) {
-				throw new Error("Variant introuvable");
-			}
-
-			const price = variant.price.toNumber();
-			const promo = product.meta.promo ?? 0;
-
-			const discountFactor = Math.max(0, 1 - promo / 100);
-
-			const unitPrice = Math.round(price * discountFactor * 100);
-
-			return {
-				productId: item.id,
-				qty: item.qty,
-				price: unitPrice,
-			}
+		return {
+			productId: item.id,
+			variantId: variant.id,        // ⚡ ajouter variantId
+			qty: item.qty,
+			price: unitPrice,             // en euros, Decimal-friendly
+			name: product.meta.name,      // ⚡ ajouter name pour Prisma
+		};
 		})
-	)
+	);
 
 	return results;
-}
+};
 
 
 

@@ -3,7 +3,14 @@ import Stripe from "stripe";
 import { prisma } from "@/lib/prisma/prisma";
 import { sendOrderEmailToCompany } from "@/lib/action/order.action";
 import { Prisma, ShippingType } from "@/lib/generated/prisma/client";
-import { EnumShippingTypeFieldRefInput } from "@/lib/generated/prisma/internal/prismaNamespace";
+
+type ServerItem = {
+	productId: number;
+	variantId: number;
+	qty: number;
+	name: string;
+    price: number;
+};
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-02-25.clover",
@@ -35,10 +42,17 @@ export async function POST(req: NextRequest) {
         const session = event.data.object as Stripe.Checkout.Session;
 
         const metadata = session.metadata!;
-        const products = JSON.parse(metadata.products);
-        const shipping = JSON.parse(metadata.shipping);
+        const metadataProducts: ServerItem[] = JSON.parse(metadata.products);
 
         // Enregistrer la commande dans la BDD
+        const orderItemsForPrisma = metadataProducts.map(p => ({
+            name: p.name || `Produit ${p.productId}`,
+            price: new Prisma.Decimal(p.price),
+            quantity: p.qty,
+            productId: p.productId,
+            variantId: p.variantId,
+        }));
+
         const order = await prisma.order.create({
             data: {
                 stripeSessionId: session.id,
@@ -47,31 +61,25 @@ export async function POST(req: NextRequest) {
                 email: metadata.email,
                 phone: metadata.phone,
                 shippingAddress: metadata.shippingAddress,
-                billingAddress: metadata.shippingAddress,
+                billingAddress: metadata.billingAddress,
                 shippingCity: metadata.shippingCity,
-                billingCity: metadata.shippingCity,
+                billingCity: metadata.billingCity,
                 shippingPostalCode: metadata.shippingPostalCode,
-                billingPostalCode: metadata.shippingPostalCode,
+                billingPostalCode: metadata.billingPostalCode,
                 shippingCountry: metadata.shippingCountry,
-                billingCountry: metadata.shippingCountry,
+                billingCountry: metadata.billingCountry,
                 shippingType: metadata.shippingType as ShippingType,
-                shippingPrice: new Prisma.Decimal(shipping.price),
+                shippingPrice: new Prisma.Decimal(JSON.parse(metadata.shipping).price / 100),
                 acceptCGV: true,
-                total: session.amount_total! / 100,
+                total: new Prisma.Decimal(session.amount_total! / 100),
                 createdAt: new Date(),
-                items: {
-                    create: products.map((p: any) => ({
-                        name: p.name,
-                        price: p.price,
-                        qty: p.qty,
-                    })),
-                },
+                items: { create: orderItemsForPrisma },
             },
-        });
+            });
 
         // Envoie de l'email
         try {
-            await sendOrderEmailToCompany(order, products);
+            await sendOrderEmailToCompany(order, metadataProducts);
             console.log("Email envoyé avec succès");
         } catch (err) {
             console.error("Erreur lors de l'envoi de l'email:", err);
