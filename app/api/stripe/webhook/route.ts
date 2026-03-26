@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
 
         const metadata = session.metadata!;
         const products = JSON.parse(metadata.products);
+        const shipping = JSON.parse(metadata.shipping);
 
         // Enregistrer la commande dans la BDD
         const order = await prisma.order.create({
@@ -52,8 +53,8 @@ export async function POST(req: NextRequest) {
                 billingPostalCode: metadata.shippingPostalCode,
                 shippingCountry: metadata.shippingCountry,
                 billingCountry: metadata.shippingCountry,
-                shippingType: metadata.shippingType as any,
-                shippingPrice: new Prisma.Decimal(metadata.shippingPrice),
+                shippingType: shipping.type,
+                shippingPrice: new Prisma.Decimal(shipping.price),
                 acceptCGV: true,
                 total: session.amount_total! / 100,
                 createdAt: new Date(),
