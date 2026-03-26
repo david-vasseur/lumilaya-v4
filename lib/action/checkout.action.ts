@@ -250,6 +250,7 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 				lastName: customer.lastName,
 				email: customer.email,
 				phone: customer.phone || "",
+				orderId,
 				shippingAddress: customer.shippingAddress,
 				shippingCity: customer.shippingCity,
 				shippingPostalCode: customer.shippingPostalCode,

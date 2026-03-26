@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         const order = await prisma.order.create({
             data: {
-                stripeSessionId: session.id,
+                stripeSessionId: metadata.orderId,
                 firstName: metadata.firstName,
                 lastName: metadata.lastName,
                 email: metadata.email,
