@@ -57,6 +57,55 @@ export const getShippingPrice = async (zone: string, type: "OFF" | "DOM" | "REL"
 
 ////////////////////// OBTENIR LE TOTAL DU PANIER AVEC PROMO A PARTIR DU SERVEUR ///////////////////////////
 
+// export const getPricesForStripe = async (items: CartItem[]) => {
+// 	const results = await Promise.all(
+// 		items.map(async (item) => {
+// 			const product = await prisma.product.findUnique({
+// 				where: { id: item.id },
+// 				select: {
+// 				meta: {
+// 					select: {
+// 					promo: true,
+// 					},
+// 				},
+// 				variants: {
+// 					where: { id: item.productId },
+// 					select: {
+// 					price: true,
+// 					},
+// 				},
+// 				},
+// 			})
+
+// 			if (!product) {
+// 				throw new Error(`Produit introuvable: ${item.id}`);
+// 			}
+
+// 			const variant = product.variants[0];
+
+// 			if (!variant) {
+// 				throw new Error("Variant introuvable");
+// 			}
+
+// 			const price = variant.price.toNumber();
+// 			const promo = product.meta.promo ?? 0;
+
+// 			const discountFactor = Math.max(0, 1 - promo / 100);
+
+// 			const unitPrice = Math.round(price * discountFactor * 100);
+
+// 			return {
+// 				productId: item.id,
+// 				qty: item.qty,
+// 				price: unitPrice,
+// 			}
+// 		})
+// 	)
+
+// 	return results;
+// }
+
+
 export const getPricesForStripe = async (items: CartItem[]) => {
 	const results = await Promise.all(
 		items.map(async (item) => {
@@ -78,7 +127,7 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 		const price = variant.price.toNumber();
 		const promo = product.meta.promo ?? 0;
 		const discountFactor = Math.max(0, 1 - promo / 100);
-		const unitPrice = price * discountFactor; // en euros
+		const unitPrice = Math.round(price * discountFactor * 100); // en euros
 
 		return {
 			productId: item.id,
@@ -92,7 +141,6 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 
 	return results;
 };
-
 
 
 ////////////////////// VALIDER LE CHECKOUT ///////////////////////////
