@@ -15,7 +15,6 @@ async function page({ params }: Props) {
 
     const { slug } = await params;
 
-    // const product = products.find((product) => product.meta.slug === slug)!
     const product = await getOneProductBySlug(slug);
     
     if (!product) return;

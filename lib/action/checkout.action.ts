@@ -154,22 +154,8 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 			price: Math.round(shippingPrice * 100),
 		}
 		console.log(shippingLineItem);
+
 		
-		// const shippingResult = await AddShippingPrice(customer.shippingCountry, totalProducts);
-		// let shippingLineItem = { name: "", price: 0 };
-
-		// if (shippingResult.status === "free") {
-		// 	shippingLineItem = { name: shippingResult.shipping?.name ?? "Livraison", price: 0 };
-		// } else if (shippingResult.status === "not free" && shippingResult.shipping) {
-		// 	shippingLineItem = {
-		// 		name: shippingResult.shipping.name,
-		// 		price: shippingResult.shipping.price,
-		// 	};
-		// } else {
-		// 	throw new Error("Impossible de calculer la livraison.");
-		// }
-
-
 
 		// 3️⃣ Récupérer les produits pour Stripe
 		const productIds = securePrices.map((p) => p.productId);
