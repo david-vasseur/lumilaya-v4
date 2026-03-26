@@ -141,7 +141,7 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 
 
 		// 2️⃣ Recalculer le shipping côté serveur ////////////
-		const isFreeShipping = customer.shippingCountry === "FR" && totalProducts > 500
+		const isFreeShipping = customer.shippingCountry === "FR" && totalProducts > 5000
 
 		let shippingPrice = 0
 
@@ -218,6 +218,7 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 				shippingCity: customer.shippingCity,
 				shippingPostalCode: customer.shippingPostalCode,
 				shippingCountry: customer.shippingCountry,
+				shippingType: customer.shippingType,
 				billingAddress: customer.billingAddress,
 				billingCity: customer.billingCity,
 				billingPostalCode: customer.billingPostalCode,

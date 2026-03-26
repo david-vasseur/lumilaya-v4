@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma/prisma";
 import { sendOrderEmailToCompany } from "@/lib/action/order.action";
-import { Prisma } from "@/lib/generated/prisma/client";
+import { Prisma, ShippingType } from "@/lib/generated/prisma/client";
+import { EnumShippingTypeFieldRefInput } from "@/lib/generated/prisma/internal/prismaNamespace";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2026-02-25.clover",
@@ -53,17 +54,17 @@ export async function POST(req: NextRequest) {
                 billingPostalCode: metadata.shippingPostalCode,
                 shippingCountry: metadata.shippingCountry,
                 billingCountry: metadata.shippingCountry,
-                shippingType: shipping.type,
+                shippingType: metadata.shippingType as ShippingType,
                 shippingPrice: new Prisma.Decimal(shipping.price),
                 acceptCGV: true,
                 total: session.amount_total! / 100,
                 createdAt: new Date(),
                 items: {
-                create: products.map((p: any) => ({
-                    name: p.name,
-                    price: p.price,
-                    qty: p.qty,
-                })),
+                    create: products.map((p: any) => ({
+                        name: p.name,
+                        price: p.price,
+                        qty: p.qty,
+                    })),
                 },
             },
         });
