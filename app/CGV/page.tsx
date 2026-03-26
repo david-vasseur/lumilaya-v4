@@ -69,8 +69,8 @@ const CGVPage = () => {
                         <p>
                             Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles 
                             entre LUMILAYA, société par actions simplifiée au capital de 10 000 euros, immatriculée 
-                            au RCS d'Aix-en-Provence sous le numéro 123 456 789, dont le siège social est situé 
-                            123 Rue de la Lavande, 13100 Aix-en-Provence, France (ci-après "le Vendeur"), et toute 
+                            au RCS de Nîmes sous le numéro 832 950 570 00024, dont le siège social est situé 
+                            141, rue Anne Franck 30900 Nîmes, France (ci-après "le Vendeur"), et toute 
                             personne physique ou morale souhaitant procéder à un achat via le site internet 
                             www.lumilaya.fr (ci-après "le Client").
                         </p>
@@ -215,8 +215,8 @@ const CGVPage = () => {
                         </p>
                         <p>
                             Pour exercer ce droit, le Client doit nous contacter à l'adresse : 
-                            <a href="mailto:contact@lumilaya.fr" className="text-[#7A9B8E] hover:underline ml-1">
-                                contact@lumilaya.fr
+                            <a href="mailto:entreprise.lumilaya@outlook.fr" className="text-[#7A9B8E] hover:underline ml-1">
+                                entreprise.lumilaya@outlook.fr
                             </a>
                         </p>
                     </div>
@@ -313,7 +313,7 @@ const CGVPage = () => {
                     <div className="text-sm md:text-base text-[#2C2C2C]/70 leading-relaxed space-y-2">
                         <p>Pour toute question relative aux présentes CGV, vous pouvez nous contacter :</p>
                         <p className="font-medium text-[#2C2C2C]">
-                            Par email : <a href="mailto:contact@lumilaya.fr" className="text-[#7A9B8E] hover:underline">contact@lumilaya.fr</a>
+                            Par email : <a href="mailto:entreprise.lumilaya@outlook.fr" className="text-[#7A9B8E] hover:underline">entreprise.lumilaya@outlook.fr</a>
                         </p>
                         <p className="font-medium text-[#2C2C2C]">
                             Par téléphone : <a href="tel:+33618659510" className="text-[#7A9B8E] hover:underline">+33 6 18 65 95 10</a>

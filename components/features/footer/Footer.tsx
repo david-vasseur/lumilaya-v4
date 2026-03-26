@@ -80,7 +80,7 @@ const Footer = () => {
 							<span className="text-5xl font-light font-ballet">Lumi'laya</span>
 						</div>
 						<p className="text-white/80 leading-relaxed mb-6">
-							Des créations authentiques aux essences botaniques brutes. 
+							Des créations authentiques qui éclairent autant l’espace autour de soi que celui en soi.
 							Cire végétale pure, parfums naturels, pour une atmosphère saine et apaisante.
 						</p>
 						<div className="footer-socials flex gap-4">

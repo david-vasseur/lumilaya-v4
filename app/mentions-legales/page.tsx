@@ -68,11 +68,11 @@ const MentionsLegalesPage = () => {
                     </div>
                     <div className="text-[#2C2C2C]/70 space-y-2">
                         <p><strong>Nom commercial :</strong> LUMILAYA</p>
-                        <p><strong>Forme juridique :</strong> SAS</p>
+                        <p><strong>Forme juridique :</strong> EI</p>
                         <p><strong>Capital social :</strong> 10 000 €</p>
-                        <p><strong>RCS :</strong> Aix-en-Provence 123 456 789</p>
+                        <p><strong>RCS :</strong> Nîmes 832 950 570 00024</p>
                         <p><strong>Siège social :</strong> 141 rue Anne Franck, 30900 Nîmes, France</p>
-                        <p><strong>Email :</strong> contact@lumilaya.fr</p>
+                        <p><strong>Email :</strong> entreprise.lumilaya@outlook.fr</p>
                         <p><strong>Téléphone :</strong> +33 6 18 65 95 10</p>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ const MentionsLegalesPage = () => {
                         <h2 className="text-2xl font-light text-[#2C2C2C]">Contact</h2>
                     </div>
                     <div className="text-[#2C2C2C]/70 space-y-2">
-                        <p>Email : <a href="mailto:contact@lumilaya.fr" className="text-[#7A9B8E] hover:underline">contact@lumilaya.fr</a></p>
+                        <p>Email : <a href="mailto:entreprise.lumilaya@outlook.fr" className="text-[#7A9B8E] hover:underline">entreprise.lumilaya@outlook.fr</a></p>
                         <p>Téléphone : <a href="tel:+33618659510" className="text-[#7A9B8E] hover:underline">+33 6 18 65 95 10</a></p>
                         <p>Adresse : 141 rue Anne Franck, 30900 Nîmes, France</p>
                     </div>

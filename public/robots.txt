@@ -9,7 +9,7 @@ Disallow: /checkout-cancel
 Disallow: /_next/
 
 # Autoriser explicitement les pages importantes
-Allow: /bougies-emotions/
+Allow: /bougies-emotion/
 Allow: /bougies-rituel/
 Allow: /contact
 Allow: /notre-histoire

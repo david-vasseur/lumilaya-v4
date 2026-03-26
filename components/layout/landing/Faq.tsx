@@ -16,7 +16,7 @@ const faqs = [
     {
         id: 2,
         question: "Quelle est la durée de combustion moyenne ?",
-        answer: "Selon la taille, nos bougies brûlent entre 40 et 60 heures. La bougie de 200g offre environ 50 heures de combustion propre et parfumée."
+        answer: "Selon la taille, nos bougies brûlent entre 25 et 40 heures. La bougie de 200g offre environ 35/40 heures de combustion propre et parfumée."
     },
     {
         id: 3,
@@ -26,7 +26,7 @@ const faqs = [
     {
         id: 4,
         question: "Puis-je réutiliser le contenant après usage ?",
-        answer: "Absolument ! Nos contenants en verre sont conçus pour être réutilisés. Versez de l'eau chaude pour retirer les derniers résidus de cire, nettoyez et transformez-le en pot de rangement."
+        answer: "Absolument ! Nos contenants en béton sont conçus pour être réutilisés. Versez de l'eau chaude pour retirer les derniers résidus de cire, nettoyez et transformez-le en pot de rangement."
     },
     {
         id: 5,

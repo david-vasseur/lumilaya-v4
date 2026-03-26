@@ -96,8 +96,8 @@ const ContactPage = async () => {
                             <Mail className="w-7 h-7 text-[#7A9B8E]" />
                         </div>
                         <h3 className="text-lg font-medium text-[#2C2C2C] mb-2">Email</h3>
-                        <a href="mailto:contact@lumilaya.fr" className="text-[#2C2C2C]/60 hover:text-[#7A9B8E] transition-colors block mb-2">
-                            contact@lumilaya.fr
+                        <a href="mailto:entreprise.lumilaya@outlook.fr" className="text-[#2C2C2C]/60 hover:text-[#7A9B8E] transition-colors block mb-2">
+                            entreprise.lumilaya@outlook.fr
                         </a>
                     </div>
 
