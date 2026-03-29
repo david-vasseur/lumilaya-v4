@@ -6,10 +6,14 @@ import { toast } from 'sonner';
 import { createHash } from 'crypto';
 import { login } from '@/lib/action/admin.action';
 import { generateFingerprint } from '@/utils/dbFunction';
+import { useRouter } from 'next/navigation';
 
 
 
 function LoginForm() {
+
+    const router = useRouter();
+
     const form = useForm({
         defaultValues: {
         username: "",
@@ -25,9 +29,10 @@ function LoginForm() {
             const data = await login(value.username, value.password, fingerprint);
             if (data.success) {
                 sessionStorage.setItem('admin-token', data.access_token);
-                toast.success(data.message)
+                toast.success(data.message);
+                router.push('/admin/dashboard');
             } else {
-                toast.error(data.message)
+                toast.error(data.message);
             }
         },
     });
