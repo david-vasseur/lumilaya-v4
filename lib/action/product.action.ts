@@ -1,8 +1,7 @@
 "use server"
 
 import { prisma } from "@/lib/prisma/prisma";
-import { ProductCardProps } from "@/components/ui/ProductCard";
-import { IProduct, IProductTheme } from "@/types/product";
+import { IProduct } from "@/types/product";
 import { isProductTheme, isProductWellness } from "@/utils/dbFunction";
 
 /////// ACTION POUR RECUPERER TOUS LES PRODUITS D'UNE COLLECTION //////////////////

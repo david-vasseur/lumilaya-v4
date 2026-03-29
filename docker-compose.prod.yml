@@ -10,10 +10,13 @@ services:
     networks:
       - nginx-network
       - postgres-network
+      - lumilaya-network
 
 # Réseaux externes existants
 networks:
   nginx-network:
     external: true
   postgres-network:
+    external: true
+  lumilaya-network:
     external: true
