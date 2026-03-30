@@ -17,3 +17,21 @@ export const login = async (username: string, password: string, fingerprint: str
     return data;
 
 }
+
+export const getOrders = async (token: string, fingerprint: string) => {
+
+    const response = await fetch('http://lumilaya_service:4005/order/all', {
+        method: "GET",
+        headers: {
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+        },
+    })
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+
+}

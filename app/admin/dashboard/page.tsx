@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import gsap from 'gsap'
-import { Calendar, Icon, Package, ShoppingCart, type LucideIcon } from 'lucide-react'
+import { Calendar, Package, ShoppingCart, type LucideIcon } from 'lucide-react'
 
 type DashboardItem = {
     title: string;
@@ -35,8 +35,7 @@ const items: DashboardItem[] = [
 
 export default function Page() {
     useEffect(() => {
-        gsap.fromTo(
-        ".card",
+        gsap.fromTo(".card",
         { opacity: 0, y: 30 },
         {
             opacity: 1,
