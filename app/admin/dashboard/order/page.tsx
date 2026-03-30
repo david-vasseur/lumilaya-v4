@@ -62,7 +62,7 @@ function Page() {
 
                         <div>
                             <p className="text-gray-500">Total</p>
-                            <p className="font-semibold">{order.total.toNumber()} €</p>
+                            <p className="font-semibold">{Number(order.total)/100} €</p>
                         </div>
 
                         <div>
