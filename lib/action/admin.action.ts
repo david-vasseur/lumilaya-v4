@@ -1,5 +1,7 @@
 "use server"
 
+import { ShippingStatus } from "../generated/prisma/enums";
+
 export const login = async (username: string, password: string, fingerprint: string) => {
 
     const payload = {username, password, fingerprint}
@@ -52,4 +54,27 @@ export const getOneOrderById = async (token: string, fingerprint: string, id:str
 
     return await response.json();
 
+}
+
+export const changeShippingStatus = async (token: string, fingerprint: string, id:string, status: ShippingStatus) => {
+
+    const payload = {
+        shippingStatus: status
+    }
+
+    const response = await fetch(`http://lumilaya_service:4005/order/${id}/shipping-status`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+    })
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
 }

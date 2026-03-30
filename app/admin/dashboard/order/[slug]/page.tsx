@@ -1,5 +1,6 @@
 "use client"
 
+import ShipStatusForm from '@/components/form/admin/ShipStatusForm';
 import { getOneOrderById } from '@/lib/action/admin.action';
 import { Order, OrderItem } from '@/lib/generated/prisma/client';
 import { generateFingerprint } from '@/utils/dbFunction';
@@ -47,7 +48,7 @@ function page() {
     }
 
     return (
-        <div className="p-10 max-w-6xl mx-auto space-y-8">
+        <div className="pt-20 p-10 max-w-6xl mx-auto space-y-8">
 
         {/* HEADER */}
         <div className="flex justify-between items-center">
@@ -60,9 +61,7 @@ function page() {
             </p>
             </div>
 
-            <div className="bg-gray-100 px-4 py-2 rounded-lg text-sm">
-            Status : <span className="font-semibold">{order.shippingStatus}</span>
-            </div>
+            <ShipStatusForm status={order.shippingStatus} id={String(order.id)} />
         </div>
 
         {/* GRID */}
