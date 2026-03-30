@@ -43,10 +43,10 @@ function Page() {
                 <Link
                     key={order.id}
                     href={`/admin/dashboard/order/${order.id}`}
-                    className="block"
+                    className={`block ${order.shippingStatus === "CANCELLED" ? "opacity-50" : ""}`}
                 >
                     
-                    <div className="bg-white rounded-xl border hover:shadow-md transition p-5 cursor-pointer">
+                    <div className={`${order.shippingStatus === "CANCELLED" ? "bg-red-500" : order.shippingStatus === "DELIVERED" ? "bg-green-500" : "bg-zinc-300"} rounded-xl border hover:shadow-md transition p-5 cursor-pointer`}>
 
                     <div className="flex justify-between items-center mb-3">
                         <h2 className="font-semibold text-lg">
@@ -66,8 +66,13 @@ function Page() {
                         </div>
 
                         <div>
-                            <p className="text-gray-500">Shipping</p>
-                            <p className="font-semibold">{order.shippingType}</p>
+                            <p className="text-gray-500">Status</p>
+                            <p className="font-semibold">{
+                                order.shippingStatus === "PENDING" ? "En attente de livraison" : 
+                                order.shippingStatus === "DELIVERING" ? "En cours de livraison" : 
+                                order.shippingStatus === "CANCELLED" ? "Commande annulée" : 
+                                order.shippingStatus === "DELIVERED" ? "Livrée" : "Commande envoyée"
+                                }</p>
                         </div>
 
                         <div>
