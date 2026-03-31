@@ -56,11 +56,11 @@ function Page() {
                 <h1 className="text-4xl text-center">Mes commandes</h1>
 
                 <ul className="flex gap-5 justify-center flex-wrap">
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("ALL")}>Toutes</li>
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("PENDING")}>En attente</li>
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERING")}>Envoyées</li>
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERED")}>Livrées</li>
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("CANCELLED")}>Annulées</li>
+                    <li className="px-6 py-3 rounded-2xl bg-[#7A9B8E] border border-[#7A9B86] cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("ALL")}>Toutes</li>
+                    <li className="px-6 py-3 rounded-2xl bg-[#7A9B8E] border border-[#7A9B86] cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("PENDING")}>En attente</li>
+                    <li className="px-6 py-3 rounded-2xl bg-[#7A9B8E] border border-[#7A9B86] cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERING")}>Envoyées</li>
+                    <li className="px-6 py-3 rounded-2xl bg-[#7A9B8E] border border-[#7A9B86] cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERED")}>Livrées</li>
+                    <li className="px-6 py-3 rounded-2xl bg-[#7A9B8E] border border-[#7A9B86] cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("CANCELLED")}>Annulées</li>
                 </ul>
 
                 {filteredOrders.map((order) => (
