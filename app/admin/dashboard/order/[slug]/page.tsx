@@ -50,104 +50,103 @@ function page() {
     return (
         <div className="pt-20 p-10 max-w-6xl mx-auto space-y-8">
 
-        {/* HEADER */}
-        <div className="flex flex-col lg:flex-row justify-between items-center">
-            <div>
-            <h1 className="text-2xl font-bold">
-                Commande #{order.stripeSessionId}
-            </h1>
-            <p className="text-gray-500 text-sm">
-                Créée le {new Date(order.createdAt).toLocaleDateString()}
-            </p>
+            {/* HEADER */}
+            <div className="flex flex-col lg:flex-row justify-between items-center">
+                <div>
+                    <h1 className="text-2xl font-bold text-center">
+                        Commande #{order.stripeSessionId}
+                    </h1>
+                    <p className="text-gray-500 text-sm text-center mt-5">
+                        Créée le {new Date(order.createdAt).toLocaleDateString()}
+                    </p>
+                </div>
+
+                <ShipStatusForm status={order.shippingStatus} id={String(order.id)} />
             </div>
 
-            <ShipStatusForm status={order.shippingStatus} id={String(order.id)} />
-        </div>
+            {/* GRID */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* CLIENT */}
+                <div className="bg-white shadow rounded-xl p-6 space-y-2">
+                    <h2 className="font-semibold text-lg">Client</h2>
 
-            {/* CLIENT */}
+                    <p>
+                        {order.firstName} {order.lastName}
+                    </p>
+
+                    <p className="text-gray-500">{order.email}</p>
+
+                    <p className="text-gray-500">{order.phone}</p>
+                </div>
+
+                {/* TOTAL */}
+                <div className="bg-white shadow rounded-xl p-6 space-y-2">
+                    <h2 className="font-semibold text-lg">Total</h2>
+
+                    <p className="text-2xl font-bold">
+                        {(Number(order.total) / 100).toFixed(2)} € <span className="text-base font-normal">(livraison incluse)</span>
+                    </p>
+
+                    <p className="text-gray-500">
+                        Livraison {order.shippingType === "REL" ? "en point Relais" : "à domicile"} <br/> ({(Number(order.shippingPrice) / 100 ).toFixed(2)} €)
+                    </p>
+                </div>
+
+            </div>
+
+            {/* SHIPPING */}
             <div className="bg-white shadow rounded-xl p-6 space-y-2">
-            <h2 className="font-semibold text-lg">Client</h2>
+                <h2 className="font-semibold text-lg">Adresse de livraison</h2>
 
-            <p>
-                {order.firstName} {order.lastName}
-            </p>
+                <p>{order.shippingAddress}</p>
 
-            <p className="text-gray-500">{order.email}</p>
+                <p>
+                {order.shippingPostalCode} {order.shippingCity}
+                </p>
 
-            <p className="text-gray-500">{order.phone}</p>
+                <p>{order.shippingCountry}</p>
             </div>
 
-            {/* TOTAL */}
+            {/* BILLING */}
             <div className="bg-white shadow rounded-xl p-6 space-y-2">
-            <h2 className="font-semibold text-lg">Total</h2>
+                <h2 className="font-semibold text-lg">Adresse de facturation</h2>
 
-            <p className="text-2xl font-bold">
-                {Number(order.total).toFixed(2)} €
-            </p>
+                <p>{order.billingAddress}</p>
 
-            <p className="text-gray-500">
-                Livraison : {order.shippingType} ({Number(order.shippingPrice).toFixed(2)} €)
-            </p>
+                <p>
+                {order.billingPostalCode} {order.billingCity}
+                </p>
+
+                <p>{order.billingCountry}</p>
             </div>
 
-        </div>
+            {/* ITEMS */}
+            <div className="bg-white shadow rounded-xl p-6">
+                <h2 className="font-semibold text-lg mb-4">Articles</h2>
 
-        {/* SHIPPING */}
-        <div className="bg-white shadow rounded-xl p-6 space-y-2">
-            <h2 className="font-semibold text-lg">Adresse de livraison</h2>
+                <table className="w-full text-sm">
 
-            <p>{order.shippingAddress}</p>
+                <thead className="text-left border-b">
+                    <tr>
+                    <th className="py-2">Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    </tr>
+                </thead>
 
-            <p>
-            {order.shippingPostalCode} {order.shippingCity}
-            </p>
+                <tbody>
+                    {order.items.map((item: any) => (
+                    <tr key={item.id} className="border-b">
+                        <td className="py-2">{item.name}</td>
+                        <td>{item.quantity}</td>
+                        <td>{(Number(item.price) / 100 ).toFixed(2)} €</td>
+                    </tr>
+                    ))}
+                </tbody>
 
-            <p>{order.shippingCountry}</p>
-        </div>
-
-        {/* BILLING */}
-        <div className="bg-white shadow rounded-xl p-6 space-y-2">
-            <h2 className="font-semibold text-lg">Adresse de facturation</h2>
-
-            <p>{order.billingAddress}</p>
-
-            <p>
-            {order.billingPostalCode} {order.billingCity}
-            </p>
-
-            <p>{order.billingCountry}</p>
-        </div>
-
-        {/* ITEMS */}
-        <div className="bg-white shadow rounded-xl p-6">
-            <h2 className="font-semibold text-lg mb-4">Articles</h2>
-
-            <table className="w-full text-sm">
-
-            <thead className="text-left border-b">
-                <tr>
-                <th className="py-2">Produit</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {order.items.map((item: any) => (
-                <tr key={item.id} className="border-b">
-                    <td className="py-2">{item.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>{Number(item.price).toFixed(2)} €</td>
-                </tr>
-                ))}
-            </tbody>
-
-            </table>
-        </div>
-
+                </table>
+            </div>
         </div>
     );
 }
