@@ -6,27 +6,40 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Order } from "@/lib/generated/prisma/client";
 
-
+interface IOrder {
+    id: number,
+    stripeSessionId: string,
+    shippingCity: string,
+    shippingStatus: string,
+    total: number,
+    createdAt: Date,
+}
 
 function Page() {
 
-    const [orders, setOrders] = useState<Order[]>([])
+    const [orders, setOrders] = useState<IOrder[]>([])
+    const [statusFilter, setStatusFilter] = useState<string>("ALL")
+
+    const filteredOrders =
+    statusFilter === "ALL"
+        ? orders
+        : orders.filter(o => o.shippingStatus === statusFilter)
 
     useEffect(() => {
 
         const loadOrders = async () => {
 
-        const fingerprint = generateFingerprint();
-        const token = sessionStorage.getItem('admin-token');
+            const fingerprint = generateFingerprint();
+            const token = sessionStorage.getItem('admin-token');
 
-        if (!fingerprint || !token) return;
+            if (!fingerprint || !token) return;
 
-        try {
-            const newOrders = await getOrders(token, fingerprint);
-            setOrders(newOrders);
-        } catch (error) {
-            console.error("Error loading orders", error);
-        }
+            try {
+                const newOrders = await getOrders(token, fingerprint);
+                setOrders(newOrders);
+            } catch (error) {
+                console.error("Error loading orders", error);
+            }
 
         };
 
@@ -38,12 +51,22 @@ function Page() {
         <div className="pt-24 px-6 min-h-screen bg-gray-50">        
             <div className="max-w-5xl mx-auto space-y-4">
 
-                {orders.map((order) => (
+                <h1 className="text-4xl text-center">Mes commandes</h1>
+
+                <ul className="flex gap-5 justify-center flex-wrap">
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("ALL")}>Toutes</li>
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("PENDING")}>En cours</li>
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERING")}>Envoyées</li>
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERED")}>Livrées</li>
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("CANCELLED")}>Annulées</li>
+                </ul>
+
+                {filteredOrders.map((order) => (
 
                 <Link
                     key={order.id}
                     href={`/admin/dashboard/order/${order.id}`}
-                    className={`block ${order.shippingStatus === "CANCELLED" ? "opacity-50" : ""}`}
+                    className={`block ${order.shippingStatus === "CANCELLED" ? "opacity-50" : ""} overflow-hidden my-10`}
                 >
                     
                     <div className={`${order.shippingStatus === "CANCELLED" ? "bg-red-500" : order.shippingStatus === "DELIVERED" ? "bg-green-500" : "bg-zinc-300"} rounded-xl border hover:shadow-md transition p-5 cursor-pointer`}>
