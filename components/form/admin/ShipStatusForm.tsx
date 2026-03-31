@@ -37,9 +37,9 @@ function ShipStatusForm({ status, id }: ShipStatusFormProps) {
 
             if (!token) return
 
-            const status = await changeShippingStatus(token, fingerprint, id, value.shippingStatus)
+            const res = await changeShippingStatus(token, fingerprint, id, value.shippingStatus)
 
-            if (status.success) {
+            if (res.success) {
                 toast.success("Status mis à jour")
             } else {
                 toast.error("Une erreur est survenue")

@@ -5,6 +5,7 @@ import { generateFingerprint } from "@/utils/dbFunction";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Order } from "@/lib/generated/prisma/client";
+import BackButton from "@/components/ui/BackButton";
 
 interface IOrder {
     id: number,
@@ -48,14 +49,15 @@ function Page() {
     }, []);
 
     return (
-        <div className="pt-24 px-6 min-h-screen bg-gray-50">        
+        <div className="pt-24 px-6 min-h-screen bg-gray-50">
+            <BackButton />        
             <div className="max-w-5xl mx-auto space-y-4">
 
                 <h1 className="text-4xl text-center">Mes commandes</h1>
 
                 <ul className="flex gap-5 justify-center flex-wrap">
                     <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("ALL")}>Toutes</li>
-                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("PENDING")}>En cours</li>
+                    <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("PENDING")}>En attente</li>
                     <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERING")}>Envoyées</li>
                     <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("DELIVERED")}>Livrées</li>
                     <li className="px-6 py-3 rounded-2xl bg-purple-300 border border-purple-800 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all duration-300 shadow-2xl shadow-gray-800 my-4" onClick={() => setStatusFilter("CANCELLED")}>Annulées</li>

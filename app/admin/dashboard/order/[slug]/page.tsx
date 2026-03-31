@@ -1,6 +1,7 @@
 "use client"
 
 import ShipStatusForm from '@/components/form/admin/ShipStatusForm';
+import BackButton from '@/components/ui/BackButton';
 import { getOneOrderById } from '@/lib/action/admin.action';
 import { Order, OrderItem } from '@/lib/generated/prisma/client';
 import { generateFingerprint } from '@/utils/dbFunction';
@@ -49,6 +50,8 @@ function page() {
 
     return (
         <div className="pt-20 p-10 max-w-6xl mx-auto space-y-8">
+
+            <BackButton />
 
             {/* HEADER */}
             <div className="flex flex-col lg:flex-row justify-between items-center">
