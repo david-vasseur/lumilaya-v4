@@ -1,42 +1,83 @@
-import { MapPin, Calendar } from "lucide-react"
-import Link from "next/link"
+import { MapPin, Calendar } from "lucide-react";
+import Link from "next/link";
 
-interface EventCardProps {
-  date: string
+export interface EventCardProps {
+  id: number
+  name: string
+  dateStart: string
+  dateEnd: string
   city: string
-  place: string
+  postalCode: string
   image: string
   url: string
 }
 
-function EventCard({ date, city, place, image, url }: EventCardProps) {
-    return (
-        <Link href={url} className="event-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-            <img
-                src={image}
-                alt={place}
-                className="w-full h-48 object-cover object-top"
-            />
-            <div className="p-6">
+function EventCard({
+  name,
+  dateStart,
+  dateEnd,
+  city,
+  postalCode,
+  image,
+  url
+}: EventCardProps) {
 
-                <div className="flex items-center gap-2 text-sm text-[#7A9B8E] mb-2">
-                <Calendar className="w-4 h-4" />
-                {date}
-                </div>
+  const start = new Date(dateStart)
+  const end = new Date(dateEnd)
 
-                <h3 className="text-xl font-semibold text-[#2C2C2C] mb-2">
-                {place}
-                </h3>
+  const formattedDate =
+    start.toLocaleDateString("fr-FR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }) +
+    (start.getTime() !== end.getTime()
+      ? ` - ${end.toLocaleDateString("fr-FR", {
+          day: "numeric",
+          month: "long"
+        })}`
+      : "")
 
-                <div className="flex items-center gap-2 text-[#2C2C2C]/70">
-                <MapPin className="w-4 h-4" />
-                {city}
-                </div>
+  const content = (
+    <div className="event-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
 
-            </div>
+      <div className="relative w-full h-48">
+        <img
+          src={image}
+          alt={name}
+          className="absolute w-full h-full object-cover object-top"
+        />
+      </div>
 
-        </Link>
-    )
+      <div className="p-6">
+
+        <div className="flex items-center gap-2 text-sm text-[#7A9B8E] mb-2">
+          <Calendar className="w-4 h-4" />
+          {formattedDate}
+        </div>
+
+        <h3 className="text-xl font-semibold text-[#2C2C2C] mb-2">
+          {name}
+        </h3>
+
+        <div className="flex items-center gap-2 text-[#2C2C2C]/70">
+          <MapPin className="w-4 h-4" />
+          {city} ({postalCode})
+        </div>
+
+      </div>
+    </div>
+  )
+
+  if (url === "#") {
+    return content
+  }
+
+  return (
+    <Link href={url}>
+      {content}
+    </Link>
+  )
 }
 
 export default EventCard;

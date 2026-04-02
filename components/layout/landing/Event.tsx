@@ -1,38 +1,81 @@
 "use client"
 
-import EventCard from '@/components/ui/EventCard';
+import EventCard, { EventCardProps } from '@/components/ui/EventCard';
 import Title from '@/components/ui/Title';
+import { getEvents } from '@/lib/action/event.action';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+export interface EventCardApiProps {
+  id: number
+  name: string
+  dateStart: Date
+  dateEnd: Date
+  city: string
+  postalCode: string
+  image: string
+  url: string
+}
 
 function Event() {
 
     const titleRefs = useRef<{ titleRef: HTMLHeadingElement | null; spanRef: HTMLSpanElement | null }>(null);
 
-    const events = [
-        {
-            date: "18 Avril 2026",
-            city: "Caissargues (30)",
-            place: "Salon du bien-être",
-            image: "/images/landing/salon_bien_etre.webp",
-            url: "#"
-        },
-        {
-            date: "26 avril 2026",
-            city: "Saint Andiol (13)",
-            place: "Fête du printemps",
-            image: "/images/landing/fete_printemps.webp",
-            url: "#"
-        },
-        {
-            date: "10 Mai 2026",
-            city: "Vedene (84)",
-            place: "Marché artisanal",
-            image: "/images/landing/marche_vedene.webp",
-            url: "#"
-        }
-    ]
+    const [events, setEvents] = useState<EventCardProps[]>([]);
+
+    useEffect(() => {
+
+         const loadEvents = async () => {
+            
+                    try {
+                        const newEvents = await getEvents();
+
+                        const stringEvents = newEvents.map(ev => ({
+                            id: ev.id,
+                            dateStart: new Date(ev.dateStart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+                            dateEnd: new Date(ev.dateStart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+                            city: ev.city,
+                            name: ev.name,
+                            image: ev.image,
+                            url: ev.url,
+                            postalCode: ev.postalCode
+                        }));
+
+                        setEvents(stringEvents);
+                    } catch (error) {
+                        console.error("Error loading orders", error);
+                    }
+        
+                };
+        
+                loadEvents();
+
+    })
+
+    // const events = [
+    //     {
+    //         date: "18 Avril 2026",
+    //         city: "Caissargues (30)",
+    //         place: "Salon du bien-être",
+    //         image: "/images/landing/salon_bien_etre.webp",
+    //         url: "#"
+    //     },
+    //     {
+    //         date: "26 avril 2026",
+    //         city: "Saint Andiol (13)",
+    //         place: "Fête du printemps",
+    //         image: "/images/landing/fete_printemps.webp",
+    //         url: "#"
+    //     },
+    //     {
+    //         date: "10 Mai 2026",
+    //         city: "Vedene (84)",
+    //         place: "Marché artisanal",
+    //         image: "/images/landing/marche_vedene.webp",
+    //         url: "#"
+    //     }
+    // ]
 
     useGSAP(() => {
 
