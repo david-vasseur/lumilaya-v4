@@ -1,8 +1,11 @@
+import EventForm from '@/components/form/admin/EventForm'
 import React from 'react'
 
 function page() {
     return (
-        <div>page</div>
+        <div className='pt-20'>
+            <EventForm />
+        </div>
     )
 }
 
