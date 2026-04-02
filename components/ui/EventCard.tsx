@@ -53,7 +53,7 @@ function EventCard({
 
         <div className="flex items-center gap-2 text-sm text-[#7A9B8E] mb-2">
           <Calendar className="w-4 h-4" />
-          {formattedDate}
+          {dateStart === dateEnd ? dateStart : `${dateStart} - ${dateEnd}`}
         </div>
 
         <h3 className="text-xl font-semibold text-[#2C2C2C] mb-2">
