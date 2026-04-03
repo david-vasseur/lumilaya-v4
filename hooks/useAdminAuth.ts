@@ -9,47 +9,47 @@ import { generateFingerprint } from "@/utils/dbFunction";
 type AuthStatus = "loading" | "unauthorized" | "authorized";
 
 export const useAdminAuth = () => {
-  const [status, setStatus] = useState<AuthStatus>("loading");
-  const router = useRouter();
+    const [status, setStatus] = useState<AuthStatus>("loading");
+    const router = useRouter();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = sessionStorage.getItem("admin-token");
-      if (!token) {
-        setStatus("unauthorized");
-        return;
-      }
+    useEffect(() => {
+        const checkAuth = async () => {
+            const token = sessionStorage.getItem("admin-token");
+            if (!token) {
+                setStatus("unauthorized");
+                return;
+            }
 
-      const fingerprint = generateFingerprint();
-      if (!fingerprint) {
-        setStatus("unauthorized");
-        return;
-      }
+            const fingerprint = generateFingerprint();
+            if (!fingerprint) {
+                setStatus("unauthorized");
+                return;
+            }
 
-      try {
-        const authorized = await verifyToken(token, fingerprint);
-        if (authorized.success) {
-          setStatus("authorized");
-          toast.success(authorized.message);
-        } else {
-          setStatus("unauthorized");
-          toast.error(authorized.message);
-        }
-      } catch (err) {
-        console.error(err);
+            try {
+                const authorized = await verifyToken(token, fingerprint);
+                if (authorized.success) {
+                setStatus("authorized");
+                toast.success(authorized.message);
+                } else {
+                setStatus("unauthorized");
+                toast.error(authorized.message);
+                }
+            } catch (err) {
+                console.error(err);
+                setStatus("unauthorized");
+                toast.error("Erreur de connexion, veuillez vous reconnecter");
+            }
+        };
+
+        checkAuth();
+    }, [router]);
+
+    const handleDisconnect = () => {
+        sessionStorage.removeItem("admin-token");
         setStatus("unauthorized");
-        toast.error("Erreur de connexion, veuillez vous reconnecter");
-      }
+        router.push("/admin");
     };
 
-    checkAuth();
-  }, [router]);
-
-  const handleDisconnect = () => {
-    sessionStorage.removeItem("admin-token");
-    setStatus("unauthorized");
-    router.push("/admin");
-  };
-
-  return { status, handleDisconnect, isLogged: status === "authorized" };
+    return { status, handleDisconnect, isLogged: status === "authorized" };
 };

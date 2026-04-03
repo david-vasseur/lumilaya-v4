@@ -36,7 +36,21 @@ const items: DashboardItem[] = [
 
 export default function Page() {
 
-    const { isLogged, handleDisconnect } = useAdminAuth();
+    const { status, handleDisconnect } = useAdminAuth();
+
+    if (status === "loading") return (
+        <div className="flex flex-col gap-14 items-center justify-center min-h-screen">
+            <h1>Chargement…</h1>
+        </div>
+    );
+
+    if (status === "unauthorized") return (
+        <div className="flex flex-col gap-14 items-center justify-center min-h-screen">
+            <div className="max-w-5xl mx-auto pt-20">
+                <h1>Accès non authorisé</h1>
+            </div>
+        </div>
+    ) 
 
     useEffect(() => {
         gsap.fromTo(".card",
@@ -54,36 +68,27 @@ export default function Page() {
 
     return (
         <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 p-6">
-            {isLogged ? 
-                (
-                    <div className="max-w-5xl mx-auto pt-20">
-                        <h1 className="text-3xl font-bold mb-10 text-center">Dashboard Admin</h1>
+            <div className="max-w-5xl mx-auto pt-20">
+                <h1 className="text-3xl font-bold mb-10 text-center">Dashboard Admin</h1>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {items.map((item) => {
-                            const Icon = item.icon;
-                            return (
-                            <Link key={item.title} href={item.href}>
-                            <div className="card cursor-pointer rounded-2xl bg-white p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3">
-                                <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
-                                    <Icon className="w-5 h-5 text-gray-600" />
-                                </div>
-
-                                <h2 className="text-xl font-semibold">{item.title}</h2>
-                                <p className="text-sm text-gray-500">{item.description}</p>
-                            </div>
-                            </Link>
-                        )})}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                    <Link key={item.title} href={item.href}>
+                    <div className="card cursor-pointer rounded-2xl bg-white p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3">
+                        <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
+                            <Icon className="w-5 h-5 text-gray-600" />
                         </div>
-                        <button className="rounded-2xl px-6 py-3 bg-red-400 border border-red-600" onClick={handleDisconnect}>Se deconnecter</button>
+
+                        <h2 className="text-xl font-semibold">{item.title}</h2>
+                        <p className="text-sm text-gray-500">{item.description}</p>
                     </div>
-                ) : (
-                    <div className="max-w-5xl mx-auto pt-20">
-                        <h1>Accès non authorisé</h1>
-                    </div>
-                )    
-            }
-            
+                    </Link>
+                )})}
+                </div>
+                <button className="rounded-2xl px-6 py-3 bg-red-400 border border-red-600" onClick={handleDisconnect}>Se deconnecter</button>
+            </div>            
         </div>
     )
 }
