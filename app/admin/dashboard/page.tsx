@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import gsap from 'gsap'
 import { Calendar, Package, ShoppingCart, type LucideIcon } from 'lucide-react'
+import { useAdminAuth } from '@/hooks/useAdminAuth'
 
 type DashboardItem = {
     title: string;
@@ -22,18 +23,21 @@ const items: DashboardItem[] = [
     {
         title: "Produits",
         icon: Package,
-        href: "/admin/dashboard/products",
+        href: "/admin/dashboard/product",
         description: "Ajouter, modifier ou supprimer des produits"
     },
     {
         title: "Événements",
         icon: Calendar,
-        href: "/admin/dashboard/events",
+        href: "/admin/dashboard/event",
         description: "Organiser et planifier vos événements"
     }
 ]
 
 export default function Page() {
+
+    const { isLogged, handleDisconnect } = useAdminAuth();
+
     useEffect(() => {
         gsap.fromTo(".card",
         { opacity: 0, y: 30 },
@@ -46,29 +50,40 @@ export default function Page() {
         }
         )
     }, [])
+    
 
     return (
         <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 p-6">
-            <div className="max-w-5xl mx-auto pt-20">
-                <h1 className="text-3xl font-bold mb-10 text-center">Dashboard Admin</h1>
+            {isLogged ? 
+                (
+                    <div className="max-w-5xl mx-auto pt-20">
+                        <h1 className="text-3xl font-bold mb-10 text-center">Dashboard Admin</h1>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {items.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                    <Link key={item.title} href={item.href}>
-                    <div className="card cursor-pointer rounded-2xl bg-white p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3">
-                        <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
-                            <Icon className="w-5 h-5 text-gray-600" />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {items.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                            <Link key={item.title} href={item.href}>
+                            <div className="card cursor-pointer rounded-2xl bg-white p-6 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3">
+                                <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
+                                    <Icon className="w-5 h-5 text-gray-600" />
+                                </div>
+
+                                <h2 className="text-xl font-semibold">{item.title}</h2>
+                                <p className="text-sm text-gray-500">{item.description}</p>
+                            </div>
+                            </Link>
+                        )})}
                         </div>
-
-                        <h2 className="text-xl font-semibold">{item.title}</h2>
-                        <p className="text-sm text-gray-500">{item.description}</p>
+                        <button className="rounded-2xl px-6 py-3 bg-red-400 border border-red-600" onClick={handleDisconnect}>Se deconnecter</button>
                     </div>
-                    </Link>
-                )})}
-                </div>
-            </div>
+                ) : (
+                    <div className="max-w-5xl mx-auto pt-20">
+                        <h1>Accès non authorisé</h1>
+                    </div>
+                )    
+            }
+            
         </div>
     )
 }

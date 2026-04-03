@@ -1,28 +1,12 @@
 "use client"
 
 import LoginForm from '@/components/form/LoginForm';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 function page() {
 
-    const [isLogged, setIsLogged] = useState<boolean>(false);
-    const router = useRouter();
-
-    useEffect(() => {
-
-        if (sessionStorage.getItem("admin-token")) {
-            setIsLogged(true);
-            
-        }
-
-    }, [])
-
-    const handleDisconnect = () => {
-        sessionStorage.removeItem("admin-token");
-        router.push('/admin')
-    }
+    const { isLogged, handleDisconnect } = useAdminAuth();
 
     return (
         <div className="flex flex-col gap-14 items-center justify-center min-h-screen">

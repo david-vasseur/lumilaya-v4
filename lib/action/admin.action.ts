@@ -3,6 +3,26 @@
 import { IEvent } from "@/schema/event";
 import { ShippingStatus } from "../generated/prisma/enums";
 
+export const verifyToken = async (token: string, fingerprint: string) => {
+
+    const response = await fetch('http://lumilaya_service:4005/auth/verify', {
+        method: "GET",
+        headers: {
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    const data = await response.json();
+
+    if (data.authorized) {
+        return { success: true, message: "Accès authorisé" }
+    } else {
+        return { success: false, message: "Accès non authorisé" }
+    }
+
+}
+
 export const login = async (username: string, password: string, fingerprint: string) => {
 
     const payload = {username, password, fingerprint}
