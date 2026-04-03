@@ -5,13 +5,13 @@ import { useForm } from '@tanstack/react-form';
 import { toast } from 'sonner';
 import { login } from '@/lib/action/admin.action';
 import { generateFingerprint } from '@/utils/dbFunction';
-import { useRouter } from 'next/navigation';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 
 
 function LoginForm() {
 
-    const router = useRouter();
+    const { loginSuccess } = useAdminAuth();
 
     const form = useForm({
         defaultValues: {
@@ -22,14 +22,12 @@ function LoginForm() {
         onChange: LoginSchema,
         },
         onSubmit: async ({ value }) => {
-
-            const fingerprint = generateFingerprint()
-          
+            const fingerprint = generateFingerprint();
             const data = await login(value.username, value.password, fingerprint);
+
             if (data.success) {
-                sessionStorage.setItem('admin-token', data.access_token);
-                toast.success(data.message);
-                router.push('/admin/dashboard');
+                loginSuccess(data.access_token);
+                toast.success(data.message); 
             } else {
                 toast.error(data.message);
             }
