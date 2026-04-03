@@ -36,21 +36,7 @@ const items: DashboardItem[] = [
 
 export default function Page() {
 
-    const { status, handleDisconnect } = useAdminAuth();
-
-    if (status === "loading") return (
-        <div className="flex flex-col gap-14 items-center justify-center min-h-screen">
-            <h1>Chargement…</h1>
-        </div>
-    );
-
-    if (status === "unauthorized") return (
-        <div className="flex flex-col gap-14 items-center justify-center min-h-screen">
-            <div className="max-w-5xl mx-auto pt-20">
-                <h1>Accès non authorisé</h1>
-            </div>
-        </div>
-    ) 
+    const { handleDisconnect } = useAdminAuth();
 
     useEffect(() => {
         gsap.fromTo(".card",
