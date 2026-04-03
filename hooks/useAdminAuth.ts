@@ -43,7 +43,7 @@ export const useAdminAuth = () => {
         };
 
         checkAuth();
-    }, [router]);
+    }, []);
 
     const handleDisconnect = () => {
         sessionStorage.removeItem("admin-token");

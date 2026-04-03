@@ -14,10 +14,14 @@ export const verifyToken = async (token: string, fingerprint: string) => {
     })
 
     const data = await response.json();
+    console.log(data);
+    
 
     if (data.authorized) {
+        console.log("accès:", data.authorized );        
         return { success: true, message: "Accès authorisé" }
     } else {
+        console.log("accès:", data.authorized );
         return { success: false, message: "Accès non authorisé" }
     }
 
