@@ -1,62 +1,55 @@
-"use client"
+"use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { verifyToken } from "@/lib/action/admin.action";
 import { generateFingerprint } from "@/utils/dbFunction";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+
+type AuthStatus = "loading" | "unauthorized" | "authorized";
 
 export const useAdminAuth = () => {
-    const [isLogged, setIsLogged] = useState(false);
-    const [token, setToken] = useState<string | null>(null); // <-- nouveau state
-    const router = useRouter();
+  const [status, setStatus] = useState<AuthStatus>("loading");
+  const router = useRouter();
 
-    useEffect(() => {
-        const storedToken = sessionStorage.getItem("admin-token");
-        setToken(storedToken);
-    }, []);
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = sessionStorage.getItem("admin-token");
+      if (!token) {
+        setStatus("unauthorized");
+        return;
+      }
 
-    useEffect(() => {
-        if (!token) {
-            router.push("/admin");
-            return;
+      const fingerprint = generateFingerprint();
+      if (!fingerprint) {
+        setStatus("unauthorized");
+        return;
+      }
+
+      try {
+        const authorized = await verifyToken(token, fingerprint);
+        if (authorized.success) {
+          setStatus("authorized");
+          toast.success(authorized.message);
+        } else {
+          setStatus("unauthorized");
+          toast.error(authorized.message);
         }
-
-        const fingerprint = generateFingerprint();
-        if (!fingerprint) {
-            router.push("/admin");
-            return;
-        }
-
-        const authorizedLoader = async () => {
-            try {
-                const authorized = await verifyToken(token, fingerprint);
-                if (authorized.success) {
-                    setIsLogged(true);
-                    toast.success(authorized.message);
-                } else {
-                    toast.error(authorized.message);
-                    router.push("/admin");
-                }
-            } catch (error) {
-                console.error(error);
-                router.push("/admin");
-            }
-        };
-
-        authorizedLoader();
-    }, [token, router]); // <-- dépendance sur token
-
-    const handleDisconnect = () => {
-        sessionStorage.removeItem("admin-token");
-        setToken(null); // <-- reset token
-        router.push("/admin");
+      } catch (err) {
+        console.error(err);
+        setStatus("unauthorized");
+        toast.error("Erreur de connexion, veuillez vous reconnecter");
+      }
     };
 
-    const loginSuccess = (newToken: string) => {
-        sessionStorage.setItem("admin-token", newToken);
-        setToken(newToken); // <-- update hook state
-    };
+    checkAuth();
+  }, [router]);
 
-    return { isLogged, handleDisconnect, loginSuccess };
+  const handleDisconnect = () => {
+    sessionStorage.removeItem("admin-token");
+    setStatus("unauthorized");
+    router.push("/admin");
+  };
+
+  return { status, handleDisconnect, isLogged: status === "authorized" };
 };
