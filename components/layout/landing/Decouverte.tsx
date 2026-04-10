@@ -1,6 +1,5 @@
 "use client"
 
-import Title from '@/components/ui/Title';
 import { ChevronRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -9,57 +8,74 @@ import Link from 'next/link';
 
 function CoffretDecouverte() {
 
-    const titleRefs = useRef<{ titleRef: HTMLHeadingElement | null; spanRef: HTMLSpanElement | null }>(null);
     const imageRef = useRef(null);
+    const img1Ref = useRef<HTMLImageElement>(null);
     const img2Ref = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
 
-        if (!titleRefs.current?.titleRef || !titleRefs.current?.spanRef) return
-
-        gsap.from(titleRefs.current?.titleRef, {
-            y: 50, opacity: 0, duration: 1,
-            scrollTrigger: {
-                trigger: titleRefs.current?.titleRef,
-                start: 'top 80%', end: 'top 60%', scrub: 1
-            }
-        })
-
-        gsap.fromTo(titleRefs.current?.spanRef,
-            { scaleX: 0 },
-            { scaleX: 1, scrollTrigger: {
-                trigger: titleRefs.current?.spanRef,
-                start: 'top 90%', end: 'top 30%', scrub: 1
-            }}
-        )
-
-        gsap.from(imageRef.current, {
-            x: -60, opacity: 0, duration: 1,
-            scrollTrigger: {
-                trigger: '.coffret-section',
-                start: 'top 70%', end: 'top 40%', scrub: 1
-            }
-        })
-
-        gsap.from('.coffret-content > *', {
-            y: 40, opacity: 0, stagger: 0.15, duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-                trigger: '.coffret-section',
-                start: 'top 65%',
-            }
-        })
-
-        // Fondu enchaîné infini entre les deux images
-        if (!img2Ref.current) return
+        if (!img1Ref.current || !img2Ref.current) return
 
         gsap.set(img2Ref.current, { opacity: 0 })
 
-        gsap.timeline({ repeat: -1 })
-            .to(img2Ref.current, { opacity: 1, duration: 1.5, ease: 'power1.inOut', delay: 3 })
-            .to(img2Ref.current, { opacity: 0, duration: 1.5, ease: 'power1.inOut', delay: 3 })
+        const tl = gsap.timeline({ repeat: -1 })
 
-    })
+        tl.to(img2Ref.current, {
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power1.inOut'
+        }, "+=3")
+
+        tl.to(img1Ref.current, {
+            opacity: 0,
+            duration: 1.5,
+            ease: 'power1.inOut'
+        }, "<")
+
+        tl.to(img2Ref.current, {
+            opacity: 0,
+            duration: 1.5,
+            ease: 'power1.inOut'
+        }, "+=3")
+
+        tl.to(img1Ref.current, {
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power1.inOut'
+        }, "<")
+
+    }, [])
+
+    useGSAP(() => {
+
+        const elements = gsap.utils.toArray('.coffret-content > *')
+
+        gsap.fromTo(
+            elements,
+            {
+                y: 40,
+                opacity: 0,
+                scale: 0.95,
+                filter: "blur(6px)"
+            },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+                stagger: 0.15,
+                duration: 0.9,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".coffret-section",
+                    start: "top 70%",
+                    end: "bottom 30%",
+                    toggleActions: "play reverse play reverse"
+                }
+            }
+        )
+
+    }, [])
 
     return (
         <>
@@ -80,6 +96,7 @@ function CoffretDecouverte() {
                     {/* Image avec fondu enchaîné */}
                     <div ref={imageRef} className="relative rounded-lg overflow-hidden aspect-4/3 shadow-xl">
                         <img
+                            ref={img1Ref}
                             src="/images/landing/coffret.webp"
                             alt="Coffret découverte Lumi'laya"
                             className="absolute inset-0 w-full h-full object-cover"
@@ -108,12 +125,12 @@ function CoffretDecouverte() {
                         </h3>
 
                         <p className="text-gray-500 leading-relaxed max-w-md">
-                            Offrez une expérience sensorielle complète avec notre coffret découverte : quatre bougies soigneusement sélectionnées pour s'initier en douceur aux univers <em>Émotions & Plaisirs</em> ou <em>Entre Terre & Ciel</em>.
+                            Offrez une expérience sensorielle complète avec notre coffret découverte : quatre bougies soigneusement sélectionnées pour s'initier en douceur à l'univers <em>Émotions & Plaisirs</em>.
                         </p>
 
                         <ul className="flex flex-col gap-2 text-sm text-gray-600">
                             {[
-                                '4 bougies issues de nos deux collections',
+                                '4 bougies issues de la collection "emotions et Plaisirs"',
                                 'Coffret recyclable premium',
                                 'Livraison soignée, prête à offrir',
                             ].map((item) => (
