@@ -12,12 +12,12 @@ export default function Home() {
     return (
 		<>
 			<Hero />
-			<Quality />
+			{/* <Quality />
 			<Collections />
 			<Event />
 			<BestProducts />
 			<Reviews />
-			<Faq />
+			<Faq /> */}
 		</>
     );
 }
