@@ -25,57 +25,37 @@ function Event() {
     const [events, setEvents] = useState<EventCardProps[]>([]);
 
     useEffect(() => {
+        const loadEvents = async () => {
+            try {
+            const newEvents = await getEvents();
 
-         const loadEvents = async () => {
-            
-                    try {
-                        const newEvents = await getEvents();
+            const stringEvents = newEvents.map(ev => ({
+                id: ev.id,
+                dateStart: new Date(ev.dateStart).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+                }),
+                dateEnd: new Date(ev.dateEnd).toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+                }),
+                city: ev.city,
+                name: ev.name,
+                image: ev.image,
+                url: ev.url,
+                postalCode: ev.postalCode
+            }));
 
-                        const stringEvents = newEvents.map(ev => ({
-                            id: ev.id,
-                            dateStart: new Date(ev.dateStart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
-                            dateEnd: new Date(ev.dateStart).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
-                            city: ev.city,
-                            name: ev.name,
-                            image: ev.image,
-                            url: ev.url,
-                            postalCode: ev.postalCode
-                        }));
+            setEvents(stringEvents);
+            } catch (error) {
+            console.error("Error loading orders", error);
+            }
+        };
 
-                        setEvents(stringEvents);
-                    } catch (error) {
-                        console.error("Error loading orders", error);
-                    }
-        
-                };
-        
-                loadEvents();
-
-    })
-
-    // const events = [
-    //     {
-    //         date: "18 Avril 2026",
-    //         city: "Caissargues (30)",
-    //         place: "Salon du bien-être",
-    //         image: "/images/landing/salon_bien_etre.webp",
-    //         url: "#"
-    //     },
-    //     {
-    //         date: "26 avril 2026",
-    //         city: "Saint Andiol (13)",
-    //         place: "Fête du printemps",
-    //         image: "/images/landing/fete_printemps.webp",
-    //         url: "#"
-    //     },
-    //     {
-    //         date: "10 Mai 2026",
-    //         city: "Vedene (84)",
-    //         place: "Marché artisanal",
-    //         image: "/images/landing/marche_vedene.webp",
-    //         url: "#"
-    //     }
-    // ]
+        loadEvents();
+    }, [])
 
     useGSAP(() => {
 

@@ -13,9 +13,9 @@ export default function Home() {
 		<>
 			<Hero />
 			<Quality />
-			{/* <Collections />
+			{/* <Collections /> */}
 			<Event />
-			<BestProducts />
+			{/* <BestProducts />
 			<Reviews />
 			<Faq /> */}
 		</>
