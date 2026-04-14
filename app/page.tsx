@@ -6,9 +6,9 @@ import Hero from "@/components/layout/landing/Hero";
 import Quality from "@/components/layout/landing/Quality";
 import Reviews from "@/components/layout/landing/Reviews";
 
-export const revalidate = 21600;
+export const dynamic = "force-static";
 
-export default async function Home() {
+export default function Home() {
     return (
 		<>
 			<Hero />
