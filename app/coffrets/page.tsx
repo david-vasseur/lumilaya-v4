@@ -1,4 +1,6 @@
 import Hero_page from '@/components/features/other/Hero_page';
+import CoffretsIntro from '@/components/ui/CoffretIntro';
+import CoffretsFuture from '@/components/ui/CoffretSuggestion';
 import Title from '@/components/ui/Title';
 import Link from 'next/link';
 
@@ -12,28 +14,17 @@ function page() {
             href: "/coffrets/decouverte"
         },
         {
-            title: "Coffret Rituel",
+            title: "Coffret Rituel Protection",
             description: "Un coffret pensé pour accompagner vos moments de recentrage et de bien-être.",
-            image: "/images/landing/coffret.webp",
+            image: "/images/landing/coffret_rit1.webp",
             href: "/coffrets/rituel"
         },
-        {
-            title: "Coffret Émotion",
-            description: "Des fragrances uniques pour éveiller vos sens et vos émotions.",
-            image: "/images/landing/coffret.webp",
-            href: "/coffrets/emotion"
-        },
-        {
-            title: "Coffret Signature",
-            description: "Le meilleur de Lumi'laya dans un coffret premium et élégant.",
-            image: "/images/landing/coffret.webp",
-            href: "/coffrets/signature"
-        }
     ];
 
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
             <Hero_page />
+            <CoffretsIntro />
             <Title id='noscoffrets' title='Nos coffrets' />
 
             <div className="max-w-7xl mx-auto px-6 py-12">
@@ -72,6 +63,7 @@ function page() {
 
                 </div>
             </div>
+            <CoffretsFuture />
         </div>
     )
 }

@@ -120,7 +120,7 @@ function Hero_page() {
                             href="/coffrets/decouverte"
                             className="group mt-2 mb-30 inline-flex items-center gap-2 bg-[#5A7B6E] hover:bg-[#4a6b5e] text-[#FDFBF7] rounded-full px-8 py-3.5 text-sm tracking-wide transition-colors duration-300 w-fit"
                         >
-                            Composez votre coffret
+                            Decouvrir le coffret
                             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                         </Link>
                     </div>
