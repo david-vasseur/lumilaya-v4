@@ -166,7 +166,7 @@ const Footer = () => {
 						<h3 className="text-lg font-medium mb-6">Collections</h3>
 						<ul className="space-y-3">
 							<li>
-								<Link href="/bougies-emotions" className="text-white/80 hover:text-white transition-colors">
+								<Link href="/bougies-emotion" className="text-white/80 hover:text-white transition-colors">
 									Émotions & Plaisirs
 								</Link>
 							</li>
