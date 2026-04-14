@@ -170,7 +170,7 @@ function Best({ products }: IBest) {
                         </button>
 
                         <Link
-                            href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotions"}/${product.slug}`}
+                            href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotion"}/${product.slug}`}
                             className="flex-1 flex items-center justify-center border-2 border-[#7A9B8E] text-[#7A9B8E] py-3 rounded-xl"
                         >
                             Découvrir
