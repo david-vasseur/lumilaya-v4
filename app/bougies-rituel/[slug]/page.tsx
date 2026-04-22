@@ -4,6 +4,7 @@ import Principal from '@/components/layout/product_page/Principal';
 import Suggest from '@/components/layout/product_page/Suggest';
 import { getOneProductBySlug, getSuggestedProduct } from '@/lib/action/product.action';
 import { getReviewById } from '@/lib/action/review.action';
+import { unstable_noStore } from 'next/cache';
 
 interface Props {
     params: { slug: string };
@@ -16,7 +17,12 @@ export const dynamic = "force-dynamic";
 
 ///// METADATAS DYNAMIQUES /////
 export async function generateMetadata({ params }: Props) {
-    const product = await getOneProductBySlug(params.slug);
+
+    unstable_noStore();
+
+    const { slug } = await params;
+
+    const product = await getOneProductBySlug(slug);
     if (!product) return {};
 
     return {

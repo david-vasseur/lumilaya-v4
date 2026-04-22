@@ -19,7 +19,10 @@ export const dynamic = "force-dynamic";
 
 ///// METADATAS ///// 
 export async function generateMetadata({ params }: Props) {
-    const product = await getOneProductBySlug(params.slug);
+
+    const { slug } = await params;
+
+    const product = await getOneProductBySlug(slug);
 
     if (!product) return {};
 
