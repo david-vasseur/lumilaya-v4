@@ -102,7 +102,7 @@ function Hero_page() {
                             Quatre bougies soigneusement sélectionnées pour s'initier en douceur à l'univers <em>Émotions & Plaisirs</em>.
                         </p>
                         <Link
-                            href="/coffrets/decouverte"
+                            href="/coffrets/coffret-decouverte"
                             className="group mt-2 mb-30 inline-flex items-center gap-2 bg-[#5A7B6E] hover:bg-[#4a6b5e] text-[#FDFBF7] rounded-full px-8 py-3.5 text-sm tracking-wide transition-colors duration-300 w-fit"
                         >
                             Composez votre coffret
@@ -117,7 +117,7 @@ function Hero_page() {
                             Offrez une expérience sensorielle complète avec notre coffret Rituel.
                         </p>
                         <Link
-                            href="/coffrets/decouverte"
+                            href="/coffrets/coffret-rituel-protection"
                             className="group mt-2 mb-30 inline-flex items-center gap-2 bg-[#5A7B6E] hover:bg-[#4a6b5e] text-[#FDFBF7] rounded-full px-8 py-3.5 text-sm tracking-wide transition-colors duration-300 w-fit"
                         >
                             Decouvrir le coffret

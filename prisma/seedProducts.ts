@@ -8,7 +8,7 @@ const products = [
             collection: "Coffret",
             name: "Coffret Protection",
             slug: "coffret-protection",
-            intro: "Ce coffret a été imaginé comme un véritable moment pour soi… Un rituel simple et accessible pour nettoyer les énergies, se recentrer et retrouver un sentiment de sécurité intérieure. Chaque élément a été choisi avec soin pour vous accompagner dans un espace de calme, de présence et de protection",
+            intro: "Protection est une invitation à vous recentrer. À purifier votre espace. À vous sentir en sécurité. Chaque flamme devient un bouclier doux, un espace sacré où les énergies lourdes se dissipent, où l’agitation extérieure s’apaise et où la sérénité retrouve sa place. Ce n'est pas seulement une bougie. C'est un cocon énergétique.",
             theme: {
                 top: "Cannelle",
                 heart: "Cèdre & patchouli",
@@ -29,15 +29,16 @@ const products = [
             "/images/products/protection5.webp"
         ],
         variants: [
-            { name: "Coffret Rituel Protection", duration: 30, weight:250, price: 40 }
+            { name: "Bougie Protection 200g", duration: 30, weight:200, price: 32 }
         ],
         wellness: {
             idealFor: [
-                "Vous ressentez le besoin de vous protéger énergétiquement",
-                "Vous souhaitez purifier votre intérieur ou votre espace de vie",
-                "Vous traversez une période de changement ou de fatigue émotionnelle",
-                "Vous avez envie de vous offrir un moment de recentrage et de calme",
-                "Vous êtes attiré(e) par les rituels simples et naturels"
+                "Vous ressentez des énergies lourdes autour de vous",
+                "Vous avez besoin de purifier votre intérieur",
+                "Vous souhaitez renforcer votre protection énergétique",
+                "Vous traversez une période stressante",
+                "Vous aspirez à plus de sérénité et de stabilité",
+                "Vous voulez créer un cocon protecteur chez vous"
             ],
             stones: [
                 {
