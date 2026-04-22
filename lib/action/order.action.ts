@@ -23,7 +23,17 @@ export const sendOrderEmailToCompany = async (order: OrderEmailData, products: O
                 <h2 style="font-size: 18px; margin-top: 20px; color: #333;">Détails de la commande</h2>
                 <p style="margin: 4px 0;"><strong>Total :</strong> ${order.total}€</p>
                 <ul style="padding-left: 20px; color: #333;">
-                    ${products.map(p => `<li>${p.qty} x ${p.name} : ${p.price}€</li>`).join('')}
+                    ${products.map(p => `
+                        <li style="margin-bottom: 10px;">
+                            <strong>${p.qty} x ${p.name}</strong> — ${p.price}€
+
+                            ${p.options?.length ? `
+                            <div style="font-size: 12px; color: #666; margin-top: 4px;">
+                                <strong>Parfums :</strong> ${p.options.join(" • ")}
+                            </div>
+                            ` : ""}
+                        </li>
+                        `).join('')}
                 </ul>
 
                 <h2 style="font-size: 18px; margin-top: 20px; color: #333;">Adresse de livraison</h2>

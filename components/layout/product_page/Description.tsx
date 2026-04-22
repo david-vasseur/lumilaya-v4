@@ -6,6 +6,7 @@ function Description({ product, variant }: { product: IProduct, variant: number 
 
     const desc = product.description;
     const wellness = product.wellness;
+    const content = product.meta.content;
 
     if (!product.meta.theme) return;
 
@@ -22,6 +23,26 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                 Description
                 </h2>
                 <div className="mt-8 bg-[#F5F1EB] rounded-xl p-6">
+                    {content && (
+                        <div className="space-y-8 mb-12">
+
+                            {/* Section contenu coffret */}
+                            <div>
+                                <h3 className="font-ballet text-4xl text-[#2C2C2C] mb-4">
+                                    Ce coffret contient :
+                                </h3>
+                                <div className="space-y-2">
+                                {content.map((cont, index) => (
+                                    <div key={index} className="flex items-start gap-2">
+                                    <div className="w-2 h-2 mt-2 bg-[#7A9B8E] rounded-full"></div>
+                                    <span className="text-sm text-[#2C2C2C]/70">{cont}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            </div>
+                        </div>
+                    )}
+
                     {wellness ? (
                         <div className="space-y-8">
 
@@ -77,21 +98,22 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                     </div>
                 
                 
+                {product.meta.slug !== "coffret-decouverte" && (
+                    <div className="mt-8 bg-[#F5F1EB] rounded-xl p-6">
+                        <h3 className="font-medium text-[#2C2C2C] mb-3">Notes olfactives</h3>
+                        <div className="space-y-2">
+                            {notes.map((note) => (
+                                <div key={note.label} className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-[#7A9B8E] rounded-full"></div>
 
-                <div className="mt-8 bg-[#F5F1EB] rounded-xl p-6">
-                    <h3 className="font-medium text-[#2C2C2C] mb-3">Notes olfactives</h3>
-                    <div className="space-y-2">
-                        {notes.map((note) => (
-                            <div key={note.label} className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-[#7A9B8E] rounded-full"></div>
-
-                            <span className="text-sm text-[#2C2C2C]/70">
-                                {note.label} : {note.value}
-                            </span>
-                            </div>
-                        ))}
+                                <span className="text-sm text-[#2C2C2C]/70">
+                                    {note.label} : {note.value}
+                                </span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}  
             </div>
 
             <div>
@@ -117,7 +139,7 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                     </div>
                     <div className="flex justify-between py-3 border-b border-[#2C2C2C]/10">
                         <span className="text-[#2C2C2C]/60 flex gap-2 items-center">Poids net <Info className="w-4 h-4 text-green-800/60" /></span>
-                        <span className="text-[#2C2C2C] font-medium">{product.meta.collection === "Emotion" ? Math.round(product?.variants[variant].weight + 107) : Math.round(product?.variants[variant].weight + 140)}g</span>
+                        <span className="text-[#2C2C2C] font-medium">{product.meta.slug === "coffret-decouverte" ? Math.round(product?.variants[variant].weight + 58) : product.meta.slug.startsWith('coffret-rituel') ? Math.round(product?.variants[variant].weight + 116) : product.meta.collection === "Emotion" ? Math.round(product?.variants[variant].weight + 107) : Math.round(product?.variants[variant].weight + 140)}g</span>
                     </div>
                     <div className="flex justify-between py-3 border-b border-[#2C2C2C]/10">
                         <span className="text-[#2C2C2C]/60">Contenant</span>

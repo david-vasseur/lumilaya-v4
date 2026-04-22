@@ -3,14 +3,16 @@ import { Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ICartItem {
+    productId: number,
     id: number,
     image: string,
     name: string,
     price: number,
-    qty: number
+    qty: number,
+    option?: string[]
 }
 
-function CartItem({ id, image, name, price, qty = 1 }: ICartItem) {
+function CartItem({ productId, id, image, name, option, price, qty = 1 }: ICartItem) {
 
     const { deleteItem } = useCartStore();
 
@@ -24,12 +26,23 @@ function CartItem({ id, image, name, price, qty = 1 }: ICartItem) {
                     alt='image produit' 
                     className="rounded-lg" />
                 <p>{name}</p>
+                
+                {option && option?.length > 0 && (
+                    <p className='hidden xl:block'>
+                        (
+                        {option.map((option, index) => (
+                        <span key={index} className='text-xs'>1x {option} </span>
+                    ))}
+                        )
+                    </p>      
+                )}
+                
             </div>            
             <span className="flex items-center justify-center">{qty}</span>
             <span className="flex items-center justify-center">{price} €</span>
             <div 
                 className="flex items-center justify-center cursor-pointer"
-                onClick={() => {deleteItem(id); toast.error("Produit supprimé")}}
+                onClick={() => {deleteItem(productId, id, option); toast.error("Produit supprimé")}}
                 >
                 <Trash2 className="text-red-400/90" />
             </div>

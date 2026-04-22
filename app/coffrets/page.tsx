@@ -11,13 +11,13 @@ function page() {
             title: "Coffret Découverte",
             description: "Une sélection de nos bougies emblématiques pour découvrir l'univers Lumi'laya.",
             image: "/images/landing/coffret.webp",
-            href: "/coffrets/decouverte"
+            href: "/coffrets/coffret-decouverte"
         },
         {
             title: "Coffret Rituel Protection",
             description: "Un coffret pensé pour accompagner vos moments de recentrage et de bien-être.",
             image: "/images/landing/coffret_rit1.webp",
-            href: "/coffrets/rituel"
+            href: "/coffrets/coffret-rituel-protection"
         },
     ];
 

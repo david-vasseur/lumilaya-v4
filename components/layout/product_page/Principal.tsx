@@ -6,12 +6,16 @@ import { useState } from 'react';
 import Description from './Description';
 import { IProduct } from '@/types/product';
 import { IReview } from '@/schema/review';
+import { log } from 'console';
 
 function Principal({ product, reviews }: { product: IProduct, reviews: IReview[] }) {
 
     const [quantity, setQuantity] = useState(1);
-    const [selectedSize, setSelectedSize] = useState(150);
-    let variant: number = selectedSize === 150 ? 0 : 1; 
+    const [selectedSize, setSelectedSize] = useState(product.variants[0].weight);
+    const variantIndex = product.variants.findIndex(
+        v => v.weight === selectedSize
+    );
+    
 
     const average = reviews.length ? reviews.reduce((acc, review) => acc + review.note, 0) / reviews.length : 0
 
@@ -23,11 +27,11 @@ function Principal({ product, reviews }: { product: IProduct, reviews: IReview[]
                 <ProductCaroussel images={product.images} />
 
                 {/* Informations produit */}
-                <ProductInfo product={product} quantity={quantity} setQuantity={setQuantity} selectedSize={selectedSize} setSelectedSize={setSelectedSize} variant={variant} averageRating={average} reviewCount={reviews.length} />
+                <ProductInfo product={product} quantity={quantity} setQuantity={setQuantity} selectedSize={selectedSize} setSelectedSize={setSelectedSize} variant={variantIndex} averageRating={average} reviewCount={reviews.length} />
 
             </div>
 
-            <Description product={product} variant={0} />
+            <Description product={product} variant={variantIndex} />
           </>
     )
 }

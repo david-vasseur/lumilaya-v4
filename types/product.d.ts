@@ -33,6 +33,7 @@ export interface IProductMeta {
   stock: boolean
   promo?: number
   like?: number
+  content?: string[]
 }
 
 export interface IProduct {

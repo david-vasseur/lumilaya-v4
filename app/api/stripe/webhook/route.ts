@@ -10,6 +10,7 @@ type ServerItem = {
 	qty: number;
 	name: string;
     price: number;
+    options?: string[];
 };
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -18,6 +19,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: NextRequest) {
     const sig = req.headers.get("stripe-signature");
+
+    const ALLOWED_OPTIONS = [
+        "Harmonie",
+        "Vitalité",
+        "Tendresse",
+        "Douceur",
+        "Magie"
+    ];
 
     if (!sig) {
         return NextResponse.json({ error: "Missing signature" }, { status: 400 });
@@ -51,6 +60,14 @@ export async function POST(req: NextRequest) {
             quantity: p.qty,
             productId: p.productId,
             variantId: p.variantId,
+            options: Array.isArray(p.options) ? p.options.filter(opt => ALLOWED_OPTIONS.includes(opt)).slice(0, 4) : []
+        }));
+
+        const orderForEmail = orderItemsForPrisma.map(({ name, price, quantity, options }) => ({
+            name,
+            price: Number(price),
+            qty: quantity,
+            options
         }));
 
         const order = await prisma.order.create({
@@ -79,7 +96,7 @@ export async function POST(req: NextRequest) {
 
         // Envoie de l'email
         try {
-            await sendOrderEmailToCompany(order, metadataProducts);
+            await sendOrderEmailToCompany(order, orderForEmail);
             console.log("Email envoyé avec succès");
         } catch (err) {
             console.error("Erreur lors de l'envoi de l'email:", err);

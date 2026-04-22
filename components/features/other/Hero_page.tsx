@@ -62,7 +62,7 @@ function Hero_page() {
 
     return (
         <div className="h-[80vh] relative w-screen">
-            <div className='absolute inset-0 z-5 bg-linear-to-t from-20% to-80% from-[#FDFBF7] to-transparent' />
+            <div className='absolute inset-0 z-5 bg-linear-to-t from-20% to-99% backdrop-blur-[1px] from-[#FDFBF7] to-transparent' />
             <img
                 ref={(el) => {el && (imagesRef.current[0] = el)}}
                 src="/images/landing/coffret.webp"
@@ -97,7 +97,7 @@ function Hero_page() {
 
                     {/* Slide 1 */}
                     <div className="w-1/2 h-full flex flex-col justify-end items-center gap-6 coffret-content">
-                        <h1 className='text-6xl font-medium font-ballet'>Le coffret Découverte</h1>
+                        <h1 className='max-w-screen text-center mb-28 text-7xl xl:text-[7rem] font-medium font-ballet'>Le coffret Découverte</h1>
                         <p className="text-gray-500 leading-relaxed px-10 max-w-md">
                             Quatre bougies soigneusement sélectionnées pour s'initier en douceur à l'univers <em>Émotions & Plaisirs</em>.
                         </p>
@@ -112,7 +112,7 @@ function Hero_page() {
 
                     {/* Slide 2 */}
                     <div className="w-1/2 flex flex-col justify-end items-center gap-6 coffret-content">
-                        <h1 className='text-6xl font-medium font-ballet'>Le coffret Rituel</h1>
+                        <h1 className='max-w-screen text-center mb-28 text-7xl xl:text-[7rem] font-medium font-ballet'>Le coffret Rituel</h1>
                         <p className="text-gray-500 leading-relaxed px-10 max-w-md">
                             Offrez une expérience sensorielle complète avec notre coffret Rituel.
                         </p>
