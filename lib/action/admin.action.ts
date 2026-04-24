@@ -155,3 +155,65 @@ export const createEvent = async (token: string, fingerprint: string, data: IEve
 
     return await response.json();
 }
+
+export const getAllProducts = async (token: string, fingerprint: string) => {
+
+    const response = await fetch('http://lumilaya_service:4005/product/all', {
+        method: "GET",
+        headers: {
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+        },
+    })
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+
+}
+
+export const getOneProductById = async (token: string, fingerprint: string, id:number) => {
+
+    const response = await fetch(`http://lumilaya_service:4005/product/${id}`, {
+        method: "GET",
+        headers: {
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+
+}
+
+export const updateProduct = async (
+    token: string,
+    fingerprint: string,
+    id: number,
+    data: any
+) => {
+    const response = await fetch(
+        `http://lumilaya_service:4005/product/${id}`,
+        {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "x-fingerprint": fingerprint,
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+    }
+
+    return await response.json();
+};
