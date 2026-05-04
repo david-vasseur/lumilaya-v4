@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/features/navbar/Nav";
 import { Toaster } from "sonner";
 import Modal from "@/components/features/modal/Modal";
+import DiscountBanner from "@/components/features/modal/discount";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -137,6 +138,7 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} ${ballet?.variable ?? ''} antialiased overflow-x-hidden`}
 			>
 				<Toaster />
+				<DiscountBanner />
 				<Nav />				
 				{children}
 				<Modal />
