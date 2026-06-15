@@ -6,7 +6,7 @@ function Nav() {
 
 
     return (
-        <nav className={`fixed top-10 left-0 right-0 z-50`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50`}>
             <div className="hidden md:block">
                 <DesktopMenu items={items} />
             </div> 

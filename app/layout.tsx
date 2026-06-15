@@ -138,7 +138,7 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} ${ballet?.variable ?? ''} antialiased overflow-x-hidden`}
 			>
 				<Toaster />
-				<DiscountBanner />
+				{/* <DiscountBanner /> */}
 				<Nav />				
 				{children}
 				<Modal />
