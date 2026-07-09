@@ -2,6 +2,7 @@
 
 import { IEvent } from "@/schema/event";
 import { ShippingStatus } from "../generated/prisma/enums";
+import { IProduct } from "@/schema/product";
 
 export const verifyToken = async (token: string, fingerprint: string) => {
 
@@ -217,3 +218,46 @@ export const updateProduct = async (
 
     return await response.json();
 };
+
+export async function createProduct( token: string, fingerprint: string, data: IProduct) {
+
+    const formData = new FormData();
+
+
+    const {
+        images,
+        ...product
+    } = data;
+
+
+    formData.append(
+        "product",
+        JSON.stringify(product)
+    );
+
+
+    images.forEach(image => {
+        formData.append(
+            "images",
+            image
+        );
+    });
+
+
+    const res = await fetch(
+        `${process.env.API_URL}/product/create`,
+        {
+            method: "POST",
+
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "x-fingerprint": fingerprint
+            },
+
+            body: formData
+        }
+    );
+
+
+    return await res.json();
+}
