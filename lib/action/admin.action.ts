@@ -245,7 +245,7 @@ export async function createProduct( token: string, fingerprint: string, data: I
 
 
     const res = await fetch(
-        `${process.env.API_URL}/product/create`,
+        `http://lumilaya_service:4005/product/create`,
         {
             method: "POST",
 
