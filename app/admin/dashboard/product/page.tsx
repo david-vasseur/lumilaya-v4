@@ -5,10 +5,12 @@ import { getAllProducts } from "@/lib/action/admin.action";
 import { generateFingerprint } from "@/utils/dbFunction";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import ProductForm from "@/components/form/admin/ProductForm";
 
 function Page() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [creating, setIsCreating] = useState(true);
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -35,6 +37,15 @@ function Page() {
         <BackButton />
 
         <h1 className="text-2xl font-bold mb-6">Produits</h1>
+
+        <button
+            className="bg-[#7A9B8E] text-white px-5 py-2.5 rounded-xl hover:bg-[#6A8B7E] transition shadow"
+            onClick={() => setIsCreating(!creating)}
+        >Ajouter un produit</button>
+
+        {creating && (
+            <ProductForm />
+        )}
 
         {loading ? (
             <p className="text-gray-500">Chargement...</p>
