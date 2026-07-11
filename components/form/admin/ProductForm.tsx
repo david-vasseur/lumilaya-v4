@@ -115,7 +115,7 @@ function ProductForm() {
             {({state,handleChange,handleBlur})=>(
 
             <div>
-                <label className="block text-sm font-medium mb-2">Collection *</label>
+                <label className="block text-sm font-medium mb-2">Collection * <em>"Emotion" ou "Rituel"</em></label>
                 <input
                     className="w-full rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
                     value={state.value}
@@ -160,7 +160,7 @@ function ProductForm() {
         {/* VARIANTS */}
         {showVariants && (
 
-            <div className="space-y-4">
+            <div className="space-y-4 rounded-2xl p-5 border-black/50 border">
 
                 {
                 form.state.values.variants.map((_, index) => (
@@ -204,7 +204,7 @@ function ProductForm() {
                             {({state, handleChange, handleBlur}) => (
 
                                 <div>
-
+                                    <label>Nom et poids de la bougie <em>exemple: "Bougie Tendresse 150g"</em></label>
                                     <input
                                         className="input"
                                         placeholder="Nom du format"
@@ -238,19 +238,20 @@ function ProductForm() {
                                 name={`variants[${index}].duration`}
                             >
                                 {({state,handleChange})=>(
-
-                                    <input
-                                        className="input"
-                                        type="number"
-                                        placeholder="Durée"
-                                        value={state.value}
-                                        onChange={(e)=>
-                                            handleChange(
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                    />
-
+                                    <div>
+                                        <label>Durée de combustion minimale <em>exemple: "25" pour une bougie emotion</em></label>
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            placeholder="Durée"
+                                            value={state.value}
+                                            onChange={(e)=>
+                                                handleChange(
+                                                    Number(e.target.value)
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 )}
                             </form.Field>
 
@@ -261,19 +262,20 @@ function ProductForm() {
                                 name={`variants[${index}].weight`}
                             >
                                 {({state,handleChange})=>(
-
-                                    <input
-                                        className="input"
-                                        type="number"
-                                        placeholder="Poids"
-                                        value={state.value}
-                                        onChange={(e)=>
-                                            handleChange(
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                    />
-
+                                    <div>
+                                        <label>Poids de la cire de bougie <em>exemple: "150"</em></label>
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            placeholder="Poids"
+                                            value={state.value}
+                                            onChange={(e)=>
+                                                handleChange(
+                                                    Number(e.target.value)
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 )}
                             </form.Field>
 
@@ -284,20 +286,21 @@ function ProductForm() {
                                 name={`variants[${index}].price`}
                             >
                                 {({state,handleChange})=>(
-
-                                    <input
-                                        className="input"
-                                        type="number"
-                                        step="0.01"
-                                        placeholder="Prix"
-                                        value={state.value}
-                                        onChange={(e)=>
-                                            handleChange(
-                                                Number(e.target.value)
-                                            )
-                                        }
-                                    />
-
+                                    <div>
+                                        <label>Prix de la bougie <em>exemple: "19.90" pour une bougie à 19,90€</em></label>
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            step="0.01"
+                                            placeholder="Prix"
+                                            value={state.value}
+                                            onChange={(e)=>
+                                                handleChange(
+                                                    Number(e.target.value)
+                                                )
+                                            }
+                                        />
+                                    </div>
                                 )}
                             </form.Field>
 
@@ -319,7 +322,7 @@ function ProductForm() {
             {({state,handleChange})=>(
 
             <div>
-                <label className="block text-sm font-medium mb-2">Slug *</label>
+                <label className="block text-sm font-medium mb-2">Slug * <em>exemple: "bougie-vitalite" pour une Bougie Vitalité</em></label>
                 <input
                     className="w-full rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
                     value={state.value}
@@ -355,7 +358,7 @@ function ProductForm() {
 
 
         {/* THEME */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-4 rounded-2xl border border-black/50">
             <form.Field name="meta.theme.top">
                 {({state,handleChange})=>(
                     <input
