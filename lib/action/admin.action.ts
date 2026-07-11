@@ -219,45 +219,114 @@ export const updateProduct = async (
     return await response.json();
 };
 
-export async function createProduct( token: string, fingerprint: string, data: IProduct) {
+// export async function createProduct( token: string, fingerprint: string, data: IProduct) {
+
+//     const formData = new FormData();
+
+
+//     const {
+//         images,
+//         ...product
+//     } = data;
+
+
+//     formData.append(
+//         "product",
+//         JSON.stringify(product)
+//     );
+
+
+//     images.forEach(image => {
+//         formData.append(
+//             "images",
+//             image
+//         );
+//     });
+
+
+//     const res = await fetch(
+//         `http://lumilaya_service:4005/product/create`,
+//         {
+//             method: "POST",
+
+//             headers: {
+//                 Authorization: `Bearer ${token}`,
+//                 "x-fingerprint": fingerprint
+//             },
+
+//             body: formData
+//         }
+//     );
+
+
+//     return await res.json();
+// }
+
+export async function createProduct(
+    token: string,
+    fingerprint: string,
+    data: IProduct
+) {
+    console.log("📥 ServerAction createProduct appelée");
+
+    console.log("📦 Données reçues :", {
+        name: data.meta.name,
+        collection: data.meta.collection,
+        theme: data.meta.theme,
+        imagesCount: data.images.length,
+        variantsCount: data.variants.length,
+        tagsCount: data.tags.length,
+    });
 
     const formData = new FormData();
-
 
     const {
         images,
         ...product
     } = data;
 
+    console.log("🧾 JSON produit avant stringify :", product);
 
     formData.append(
         "product",
         JSON.stringify(product)
     );
 
+    console.log("📸 Ajout des images :", images.length);
 
     images.forEach(image => {
+        console.log(
+            "➡️ Image ajoutée :",
+            image.name,
+            image.type,
+            image.size
+        );
+
         formData.append(
             "images",
             image
         );
     });
 
+    console.log("🚀 Envoi vers API produit");
 
     const res = await fetch(
         `http://lumilaya_service:4005/product/create`,
         {
             method: "POST",
-
             headers: {
                 Authorization: `Bearer ${token}`,
                 "x-fingerprint": fingerprint
             },
-
             body: formData
         }
     );
 
+    console.log("📡 Réponse API :", res.status);
 
-    return await res.json();
+    const result = await res.json();
+
+    console.log("📦 Retour API :", result);
+
+    return result;
 }
