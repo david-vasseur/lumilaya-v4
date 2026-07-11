@@ -55,7 +55,7 @@ function ProductForm() {
                     value
                 );
 
-            if(res.success){
+            if(res.id){
                 toast.success(
                     "Produit créé avec succès"
                 );
@@ -106,26 +106,63 @@ function ProductForm() {
             )}
         </form.Field>
 
-
-        
-
-
         {/* COLLECTION */}
         <form.Field name="meta.collection">
-            {({state,handleChange,handleBlur})=>(
+            {({ state, handleChange, handleBlur }) => (
+                <div>
+                    <label className="block text-sm font-medium mb-2">
+                        Collection * <em>"Emotion" ou "Terre"</em>
+                    </label>
 
-            <div>
-                <label className="block text-sm font-medium mb-2">Collection * <em>"Emotion" ou "Rituel"</em></label>
-                <input
-                    className="w-full rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e)=>
-                        handleChange(e.target.value)
-                    }
-                />
-            </div>
+                    <select
+                        className="w-full rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
+                        value={state.value}
+                        onBlur={handleBlur}
+                        onChange={(e) => {
+                            const collection = e.target.value;
 
+                            handleChange(collection);
+
+                            if (
+                                collection === "Terre" &&
+                                !form.state.values.wellness?.stones
+                            ) {
+                                form.setFieldValue(
+                                    "wellness",
+                                    {
+                                        stones: [
+                                            {
+                                                name: "",
+                                                benefits: [""]
+                                            }
+                                        ],
+                                        idealFor: [""]
+                                    }
+                                );
+                            }
+
+                            if (collection === "Emotion") {
+                                form.setFieldValue(
+                                    "wellness",
+                                    {}
+                                );
+                            }
+                        }}
+                    >
+                        <option value="">
+                            Sélectionner une collection
+                        </option>
+
+                        <option value="Emotion">
+                            Emotion & Plaisir
+                        </option>
+
+                        <option value="Terre">
+                            entre Terre & Ciel
+                        </option>
+
+                    </select>
+                </div>
             )}
         </form.Field>
 
@@ -316,6 +353,228 @@ function ProductForm() {
 
             )}
 
+        {/* WELLNESS */}
+        {form.state.values.meta.collection === "Terre" && (
+            <div className="space-y-8">
+
+                <h2 className="text-lg font-semibold">
+                    Wellness
+                </h2>
+
+
+                {/* STONES */}
+                <form.Field
+                    name="wellness.stones"
+                    mode="array"
+                >
+                    {(field) => (
+                        <div className="space-y-4">
+
+                            <div className="flex justify-between items-center">
+                                <h3 className="font-medium">
+                                    Pierres
+                                </h3>
+
+                                <button
+                                    type="button"
+                                    className="text-sm underline"
+                                    onClick={() =>
+                                        field.pushValue({
+                                            name: "",
+                                            benefits: [""]
+                                        })
+                                    }
+                                >
+                                    + Ajouter une pierre
+                                </button>
+                            </div>
+
+
+                            {field.state.value && field.state.value.map((stone, index) => (
+                                <div
+                                    key={index}
+                                    className="rounded-lg border p-4 space-y-4"
+                                >
+
+                                    {/* NOM DE LA PIERRE */}
+                                    <form.Field
+                                        name={`wellness.stones[${index}].name`}
+                                    >
+                                        {(subField) => (
+                                            <div>
+                                                <label className="block text-sm font-medium mb-2">
+                                                    Nom de la pierre
+                                                </label>
+
+                                                <input
+                                                    className="w-full rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
+                                                    value={subField.state.value}
+                                                    onChange={(e) =>
+                                                        subField.handleChange(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </form.Field>
+
+
+                                    {/* BENEFITS */}
+                                    <form.Field
+                                        name={`wellness.stones[${index}].benefits`}
+                                        mode="array"
+                                    >
+                                        {(benefitsField) => (
+                                            <div className="space-y-3">
+
+                                                <label className="block text-sm font-medium">
+                                                    Bienfaits
+                                                </label>
+
+
+                                                {benefitsField.state.value && benefitsField.state.value.map(
+                                                    (_, benefitIndex) => (
+                                                        <div
+                                                            key={benefitIndex}
+                                                            className="flex gap-2"
+                                                        >
+
+                                                            <form.Field
+                                                                name={`wellness.stones[${index}].benefits[${benefitIndex}]`}
+                                                            >
+                                                                {(benefitField) => (
+                                                                    <input
+                                                                        className="flex-1 rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
+                                                                        value={
+                                                                            benefitField.state.value
+                                                                        }
+                                                                        onChange={(e) =>
+                                                                            benefitField.handleChange(
+                                                                                e.target.value
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )}
+                                                            </form.Field>
+
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    benefitsField.removeValue(
+                                                                        benefitIndex
+                                                                    )
+                                                                }
+                                                            >
+                                                                ❌
+                                                            </button>
+
+                                                        </div>
+                                                    )
+                                                )}
+
+
+                                                <button
+                                                    type="button"
+                                                    className="text-sm underline"
+                                                    onClick={() =>
+                                                        benefitsField.pushValue("")
+                                                    }
+                                                >
+                                                    + Ajouter un bienfait
+                                                </button>
+
+                                            </div>
+                                        )}
+                                    </form.Field>
+
+
+                                    <button
+                                        type="button"
+                                        className="text-sm text-red-600"
+                                        onClick={() =>
+                                            field.removeValue(index)
+                                        }
+                                    >
+                                        Supprimer cette pierre
+                                    </button>
+
+                                </div>
+                            ))}
+
+                        </div>
+                    )}
+                </form.Field>
+
+
+
+                {/* IDEAL FOR */}
+                <form.Field
+                    name="wellness.idealFor"
+                    mode="array"
+                >
+                    {(field) => (
+                        <div className="space-y-4">
+
+                            <div className="flex justify-between items-center">
+                                <h3 className="font-medium">
+                                    Idéal pour
+                                </h3>
+
+                                <button
+                                    type="button"
+                                    className="text-sm underline"
+                                    onClick={() =>
+                                        field.pushValue("")
+                                    }
+                                >
+                                    + Ajouter
+                                </button>
+                            </div>
+
+
+                            {field.state.value && field.state.value.map((_, index) => (
+                                <div
+                                    key={index}
+                                    className="flex gap-2"
+                                >
+
+                                    <form.Field
+                                        name={`wellness.idealFor[${index}]`}
+                                    >
+                                        {(subField) => (
+                                            <input
+                                                className="flex-1 rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
+                                                value={subField.state.value}
+                                                onChange={(e) =>
+                                                    subField.handleChange(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </form.Field>
+
+
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            field.removeValue(index)
+                                        }
+                                    >
+                                        ❌
+                                    </button>
+
+                                </div>
+                            ))}
+
+                        </div>
+                    )}
+                </form.Field>
+
+            </div>
+        )}
 
         {/* SLUG */}
         <form.Field name="meta.slug">

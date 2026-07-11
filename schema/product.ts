@@ -1,5 +1,18 @@
 import { z } from "zod";
 
+const wellnessSchema = z.union([
+    z.object({
+        stones: z.array(
+            z.object({
+                name: z.string(),
+                benefits: z.array(z.string())
+            })
+        ),
+        idealFor: z.array(z.string())
+    }),
+    z.object({})
+]);
+
 
 export const ProductSchema = z.object({
 
@@ -13,7 +26,7 @@ export const ProductSchema = z.object({
         .min(1, "Au moins une image est requise"),
 
 
-    wellness: z.any().optional(),
+    wellness: wellnessSchema.optional(),
 
 
     meta: z.object({
