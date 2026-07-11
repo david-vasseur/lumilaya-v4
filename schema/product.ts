@@ -43,7 +43,6 @@ export const ProductSchema = z.object({
         intro: z.string()
             .min(1, "L'introduction est requise"),
 
-
         theme: z.object({
 
             top: z.string()
@@ -57,6 +56,7 @@ export const ProductSchema = z.object({
 
         }),
 
+        content: z.array(z.string()).optional(),
 
         stock: z.boolean(),
 

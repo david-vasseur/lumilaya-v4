@@ -23,23 +23,40 @@ function Description({ product, variant }: { product: IProduct, variant: number 
                 Description
                 </h2>
                 <div className="mt-8 bg-[#F5F1EB] rounded-xl p-6">
-                    {content && (
+                    {content && content.length > 0 && (
                         <div className="space-y-8 mb-12">
 
-                            {/* Section contenu coffret */}
                             <div>
                                 <h3 className="font-ballet text-4xl text-[#2C2C2C] mb-4">
                                     Ce coffret contient :
                                 </h3>
+
                                 <div className="space-y-2">
-                                {content.map((cont, index) => (
-                                    <div key={index} className="flex items-start gap-2">
-                                    <div className="w-2 h-2 mt-2 bg-[#7A9B8E] rounded-full"></div>
-                                    <span className="text-sm text-[#2C2C2C]/70">{cont}</span>
-                                    </div>
-                                ))}
+                                    {content.map((cont, index) => {
+                                        const [title, ...description] = cont.split(":");
+
+                                        return (
+                                            <div key={index} className="flex items-start gap-2">
+                                                <div className="w-2 h-2 mt-2 bg-[#7A9B8E] rounded-full"></div>
+
+                                                <span className="text-sm text-[#2C2C2C]/70">
+                                                    {description.length > 0 ? (
+                                                        <>
+                                                            <strong className="font-medium text-[#2C2C2C]">
+                                                                {title}:
+                                                            </strong>
+                                                            {description.join(":")}
+                                                        </>
+                                                    ) : (
+                                                        cont
+                                                    )}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                            </div>
+
                         </div>
                     )}
 

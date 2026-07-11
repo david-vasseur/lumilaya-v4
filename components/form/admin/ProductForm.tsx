@@ -12,6 +12,7 @@ import { useState } from "react";
 function ProductForm() {
 
     const [showVariants, setShowVariants] = useState(false);
+    const [isCoffret, setIsCoffret] = useState(false);
 
     const form = useForm({
         defaultValues: {
@@ -23,6 +24,7 @@ function ProductForm() {
                 name: "",
                 slug: "",
                 intro: "",
+                content: [],
                 theme: {
                     top: "",
                     heart: "",
@@ -592,9 +594,80 @@ function ProductForm() {
             </div>
 
             )}
-            </form.Field>
+        </form.Field>
+
+        <button
+            type="button"
+            className="text-sm underline"
+            onClick={() => {setIsCoffret(true)} }
+        >
+            Est ce un coffret ?
+        </button>
+
+        {isCoffret && (
+            <form.Field
+                    name="meta.content"
+                    mode="array"
+                >
+                    {(field) => (
+                        <div className="space-y-4">
+
+                            <div className="flex justify-between items-center">
+                                <h3 className="font-medium">
+                                    Ce coffret contient:
+                                </h3>
+
+                                <button
+                                    type="button"
+                                    className="text-sm underline"
+                                    onClick={() =>
+                                        field.pushValue("")
+                                    }
+                                >
+                                    + Ajouter
+                                </button>
+                            </div>
 
 
+                            {field.state.value && field.state.value.map((_, index) => (
+                                <div
+                                    key={index}
+                                    className="flex gap-2"
+                                >
+
+                                    <form.Field
+                                        name={`meta.content[${index}]`}
+                                    >
+                                        {(subField) => (
+                                            <input
+                                                className="flex-1 rounded-lg border-2 border-[#2C2C2C]/10 bg-[#FDFBF7] py-3 px-4"
+                                                value={subField.state.value}
+                                                onChange={(e) =>
+                                                    subField.handleChange(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </form.Field>
+
+
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            field.removeValue(index)
+                                        }
+                                    >
+                                        ❌
+                                    </button>
+
+                                </div>
+                            ))}
+
+                        </div>
+                    )}
+                </form.Field>
+        )}
 
 
         {/* INTRO */}
