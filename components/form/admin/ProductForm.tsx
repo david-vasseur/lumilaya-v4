@@ -173,7 +173,7 @@ function ProductForm() {
                         <div className="flex justify-between">
 
                             <h3 className="font-medium">
-                                Format {index + 1}
+                                Variante n° {index + 1}
                             </h3>
 
 
@@ -203,8 +203,8 @@ function ProductForm() {
                         >
                             {({state, handleChange, handleBlur}) => (
 
-                                <div>
-                                    <label>Nom et poids de la bougie <em>exemple: "Bougie Tendresse 150g"</em></label>
+                                <div className="flex flex-col gap-2 ">
+                                    <label className="bg-green-300/30">Nom et poids de la bougie <em>exemple: "Bougie Tendresse 150g"</em></label>
                                     <input
                                         className="input"
                                         placeholder="Nom du format"
@@ -231,15 +231,15 @@ function ProductForm() {
 
 
 
-                        <div className="grid md:grid-cols-3 gap-4">
+                        <div className="flex flex-col gap-4">
 
 
                             <form.Field
                                 name={`variants[${index}].duration`}
                             >
                                 {({state,handleChange})=>(
-                                    <div>
-                                        <label>Durée de combustion minimale <em>exemple: "25" pour une bougie emotion</em></label>
+                                    <div className="flex flex-col gap-2 ">
+                                        <label className="bg-green-300/30">Durée de combustion minimale <em>exemple: "25" pour une bougie emotion</em></label>
                                         <input
                                             className="input"
                                             type="number"
@@ -262,8 +262,8 @@ function ProductForm() {
                                 name={`variants[${index}].weight`}
                             >
                                 {({state,handleChange})=>(
-                                    <div>
-                                        <label>Poids de la cire de bougie <em>exemple: "150"</em></label>
+                                    <div className="flex flex-col gap-2 ">
+                                        <label className="bg-green-300/30">Poids de la cire de bougie <em>exemple: "150"</em></label>
                                         <input
                                             className="input"
                                             type="number"
@@ -286,8 +286,8 @@ function ProductForm() {
                                 name={`variants[${index}].price`}
                             >
                                 {({state,handleChange})=>(
-                                    <div>
-                                        <label>Prix de la bougie <em>exemple: "19.90" pour une bougie à 19,90€</em></label>
+                                    <div className="flex flex-col gap-2 ">
+                                        <label className="bg-green-300/30">Prix de la bougie <em>exemple: "19.90" pour une bougie à 19,90€</em></label>
                                         <input
                                             className="input"
                                             type="number"
