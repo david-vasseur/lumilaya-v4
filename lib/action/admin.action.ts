@@ -105,7 +105,6 @@ export const changeShippingStatus = async (token: string, fingerprint: string, i
     return await response.json();
 }
 
-
 export const getEvents = async (token: string, fingerprint: string) => {
 
     const response = await fetch('http://lumilaya_service:4005/event/all', {
@@ -123,7 +122,6 @@ export const getEvents = async (token: string, fingerprint: string) => {
     return await response.json();
 
 }
-
 
 export const createEvent = async (token: string, fingerprint: string, data: IEvent) => {
 
@@ -219,49 +217,6 @@ export const updateProduct = async (
     return await response.json();
 };
 
-// export async function createProduct( token: string, fingerprint: string, data: IProduct) {
-
-//     const formData = new FormData();
-
-
-//     const {
-//         images,
-//         ...product
-//     } = data;
-
-
-//     formData.append(
-//         "product",
-//         JSON.stringify(product)
-//     );
-
-
-//     images.forEach(image => {
-//         formData.append(
-//             "images",
-//             image
-//         );
-//     });
-
-
-//     const res = await fetch(
-//         `http://lumilaya_service:4005/product/create`,
-//         {
-//             method: "POST",
-
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//                 "x-fingerprint": fingerprint
-//             },
-
-//             body: formData
-//         }
-//     );
-
-
-//     return await res.json();
-// }
-
 export async function createProduct(
     token: string,
     fingerprint: string,
@@ -329,4 +284,68 @@ export async function createProduct(
     console.log("📦 Retour API :", result);
 
     return result;
+}
+
+export async function createVariant(
+    token: string, 
+    fingerprint: string,
+	productId: number,
+	data: {
+		name: string;
+		duration: number;
+		weight: number;
+		price: number;
+	}
+) {
+	const response = await fetch(`http://lumilaya_service:4005/product/${productId}/variant`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+            'x-fingerprint': fingerprint,
+            'Authorization': `Bearer ${token}`
+		},
+		body: JSON.stringify(data),
+	});
+
+	if (!response.ok) {
+		const error = await response.text();
+		throw new Error(error || "Erreur lors de la création du variant");
+	}
+
+	return response.json();
+}
+
+export async function updateVariant(
+	token: string,
+	fingerprint: string,
+	variantId: number,
+	data: {
+		name?: string;
+		duration?: number;
+		weight?: number;
+		price?: number;
+	}
+) {
+	const response = await fetch(
+		`http://lumilaya_service:4005/product/variant/${variantId}`,
+		{
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				"x-fingerprint": fingerprint,
+				"Authorization": `Bearer ${token}`,
+			},
+			body: JSON.stringify(data),
+		}
+	);
+
+	if (!response.ok) {
+		const error = await response.json().catch(() => null);
+
+		throw new Error(
+			error?.message || "Erreur lors de la modification du variant"
+		);
+	}
+
+	return response.json();
 }
