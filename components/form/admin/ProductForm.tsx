@@ -131,7 +131,27 @@ function ProductForm() {
 
         <button
             type="button"
-            onClick={() => setShowVariants(true)}
+            onClick={() => {
+
+                setShowVariants(true);
+
+                if (form.state.values.variants.length === 0) {
+
+                    form.setFieldValue(
+                        "variants",
+                        [
+                            {
+                                name: "",
+                                duration: 0,
+                                weight: 0,
+                                price: 0
+                            }
+                        ]
+                    );
+
+                }
+
+            }}
             className="border rounded-lg px-4 py-2"
         >
             + Ajouter un format
@@ -139,159 +159,159 @@ function ProductForm() {
         
         {/* VARIANTS */}
         {showVariants && (
-        
-            <form.Field name="variants">
-                {({ state, handleChange }) => (
 
-                    <div className="space-y-4">
+            <div className="space-y-4">
 
-                        <div className="flex justify-between items-center">
-                            <label className="block text-sm font-medium">
-                                Formats *
-                            </label>
+                {
+                form.state.values.variants.map((_, index) => (
+
+                    <div
+                        key={index}
+                        className="border rounded-xl p-4 space-y-4"
+                    >
+
+                        <div className="flex justify-between">
+
+                            <h3 className="font-medium">
+                                Format {index + 1}
+                            </h3>
+
 
                             <button
                                 type="button"
-                                className="border rounded-lg px-4 py-2"
+                                className="text-red-500"
                                 onClick={() => {
-                                    handleChange([
-                                        ...state.value,
-                                        {
-                                            name: "",
-                                            duration: 0,
-                                            weight: 0,
-                                            price: 0
-                                        }
-                                    ]);
+
+                                    form.setFieldValue(
+                                        "variants",
+                                        form.state.values.variants.filter(
+                                            (_, i) => i !== index
+                                        )
+                                    );
+
                                 }}
                             >
-                                + Ajouter un format
+                                Supprimer
                             </button>
+
                         </div>
 
 
-                        {state.value.map((variant, index) => (
 
-                            <div
-                                key={index}
-                                className="border rounded-xl p-4 space-y-4"
+                        <form.Field
+                            name={`variants[${index}].name`}
+                        >
+                            {({state, handleChange, handleBlur}) => (
+
+                                <div>
+
+                                    <input
+                                        className="input"
+                                        placeholder="Nom du format"
+                                        value={state.value}
+                                        onBlur={handleBlur}
+                                        onChange={(e)=>
+                                            handleChange(e.target.value)
+                                        }
+                                    />
+
+
+                                    {
+                                    state.meta.errors.length > 0 &&
+                                    <p className="text-red-500 text-xs">
+                                        {state.meta.errors[0]?.message}
+                                    </p>
+                                    }
+
+                                </div>
+
+                            )}
+                        </form.Field>
+
+
+
+
+                        <div className="grid md:grid-cols-3 gap-4">
+
+
+                            <form.Field
+                                name={`variants[${index}].duration`}
                             >
+                                {({state,handleChange})=>(
 
-                                <div className="flex justify-between">
-                                    <h3 className="font-medium">
-                                        Format {index + 1}
-                                    </h3>
-
-                                    <button
-                                        type="button"
-                                        className="text-red-500"
-                                        onClick={() => {
+                                    <input
+                                        className="input"
+                                        type="number"
+                                        placeholder="Durée"
+                                        value={state.value}
+                                        onChange={(e)=>
                                             handleChange(
-                                                state.value.filter(
-                                                    (_, i) => i !== index
-                                                )
-                                            );
-                                        }}
-                                    >
-                                        Supprimer
-                                    </button>
-                                </div>
+                                                Number(e.target.value)
+                                            )
+                                        }
+                                    />
+
+                                )}
+                            </form.Field>
 
 
-                                <input
-                                    className="input"
-                                    placeholder="Nom du format"
-                                    value={variant.name}
-                                    onChange={(e) => {
-
-                                        const variants = [...state.value];
-
-                                        variants[index] = {
-                                            ...variants[index],
-                                            name: e.target.value
-                                        };
-
-                                        handleChange(variants);
-                                    }}
-                                />
 
 
-                                <div className="grid md:grid-cols-3 gap-4">
+                            <form.Field
+                                name={`variants[${index}].weight`}
+                            >
+                                {({state,handleChange})=>(
 
                                     <input
                                         className="input"
                                         type="number"
-                                        placeholder="Durée (min)"
-                                        value={variant.duration}
-                                        onChange={(e) => {
-
-                                            const variants = [...state.value];
-
-                                            variants[index] = {
-                                                ...variants[index],
-                                                duration: Number(e.target.value)
-                                            };
-
-                                            handleChange(variants);
-                                        }}
+                                        placeholder="Poids"
+                                        value={state.value}
+                                        onChange={(e)=>
+                                            handleChange(
+                                                Number(e.target.value)
+                                            )
+                                        }
                                     />
 
+                                )}
+                            </form.Field>
+
+
+
+
+                            <form.Field
+                                name={`variants[${index}].price`}
+                            >
+                                {({state,handleChange})=>(
 
                                     <input
                                         className="input"
                                         type="number"
-                                        placeholder="Poids (g)"
-                                        value={variant.weight}
-                                        onChange={(e) => {
-
-                                            const variants = [...state.value];
-
-                                            variants[index] = {
-                                                ...variants[index],
-                                                weight: Number(e.target.value)
-                                            };
-
-                                            handleChange(variants);
-                                        }}
+                                        step="0.01"
+                                        placeholder="Prix"
+                                        value={state.value}
+                                        onChange={(e)=>
+                                            handleChange(
+                                                Number(e.target.value)
+                                            )
+                                        }
                                     />
 
-
-                                    <input
-                                        className="input"
-                                        type="number"
-                                        placeholder="Prix (€)"
-                                        value={variant.price}
-                                        onChange={(e) => {
-
-                                            const variants = [...state.value];
-
-                                            variants[index] = {
-                                                ...variants[index],
-                                                price: Number(e.target.value)
-                                            };
-
-                                            handleChange(variants);
-                                        }}
-                                    />
-
-                                </div>
-
-                            </div>
-
-                        ))}
+                                )}
+                            </form.Field>
 
 
-                        {state.meta.errors.length > 0 &&
-                            <p className="text-red-500 text-xs">
-                                {state.meta.errors[0]?.message}
-                            </p>
-                        }
+                        </div>
 
                     </div>
 
-                )}
-            </form.Field>
-        )}
+                ))
+                }
+
+            </div>
+
+            )}
 
 
         {/* SLUG */}

@@ -10,7 +10,7 @@ import ProductForm from "@/components/form/admin/ProductForm";
 function Page() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [creating, setIsCreating] = useState(true);
+    const [creating, setIsCreating] = useState(false);
 
     useEffect(() => {
         const loadProducts = async () => {
