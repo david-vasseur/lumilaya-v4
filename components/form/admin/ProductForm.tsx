@@ -463,15 +463,16 @@ function ProductForm() {
         <form.Field name="tags">
             {({state,handleChange})=>(
                 <input
+                    type="text"
                     className="w-full border p-3"
-                    placeholder="tags séparés par virgule"
+                    placeholder="tags séparés par un espace"
                     value={state.value.join(",")}
                     onChange={(e)=>
                         handleChange(
                             e.target.value
-                            .split(",")
-                            .map(t=>t.trim())
-                            .filter(Boolean)
+                                .trim()
+                                .split(/\s+/)
+                                .filter(Boolean)
                         )
                     }
                 />
