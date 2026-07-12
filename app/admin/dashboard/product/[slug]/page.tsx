@@ -1,9 +1,9 @@
 "use client";
 
-import { createVariant, getOneProductById, updateProduct, updateVariant } from "@/lib/action/admin.action";
+import { createVariant, getOneProductById, updateProduct, updateVariant, uploadProductImage } from "@/lib/action/admin.action";
 import { generateFingerprint } from "@/utils/dbFunction";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "@tanstack/react-form";
 
 export type Variant = {
@@ -22,9 +22,56 @@ function Page() {
 
 	const [loading, setLoading] = useState(true);
 	const [isCoffret, setIsCoffret] = useState(false);
-	const [tab, setTab] = useState<"product" | "variant" | "tag">("product");
+	const [tab, setTab] = useState<"product" | "variant" | "tag" | "" | "image">("");
 	const [product, setProduct] = useState<any>(null);
 	const [variants, setVariants] = useState<Variant[]>([]);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+
+	const handleFileChange = async (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+
+		const file = e.target.files?.[0];
+
+		if (!file || selectedImageIndex === null) return;
+
+
+		const fingerprint = generateFingerprint();
+		const token = sessionStorage.getItem("admin-token");
+
+		if (!token || !fingerprint) return;
+
+		// ici tu uploades ton fichier
+		const result = await uploadProductImage(token, fingerprint, product.id, file);
+
+		const url = result.url;
+
+		const images = Array.from(
+			{ length: 5 },
+			(_, index) => product.images?.[index] || null
+		);
+
+		images[selectedImageIndex] = url;
+
+		const cleanImages = images.filter(Boolean);
+		
+
+		await updateProduct(
+			token,
+			fingerprint,
+			id,
+			{
+				images: cleanImages
+			}
+		);
+
+
+		setProduct((prev:any)=>({
+			...prev,
+			images: cleanImages
+		}));
+	};
 
 	const formProduct = useForm({
 		defaultValues: {
@@ -52,59 +99,59 @@ function Page() {
 		},
 	});
 
-const formVariant = useForm({
-	defaultValues: {
-		id: undefined as number | undefined,
-		name: "",
-		weight: 0,
-		duration: 0,
-		price: 0,
-	},
+	const formVariant = useForm({
+		defaultValues: {
+			id: undefined as number | undefined,
+			name: "",
+			weight: 0,
+			duration: 0,
+			price: 0,
+		},
 
-	onSubmit: async ({ value }) => {
-		const fingerprint = generateFingerprint();
-		const token = sessionStorage.getItem("admin-token");
+		onSubmit: async ({ value }) => {
+			const fingerprint = generateFingerprint();
+			const token = sessionStorage.getItem("admin-token");
 
-		if (!token || !fingerprint) return;
-
-
-		let savedVariant: Variant;
+			if (!token || !fingerprint) return;
 
 
-		if (value.id) {
-			savedVariant = await updateVariant(
-				token,
-				fingerprint,
-				value.id,
-				value
-			);
+			let savedVariant: Variant;
 
 
-			setVariants((prev) =>
-				prev.map((variant) =>
-					variant.id === savedVariant.id
-						? savedVariant
-						: variant
-				)
-			);
-
-		} else {
-
-			savedVariant = await createVariant(
-				token,
-				fingerprint,
-				id,
-				value
-			);
+			if (value.id) {
+				savedVariant = await updateVariant(
+					token,
+					fingerprint,
+					value.id,
+					value
+				);
 
 
-			setVariants((prev) => [
-				...prev,
-				savedVariant
-			]);
-		}
-	},
-});
+				setVariants((prev) =>
+					prev.map((variant) =>
+						variant.id === savedVariant.id
+							? savedVariant
+							: variant
+					)
+				);
+
+			} else {
+
+				savedVariant = await createVariant(
+					token,
+					fingerprint,
+					id,
+					value
+				);
+
+
+				setVariants((prev) => [
+					...prev,
+					savedVariant
+				]);
+			}
+		},
+	});
 
 
 	useEffect(() => {
@@ -185,16 +232,16 @@ const formVariant = useForm({
 	}, [id]);
 
 
-  if (loading) {
-    return <p className="p-10">Loading...</p>;
-  }
+	if (loading) {
+		return <p className="p-10">Loading...</p>;
+	}
 
 
 	return (
 		<div className="pt-24 px-6 max-w-3xl mx-auto">
 
 			<h1 className="text-2xl font-bold mb-6">
-				Edition du produit.
+				Edition du produit: {product.name}
 			</h1>
 
 			<div className="flex items-center justify-center">
@@ -210,6 +257,10 @@ const formVariant = useForm({
 					className="p-2 rounded-2xl bg-green-300/50 font-bold"
 					onClick={() => setTab("tag")}
 				>Editer les tags</button>
+				<button 
+					className="p-2 rounded-2xl bg-green-300/50 font-bold"
+					onClick={() => setTab("image")}
+				>Editer les images</button>
 			</div>
 
 			{tab === "product" && (
@@ -748,6 +799,74 @@ const formVariant = useForm({
 
 				</div>
 			)}
+
+			{tab === "image" && (
+				<div>
+
+					<input
+					ref={fileInputRef}
+					type="file"
+					accept="image/*"
+					className="hidden"
+					onChange={handleFileChange}
+					/>
+
+
+					<div className="grid grid-cols-5 gap-4">
+
+					{Array.from({ length: 5 }).map((_, index) => {
+
+						const image = product.images?.[index];
+
+						return (
+						<div
+							key={index}
+							className="
+							aspect-square
+							rounded-3xl
+							overflow-hidden
+							bg-gray-200
+							cursor-pointer
+							relative
+							"
+							onClick={() => {
+							setSelectedImageIndex(index);
+							fileInputRef.current?.click();
+							}}
+						>
+
+							{image ? (
+
+							<img
+								src={image}
+								alt={`Image ${index + 1}`}
+								className="w-full h-full object-cover"
+							/>
+
+							) : (
+
+							<div className="
+								w-full
+								h-full
+								flex
+								items-center
+								justify-center
+								text-gray-400
+								text-3xl
+							">
+								+
+							</div>
+
+							)}
+
+						</div>
+						);
+					})}
+
+					</div>
+
+				</div>
+				)}
 		</div>
 	);
 }

@@ -349,3 +349,41 @@ export async function updateVariant(
 
 	return response.json();
 }
+
+export async function uploadProductImage(
+    token: string,
+    fingerprint: string,
+    id: number,
+    file: File
+) {
+
+    const formData = new FormData();
+
+    formData.append(
+        "image",
+        file
+    );
+
+
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/${id}/upload-image`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "x-fingerprint": fingerprint
+            },
+            body: formData
+        }
+    );
+
+
+    if (!response.ok) {
+        throw new Error(
+            "Erreur lors de l'upload de l'image"
+        );
+    }
+
+
+    return response.json();
+}
