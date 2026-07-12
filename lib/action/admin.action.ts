@@ -350,40 +350,79 @@ export async function updateVariant(
 	return response.json();
 }
 
-export async function uploadProductImage(
-    token: string,
-    fingerprint: string,
-    id: number,
-    file: File
-) {
+    export async function uploadProductImage(
+        token: string,
+        fingerprint: string,
+        id: number,
+        file: File
+    ) {
 
-    const formData = new FormData();
-
-    formData.append(
-        "image",
-        file
-    );
-
-
-    const response = await fetch(
-        `http://lumilaya_service:4005/product/${id}/upload-image`,
-        {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "x-fingerprint": fingerprint
-            },
-            body: formData
-        }
-    );
+        console.log("📤 uploadProductImage start", {
+            productId: id,
+            filename: file?.name,
+            size: file?.size,
+            type: file?.type,
+        });
 
 
-    if (!response.ok) {
-        throw new Error(
-            "Erreur lors de l'upload de l'image"
+        const formData = new FormData();
+
+        formData.append(
+            "image",
+            file
         );
+
+
+        console.log("📦 FormData created", {
+            hasFile: formData.has("image"),
+        });
+
+
+        console.log("🌐 Sending request to Nest", {
+            url: `http://lumilaya_service:4005/product/${id}/upload-image`,
+        });
+
+
+        const response = await fetch(
+            `http://lumilaya_service:4005/product/${id}/upload-image`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "x-fingerprint": fingerprint
+                },
+                body: formData
+            }
+        );
+
+
+        console.log("📥 Nest response", {
+            status: response.status,
+            ok: response.ok,
+        });
+
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error("❌ Upload failed", {
+                status: response.status,
+                error: errorText,
+            });
+
+
+            throw new Error(
+                errorText || "Erreur lors de l'upload de l'image"
+            );
+        }
+
+
+        const result = await response.json();
+
+
+        console.log("✅ Upload success", result);
+
+
+        return result;
     }
-
-
-    return response.json();
-}

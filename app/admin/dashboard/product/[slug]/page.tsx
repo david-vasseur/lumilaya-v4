@@ -5,6 +5,7 @@ import { generateFingerprint } from "@/utils/dbFunction";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
 
 export type Variant = {
 	id: number;
@@ -28,34 +29,88 @@ function Page() {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-	const handleFileChange = async (
-		e: React.ChangeEvent<HTMLInputElement>
+const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
 	) => {
 
 		const file = e.target.files?.[0];
 
-		if (!file || selectedImageIndex === null) return;
+		console.log("📸 File selected", {
+			file,
+			name: file?.name,
+			size: file?.size,
+			type: file?.type,
+			selectedImageIndex
+		});
+
+
+		if (!file || selectedImageIndex === null) {
+			console.log("❌ Missing file or image index");
+			return;
+		}
 
 
 		const fingerprint = generateFingerprint();
 		const token = sessionStorage.getItem("admin-token");
 
-		if (!token || !fingerprint) return;
 
-		// ici tu uploades ton fichier
-		const result = await uploadProductImage(token, fingerprint, product.id, file);
+		if (!token || !fingerprint) {
+			console.log("❌ Missing auth data");
+			return;
+		}
 
-		const url = result.url;
+
+		console.log("⬆️ Starting image upload");
+
+
+		const result = await uploadProductImage(
+			token,
+			fingerprint,
+			product.id,
+			file
+		);
+
+
+		console.log("📥 Upload result", result);
+
+
+		const url = result?.url;
+
+
+		console.log("🔗 Image URL received", url);
+
+
+		if (!url) {
+			console.error("❌ No URL returned from upload");
+
+			toast.error(
+				"Une erreur est survenue pendant l'upload"
+			);
+
+			return;
+		}
+
 
 		const images = Array.from(
 			{ length: 5 },
 			(_, index) => product.images?.[index] || null
 		);
 
+
 		images[selectedImageIndex] = url;
 
+
 		const cleanImages = images.filter(Boolean);
-		
+
+
+		console.log("🖼️ New images list", {
+			images,
+			cleanImages
+		});
+
+
+		console.log("💾 Updating product images");
+
 
 		await updateProduct(
 			token,
@@ -67,10 +122,18 @@ function Page() {
 		);
 
 
-		setProduct((prev:any)=>({
+		console.log("✅ Product updated");
+
+
+		setProduct((prev: any) => ({
 			...prev,
 			images: cleanImages
 		}));
+
+
+		toast.success(
+			"Image uploadée correctement"
+		);
 	};
 
 	const formProduct = useForm({
