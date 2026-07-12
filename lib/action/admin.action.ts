@@ -366,7 +366,7 @@ export async function uploadProductImage(
 
 
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${id}/upload-image`,
+        `http://lumilaya_service:4005/product/${id}/upload-image`,
         {
             method: "POST",
             headers: {
