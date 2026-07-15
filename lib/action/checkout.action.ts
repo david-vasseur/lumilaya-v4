@@ -119,11 +119,11 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 	const results = await Promise.all(
 		items.map(async (item) => {
 			const product = await prisma.product.findUnique({
-				where: { id: item.id },
+				where: { id: item.productId },
 				select: {
 				meta: { select: { name: true, promo: true } },
 				variants: { 
-					where: { id: item.productId },
+					where: { id: item.id },
 					select: { id: true, price: true },
 				},
 				},
