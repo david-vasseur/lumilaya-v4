@@ -124,7 +124,7 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 				meta: { select: { name: true, promo: true } },
 				variants: { 
 					where: { id: item.id },
-					select: { id: true, price: true },
+					select: { id: true, price: true, name: true },
 				},
 				},
 			});
@@ -143,7 +143,7 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 				variantId: variant.id,
 				qty: item.qty,
 				price: unitPrice,
-				name: product.meta.name,
+				name: variant.name,
 				options: (item.options ?? []).filter(opt =>
 					ALLOWED_OPTIONS.includes(opt)
 				)
