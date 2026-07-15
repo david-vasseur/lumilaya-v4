@@ -139,7 +139,7 @@ export const getPricesForStripe = async (items: CartItem[]) => {
 			const unitPrice = Math.round(price * discountFactor * 100); // en euros
 
 			return {
-				productId: item.id,
+				productId: item.productId,
 				variantId: variant.id,
 				qty: item.qty,
 				price: unitPrice,
