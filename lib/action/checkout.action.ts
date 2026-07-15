@@ -223,7 +223,8 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 		const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
 		...securePrices.map((item) => {
 			const product = products.find((p) => p.id === item.productId);
-			const productName = product ? `Bougie ${product.meta.name}` : `Produit ${item.productId}`;
+			// const productName = product ? `Bougie ${product.meta.name}` : `Produit ${item.productId}`;
+			const productName = item.name;
 			return {
 				price_data: {
 					currency: "eur",
