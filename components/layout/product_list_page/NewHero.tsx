@@ -294,8 +294,8 @@ function CollectionHero({
                 >
                     {collection === "Emotion" ? (
                         <>
-                            <h2 className="font-ballet text-5xl md:text-7xl mb-8">
-                                Une invitation à savourer STORY1
+                            <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
+                                Une invitation à savourer
                             </h2>
 
                             <p className="text-lg md:text-xl leading-relaxed">
@@ -306,7 +306,7 @@ function CollectionHero({
                         </>
                     ) : (
                         <>
-                            <h2 className="font-ballet text-5xl md:text-7xl mb-8">
+                            <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
                                 Un instant pour revenir à soi
                             </h2>
 
@@ -339,7 +339,7 @@ function CollectionHero({
                     <div className="max-w-3xl">
                         {collection === "Emotion" ? (
                             <>
-                                <h2 className="font-ballet text-5xl md:text-7xl mb-8">
+                                <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
                                     Des parfums qui font du bien
                                 </h2>
 
@@ -352,7 +352,7 @@ function CollectionHero({
                             </>
                         ) : (
                             <>
-                                <h2 className="font-ballet text-5xl md:text-7xl mb-8">
+                                <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
                                     Des flammes pour accompagner le chemin intérieur
                                 </h2>
 
@@ -378,7 +378,7 @@ function CollectionHero({
                     <div className="max-w-3xl">
                         {collection === "Emotion" ? (
                             <>
-                                <h2 className="font-ballet text-5xl md:text-7xl mb-8">
+                                <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
                                     Des parfums qui font du bien
                                 </h2>
 
@@ -391,7 +391,7 @@ function CollectionHero({
                             </>
                         ) : (
                             <>
-                                <h2 className="font-ballet text-5xl md:text-7xl mb-8">
+                                <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
                                     Des flammes pour accompagner le chemin intérieur
                                 </h2>
 
