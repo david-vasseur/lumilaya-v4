@@ -137,7 +137,7 @@ function NewHero() {
     return (
         	<section
 					ref={heroSectionRef} 
-					className="hero relative w-vw h-svh overflow-hidden z-2"
+					className="hero relative w-vw h-lvh overflow-hidden z-2"
 				>
 
 					{/* HERO-BG */}
@@ -169,9 +169,9 @@ function NewHero() {
 					>
 						<h1 
                             ref={heroTitleRef}
-                            className="font-bold uppercase text-[clamp(3rem,8vw,8rem)] font-ballet leading-none"
+                            className="font-bold text-[clamp(3rem,8vw,8rem)] font-ballet leading-none p-6"
                         >
-                            <em>LUMILAYA</em>
+                            <em>Lumi'laya</em>
                         </h1>
                         {/* HERO-CTA */}
                         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 my-8 xl:my-30">
@@ -209,7 +209,7 @@ function NewHero() {
 						}}
 					>
 						<img
-							src="/footer.webp"
+							src="/images/landing/footer.webp"
 							className="absolute inset-0 w-full max-w-3xl m-auto h-full object-cover -z-1"
 							alt=""
 						/>

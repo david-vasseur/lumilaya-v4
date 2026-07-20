@@ -94,7 +94,7 @@ function CoffretDecouverte() {
 
     return (
         <>
-            <section className="coffret-section py-20 px-6 bg-[#FDFBF7] overflow-hidden">
+            <section className="coffret-section py-20 px-6 bg-[#FDFBF7] overflow-hidden mt-[500svh]">
                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
                     {/* Badge + Titre : au-dessus de l'image sur mobile, dans le contenu sur desktop */}
