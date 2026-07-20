@@ -169,7 +169,7 @@ function NewHero() {
 					>
 						<h1 
                             ref={heroTitleRef}
-                            className="font-bold text-[clamp(3rem,8vw,8rem)] font-ballet leading-none p-6"
+                            className="font-bold text-[clamp(7rem,10vw,12rem)] font-ballet leading-none p-6"
                         >
                             <em>Lumi'laya</em>
                         </h1>
@@ -203,7 +203,7 @@ function NewHero() {
 					{/* HERO-REVEALER */}
 					<div
 						ref={heroRevealerRef}
-						className="hero-revealer absolute top-0 left-0 w-full h-full will-change-transform bg-[#6F9083] flex flex-col justify-center items-center text-center pointer-events-none"
+						className="hero-revealer absolute top-0 left-0 w-full h-full will-change-transform bg-[#6F9083] text-zinc-300 flex flex-col justify-center items-center text-center pointer-events-none"
 						style={{
 							clipPath: "polygon(49.9% 50%, 50.1% 50%, 50.1% 50%, 49.9% 50%)",
 						}}
