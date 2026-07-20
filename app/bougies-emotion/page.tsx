@@ -1,6 +1,7 @@
 import Final from '@/components/layout/product_list_page/Final';
 import Hero from '@/components/layout/product_list_page/Hero';
 import Interlude from '@/components/layout/product_list_page/Interlude';
+import CollectionHero from '@/components/layout/product_list_page/NewHero';
 import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { getProductsByCollection } from '@/lib/action/product.action';
 
@@ -80,13 +81,20 @@ async function page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <Hero 
+            {/* <Hero 
                 image={"/images/landing/emotion_collection.webp"} 
                 url={"bougies-emotion"} 
                 title={"Emotions <br/>& <br/>Plaisirs"} 
                 subtitle={"Des bougies parfumées qui éveillent les sens et enveloppent le quotidien de douceur. <br/>Une invitation à créer une atmosphère chaleureuse et à savourer des instants de réconfort et de plaisir."} 
+            /> */}
+            <CollectionHero 
+                image={"/images/landing/emotion_collection.webp"} 
+                url={"bougies-emotion"} 
+                title={"Emotions <br/>& <br/>Plaisirs"} 
+                subtitle={"Des bougies parfumées qui éveillent les sens et enveloppent le quotidien de douceur"} 
+                collection='Emotion'
             />
-            <Interlude collection='Emotion' />
+            {/* <Interlude collection='Emotion' /> */}
             <ProductsList products={products} />
             <Final />
         </div>
