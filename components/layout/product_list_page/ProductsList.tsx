@@ -26,7 +26,7 @@ function ProductsList({ products }: ProductsListProps) {
 	})
 
     return (
-		<div id='produits' className="max-w-7xl mx-auto px-6 mt-[220svh]">
+		<div id='produits' className="max-w-7xl mx-auto px-6 pt-[20svh] mt-[180svh]">
 			<div className="text-center mb-16">
 				<h2 className="text-4xl font-light text-[#2C2C2C] mb-4">
 					Notre sélection

@@ -292,6 +292,11 @@ function CollectionHero({
                     ref={storyTextRef}
                     className="max-w-3xl text-center"
                 >
+                    <img
+                        src="/images/landing/footer.webp"
+                        className="absolute inset-0 w-full max-w-3xl m-auto h-full object-cover -z-1"
+                        alt=""
+                    />
                     {collection === "Emotion" ? (
                         <>
                             <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
@@ -336,7 +341,12 @@ function CollectionHero({
                         clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
                     }}
                 >
-                    <div className="max-w-3xl">
+                    <div className="max-w-3xl relative">
+                        <img
+                            src="/images/landing/footer.webp"
+                            className="absolute inset-0 w-full max-w-3xl m-auto h-full object-cover -z-1"
+                            alt=""
+                        />
                         {collection === "Emotion" ? (
                             <>
                                 <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">
@@ -375,7 +385,12 @@ function CollectionHero({
                         clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
                     }}
                 >
-                    <div className="max-w-3xl">
+                    <div className="max-w-3xl relative">
+                        <img
+                            src="/images/landing/footer.webp"
+                            className="absolute inset-0 w-full max-w-3xl m-auto h-full object-cover -z-1"
+                            alt=""
+                        />
                         {collection === "Emotion" ? (
                             <>
                                 <h2 className="font-ballet font-semibold text-5xl md:text-7xl mb-8">

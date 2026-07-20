@@ -1,6 +1,7 @@
 import Final from '@/components/layout/product_list_page/Final';
 import Hero from '@/components/layout/product_list_page/Hero';
 import Interlude from '@/components/layout/product_list_page/Interlude';
+import CollectionHero from '@/components/layout/product_list_page/NewHero';
 import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { getProductsByCollection } from '@/lib/action/product.action';
 
@@ -82,14 +83,20 @@ async function page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-
-            <Hero 
+            <CollectionHero 
+                image={"/images/landing/rituel_collection.webp"} 
+                url={"bougies-rituel"} 
+                subtitle={"Des bougies à intention qui accompagnent les moments de recentrage et de transformation intérieure"}
+                title={"Entre Terre <br/>& <br/>Ciel"} 
+                collection='Entre Terre et Ciel'
+            />
+            {/* <Hero 
                 image={"/images/landing/rituel_collection.webp"} 
                 url={"bougies-rituel"} 
                 subtitle={"Des bougies à intention qui accompagnent les moments de recentrage et de transformation intérieure. <br/>Associant parfums subtils et pierres naturelles, elles soutiennent l’équilibre émotionnel et la connexion à soi."}
                 title={"Entre Terre <br/>& <br/>Ciel"} 
             />
-            <Interlude collection='Rituel' />
+            <Interlude collection='Rituel' /> */}
             <ProductsList products={products} />
             <Final />
         </div>
