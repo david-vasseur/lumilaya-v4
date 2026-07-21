@@ -53,9 +53,9 @@ export default function LumiLayaStory({
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top top",
-                    end: () => `+=${window.innerHeight * 4}`,
+                    end: () => `+=${window.innerHeight * 5}`,
                     pin: true,
-                    pinSpacing: true,
+                    pinSpacing: false,
                     scrub: true,
                     invalidateOnRefresh: true,
                 },
