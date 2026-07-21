@@ -76,7 +76,7 @@ function Collections() {
 
     return (
         <>
-            <section className="brand-section relative z-5 pt-32 px-6 bg-[#FDFBF7]">
+            {/* <section className="brand-section relative z-5 pt-32 px-6 bg-[#FDFBF7]">
                 <div ref={brandRef} className="max-w-4xl relative mx-auto text-center bg-linear-to-br from-[#7A9B8E] via-[#6A8B7E] to-[#5A7B6E] px-10 py-20 overflow-hidden rounded-lg shadow-xl">
                     <p className="brand-text relative text-2xl md:text-3xl font-light text-zinc-200 leading-relaxed z-2">
                         Chaque bougie <span className="font-ballet text-4xl md:text-5xl">Lumi'laya</span> naît d'une attention: apporter dans votre espace, une lumière appaisante, propice au lâcher-prise et à la douceur intérieure.
@@ -88,7 +88,7 @@ function Collections() {
                         loading="lazy"
                     />
                 </div>
-            </section>
+            </section> */}
 
             <Title ref={titleRefs} title='Nos Collections' id='boutique' />
 

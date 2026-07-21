@@ -214,7 +214,7 @@ export default function LumiLayaStory({
                     }}
                 >
                     <div className="mb-8 block">
-                        <img src="/logo.webp" alt="" className="w-40" />
+                        <img src="/images/logo.webp" alt="" className="w-40" />
                     </div>
 
                     <h2 className="font-ballet text-6xl md:text-8xl">
@@ -238,7 +238,7 @@ export default function LumiLayaStory({
                     }}
                 >
                     <div className="mb-8 block">
-                        <img src="/logo.webp" alt="" className="w-40" />
+                        <img src="/images/logo.webp" alt="" className="w-40" />
                     </div>
 
                     <h2 className="font-ballet text-6xl md:text-8xl">
@@ -266,7 +266,7 @@ export default function LumiLayaStory({
 
                     <div className="relative h-[32vh] min-h-55 w-full shrink-0 overflow-hidden rounded-3xl md:order-1 md:h-[70vh] md:min-h-0">
                         <img
-                            src="/quality_1.webp"
+                            src="/images/landing/quality_1.webp"
                             alt=""
                             className="h-full w-full object-cover"
                         />
@@ -335,7 +335,7 @@ export default function LumiLayaStory({
 
                     <div className="relative h-[32vh] min-h-55 w-full shrink-0 overflow-hidden rounded-3xl md:h-[70vh]">
                         <img
-                            src="/quality_2.webp"
+                            src="/images/landing/quality_2.webp"
                             alt=""
                             className="h-full w-full object-cover"
                         />
@@ -404,7 +404,7 @@ export default function LumiLayaStory({
 
                     <div className="relative h-[32vh] min-h-55 w-full shrink-0 overflow-hidden rounded-3xl md:h-[70vh]">
                         <img
-                            src="/quality_3.webp"
+                            src="/images/landing/hero.webp"
                             alt=""
                             className="h-full w-full object-cover"
                         />
@@ -479,7 +479,7 @@ export default function LumiLayaStory({
                 >
                     <div className="max-w-4xl flex flex-col items-center justify-center">
                         <div className="mb-8 block">
-                            <img src="/logo.webp" alt="" className="w-40" />
+                            <img src="/images/logo.webp" alt="" className="w-40" />
                         </div>
 
                         <h2 className="font-ballet text-6xl leading-[0.9] md:text-8xl">
@@ -510,7 +510,7 @@ export default function LumiLayaStory({
                 >
                     <div className="max-w-4xl flex flex-col items-center justify-center">
                         <div className="mb-8 block">
-                            <img src="/logo.webp" alt="" className="w-40" />
+                            <img src="/images/logo.webp" alt="" className="w-40" />
                         </div>
 
                         <h2 className="font-ballet text-6xl leading-[0.9] md:text-8xl">
