@@ -51,7 +51,7 @@ function CollectionCard({
                     absolute left-8 top-8
                     text-xs uppercase
                     tracking-[0.35em]
-                    text-white/70
+                    text-[#6F9083]
                 "
             >
                 Collection
@@ -77,6 +77,7 @@ function CollectionCard({
                         font-ballet
                         text-4xl
                         leading-none
+                        text-[#6F9083]
                         md:text-5xl
                     "
                 >

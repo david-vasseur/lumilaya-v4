@@ -241,8 +241,8 @@ export default function LumiLayaStory({
                         <img src="/images/logo.webp" alt="" className="w-40" />
                     </div>
 
-                    <h2 className="font-ballet text-6xl md:text-8xl">
-                        Les bougies Lumi'laya, c'est...
+                    <h2 className="text-6xl md:text-8xl">
+                        Les bougies <em className="font-ballet">Lumi'laya</em>, c'est...
                     </h2>
 
                     <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-white/75 md:text-2xl">
@@ -276,7 +276,7 @@ export default function LumiLayaStory({
 
                     <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:order-2 md:py-0">
 
-                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm">
+                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             01 — La matière
                         </span>
 
@@ -345,7 +345,7 @@ export default function LumiLayaStory({
 
                     <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
 
-                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm">
+                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             02 — Le geste
                         </span>
 
@@ -414,7 +414,7 @@ export default function LumiLayaStory({
 
                     <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
 
-                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm">
+                        <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             03 — L'expérience
                         </span>
 

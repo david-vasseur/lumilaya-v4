@@ -5,6 +5,7 @@ import Nav from "@/components/features/navbar/Nav";
 import { Toaster } from "sonner";
 import Modal from "@/components/features/modal/Modal";
 import DiscountBanner from "@/components/features/modal/discount";
+import SmoothScroll from "@/hooks/lenis";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -137,6 +138,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} ${ballet?.variable ?? ''} antialiased overflow-x-hidden`}
 			>
+				<SmoothScroll />
 				<Toaster />
 				{/* <DiscountBanner /> */}
 				<Nav />				
