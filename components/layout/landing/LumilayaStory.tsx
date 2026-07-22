@@ -217,8 +217,8 @@ export default function LumiLayaStory({
                         <img src="/images/logo.webp" alt="" className="w-40" />
                     </div>
 
-                    <h2 className="font-ballet text-6xl md:text-8xl">
-                        Les bougies Lumi'laya, c'est...
+                    <h2 className="text-6xl md:text-8xl">
+                        Les bougies <em className="font-ballet">Lumi'laya</em>, c'est...
                     </h2>
 
                     <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-white/75 md:text-2xl">

@@ -75,6 +75,7 @@ function CollectionCard({
                 <h3
                     className="
                         font-ballet
+                        font-semibold
                         text-4xl
                         leading-none
                         text-[#6F9083]

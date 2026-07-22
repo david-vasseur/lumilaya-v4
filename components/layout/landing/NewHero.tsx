@@ -215,9 +215,9 @@ function NewHero() {
 						/>
 						<h2 
 							ref={heroRevealerHeadingRef}
-							className="font-bold uppercase text-[clamp(3rem,4vw,5rem)] leading-none max-w-3xl p-5 opacity-0"
+							className="font-bold text-[clamp(3rem,4vw,5rem)] leading-none max-w-3xl p-5 opacity-0"
 						>
-							<strong>Naturelle, enivrante et sacrée</strong>
+							<strong>Naturelle, Enivrante et Sacrée</strong>
 						</h2>
                         <p 
                             ref={heroRevealerPRef}
