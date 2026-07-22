@@ -1,6 +1,6 @@
 "use client"
 
-import CollectionCard from '@/components/ui/CollectionCard';
+import CollectionCard from '@/components/ui/CollectionCardNew';
 import Title from '@/components/ui/Title';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
