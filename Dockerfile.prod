@@ -3,33 +3,31 @@ FROM node:24-bullseye AS builder
 
 WORKDIR /app
 
-# Copier uniquement package.json et package-lock.json pour le cache Docker
+ENV NODE_OPTIONS="--max-old-space-size=2048"
+
 COPY package*.json ./
 
-# Installer les dépendances
 RUN npm ci
 
-# Copier le code source et le schema Prisma
 COPY . .
 COPY prisma ./prisma
 
-# Générer le client Prisma au build
 RUN npx prisma generate
 
-# Builder Next.js
 RUN npm run build
+
 
 # ==== Phase 2 : Image finale légère ====
 FROM node:24-bullseye
 
 WORKDIR /app
+
 ENV NODE_ENV=production
-ENV NODE_OPTIONS="--max-old-space-size=2048"
+ENV NODE_OPTIONS="--max-old-space-size=512"
 ENV NEXT_TELEMETRY_DISABLED=1
-# Copier node_modules et le code depuis le builder
+
 COPY --from=builder /app/ ./
 
-# Exposer le port de l'app
 EXPOSE 4004
 
 CMD ["npm", "start"]
