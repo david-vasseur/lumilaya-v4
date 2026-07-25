@@ -277,7 +277,7 @@ export default function GoldCurtainProductCard({ productImage, productTitle, pro
     return (
         <section
             ref={sectionRef}
-            className="flex min-h-[50vh] aspect-4/5 items-center justify-center bg-[#F4F1EA] shrink-0"
+            className="flex min-h-[50vh] aspect-4/5 items-center justify-center bg-transparent shrink-0"
         >
             <Link
                 ref={cardRef}
@@ -288,7 +288,7 @@ export default function GoldCurtainProductCard({ productImage, productTitle, pro
                     max-w-105
                     overflow-hidden
                     rounded-4xl
-                    bg-[#E8E5DC]
+                    bg-transparent
                     opacity-0
                     shadow-[0_30px_80px_rgba(50,50,40,0.18)]
                 "
