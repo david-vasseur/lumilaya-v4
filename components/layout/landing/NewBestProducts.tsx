@@ -63,6 +63,7 @@ function BestComponent() {
                 ref={carouselRef}
                 onScroll={handleScroll}
                 className="
+                    bg-[#6F9083]
                     flex
                     flex-row
                     gap-5
@@ -76,7 +77,7 @@ function BestComponent() {
                     md:justify-center
                 "
             >
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/liberation.webp"
                         productTitle="Bougie Libération"
@@ -87,7 +88,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/protection.webp"
                         productTitle="Bougie Protection"
@@ -98,7 +99,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/instantete.webp"
                         productTitle="Bougie Instant d'été"
