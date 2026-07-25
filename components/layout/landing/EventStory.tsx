@@ -105,7 +105,7 @@ function EventStory() {
                     absolute
                     right-0
                     top-0
-                    opacity-0                            
+                                                
                     w-full
                     h-full
 
@@ -123,7 +123,7 @@ function EventStory() {
                         absolute
                         top-1/2
                         left-1/2
-
+                        opacity-0
                         w-full
                         h-full
 
