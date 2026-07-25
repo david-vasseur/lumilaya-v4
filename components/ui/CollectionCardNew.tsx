@@ -46,16 +46,21 @@ function CollectionCard({
             />
 
             {/* NUMÉRO */}
-            <span
+            <div
                 className="
                     absolute left-8 top-8
                     text-xs uppercase
                     tracking-[0.35em]
-                    text-[#6F9083]
+                    rounded-3xl py-1 px-1.5
+                    flex items-center justify-center
+                    text-white
+                    border border-white/20
+                    bg-black/20
                 "
             >
-                Collection
-            </span>
+                <span>Collection</span>
+            </div>
+            
 
             {/* CONTENT */}
             <div
@@ -63,7 +68,7 @@ function CollectionCard({
                     absolute inset-x-6 bottom-6
                     rounded-3xl
                     border border-white/20
-                    bg-white/10
+                    bg-black/10
                     p-6
                     text-white
                     backdrop-blur-md
@@ -75,10 +80,9 @@ function CollectionCard({
                 <h3
                     className="
                         font-ballet
-                        font-semibold
                         text-4xl
                         leading-none
-                        text-[#6F9083]
+                        text-white
                         md:text-5xl
                     "
                 >
