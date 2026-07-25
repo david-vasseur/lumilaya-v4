@@ -4,10 +4,12 @@ import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 import GoldCurtainProductCard from '@/components/ui/NewBestProductCard';
+import Title from '@/components/ui/Title';
 
 function BestComponent() {
 
     const carouselRef = useRef<HTMLDivElement | null>(null);
+    const titleRefs = useRef<{ titleRef: HTMLHeadingElement | null; spanRef: HTMLSpanElement | null }>(null);
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const [isCarouselVisible, setIsCarouselVisible] = useState<boolean>(false);
 
@@ -50,7 +52,13 @@ function BestComponent() {
     };
 
     return (
-        <section className="my-20 pb-20">
+        <section className="my-20 pb-20 bg-[#6F9083]">
+            <div className="max-w-7xl mx-auto text-center mb-16 px-4">
+                <Title ref={titleRefs} title="Nos Best-Sellers" id="best-seller" />
+                <p className="mt-6 text-[#2C2C2C]/70 max-w-2xl mx-auto">
+                    Les bougies préférées de notre communauté
+                </p>
+            </div>
             <div
                 ref={carouselRef}
                 onScroll={handleScroll}
