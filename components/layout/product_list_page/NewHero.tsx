@@ -224,7 +224,7 @@ function CollectionHero({
     return (
         <section
             ref={heroRef}
-            className="relative h-lvh overflow-hidden z-2"
+            className="relative h-lvh overflow-hidden z-2 pointer-events-none"
         >
 
             {/* IMAGE */}
@@ -290,7 +290,7 @@ function CollectionHero({
             >
                 <div
                     ref={storyTextRef}
-                    className="max-w-3xl text-center"
+                    className="max-w-3xl text-center p-10"
                 >
                     <img
                         src="/images/landing/footer.webp"
@@ -341,7 +341,7 @@ function CollectionHero({
                         clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
                     }}
                 >
-                    <div className="max-w-3xl relative">
+                    <div className="max-w-3xl relative p-10">
                         <img
                             src="/images/landing/footer.webp"
                             className="absolute inset-0 w-full max-w-3xl m-auto h-full object-cover -z-1"
