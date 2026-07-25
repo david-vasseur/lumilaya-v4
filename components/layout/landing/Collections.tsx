@@ -48,46 +48,37 @@ function Collections() {
                 }  }
         )
 
-        gsap.from('.brand-text', {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: {
-            trigger: '.brand-section',
-            start: 'top 70%',
-            end: 'top 40%',
-            scrub: 1
-        }
-      });
+        const cards = gsap.utils.toArray('.collection-card');
 
-      gsap.from('.category-card', {
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: '.categories-section',
-            start: 'top 70%'
-        }
-      });
+        gsap.from(cards, {
+            y: 150,
+            opacity: 0,
+            scale: 0.95,
+            rotateY: 10,
+            stagger: 0.25,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.categories-section',
+                start: 'top 80%',
+                end: 'top 40%',
+                scrub: 1,
+            }
+        });
 
     })
 
     return (
         <div className='mt-[450svh]'>
-           
             <Title ref={titleRefs} title='Nos Collections' id='boutique' />
-
-            <section className="categories-section py-20 px-6">
-                
+            <section className="categories-section py-20 px-6">    
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-8">
-    
-                        <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Une collection aux parfums gourmands, floraux et réconfortants, pour éveiller les sens et créer du plaisir au quotidien.' href='/bougies-emotion'  />
-                    
-                        <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Une collection inspirée des énergies subtiles, pensée comme de petits rituels de lumière pour accompagner votre chemin intérieur.' href='/bougies-rituel'  />
-                                            
+                        <div className='collection-card'>
+                            <CollectionCard imageUrl='/images/landing/emotion_collection.webp' title='Emotions & Plaisirs' resume='Une collection aux parfums gourmands, floraux et réconfortants, pour éveiller les sens et créer du plaisir au quotidien.' href='/bougies-emotion'  />
+                        </div>
+                        <div className='collection-card'>
+                            <CollectionCard imageUrl='/images/landing/rituel_collection.webp' title='Entre Terre & Ciel' resume='Une collection inspirée des énergies subtiles, pensée comme de petits rituels de lumière pour accompagner votre chemin intérieur.' href='/bougies-rituel'  />
+                        </div>                      
                     </div>
                 </div>
             </section>

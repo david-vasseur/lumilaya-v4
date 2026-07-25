@@ -14,6 +14,34 @@ function BestComponent() {
     const [isCarouselVisible, setIsCarouselVisible] = useState<boolean>(false);
 
     useGSAP(() => {
+
+        if (!titleRefs.current?.titleRef || !titleRefs.current?.spanRef) return
+
+         gsap.from(titleRefs.current?.titleRef, {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+                trigger: titleRefs.current?.titleRef,
+                start: 'top 80%',
+                end: 'top 60%',
+                scrub: 1
+            }
+        })
+
+        gsap.fromTo(titleRefs.current?.spanRef, 
+            { scaleX: 0 },
+            { scaleX: 1, scrollTrigger: {
+                    trigger: titleRefs.current?.spanRef,
+                    start: 'top 90%',
+                    end: 'top 30%',
+                    scrub: 1
+                }  }
+        )
+
+    })
+
+    useGSAP(() => {
         ScrollTrigger.create({
             trigger: carouselRef.current,
             start: "top 75%",
@@ -52,7 +80,12 @@ function BestComponent() {
     };
 
     return (
-        <section className="my-20 py-20 bg-[#6F9083]">
+        <section className="relative mt-20 py-20">
+            <img
+                src="/images/landing/wave.svg"
+                alt="image de fond"
+                className="absolute inset-0 w-full h-full object-cover -z-10 transform rotate-180"
+            />
             <div className="max-w-7xl mx-auto text-center mb-16 px-4">
                 <Title ref={titleRefs} title="Nos Best-Sellers" id="best-seller" />
                 <p className="mt-6 text-[#2C2C2C]/70 max-w-2xl mx-auto">
