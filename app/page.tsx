@@ -2,6 +2,7 @@ import BestProducts from "@/components/layout/landing/BestProducts";
 import Collections from "@/components/layout/landing/Collections";
 import CoffretDecouverte from "@/components/layout/landing/Decouverte";
 import Event from "@/components/layout/landing/Event";
+import EventStory from "@/components/layout/landing/EventStory";
 import Faq from "@/components/layout/landing/Faq";
 import Hero from "@/components/layout/landing/Hero";
 import LumiLayaStory from "@/components/layout/landing/LumilayaStory";
@@ -22,6 +23,7 @@ export default function Home() {
 			<LumiLayaStory />
 			<Collections />
 			<BestComponent />
+			<EventStory />
 			<Event />
 			{/* <BestProducts /> */}
 			<Reviews />
