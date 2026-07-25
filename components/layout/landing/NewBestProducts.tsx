@@ -81,7 +81,7 @@ function BestComponent() {
     };
 
     return (
-        <section className="relative mt-20 py-20">
+        <section className="relative mt-20 py-20 -mb-1">
             <img
                 src="/images/landing/wave.svg"
                 alt="image de fond"
@@ -97,7 +97,6 @@ function BestComponent() {
                 ref={carouselRef}
                 onScroll={handleScroll}
                 className="
-                    bg-[#6F9083]
                     flex
                     flex-row
                     gap-5
