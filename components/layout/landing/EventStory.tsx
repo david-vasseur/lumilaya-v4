@@ -8,7 +8,9 @@ function EventStory() {
     useGSAP(() => {
 
         gsap.set('.event-image', {
-            opacity: 0
+            opacity: 1,
+            WebkitMaskSize: '0% 0%',
+            maskSize: '0% 0%',
         })
 
         const tl = gsap.timeline({
@@ -24,8 +26,10 @@ function EventStory() {
 
         // 1. Les images apparaissent
         tl.to('.event-image', {
-            opacity: 1,
-            duration: 0.2,
+            WebkitMaskSize: '200% 200%',
+            maskSize: '200% 200%',
+            duration: 0.5,
+            ease: 'power2.out',
         }, 0.05)
 
         // 2. Puis les rideaux s'ouvrent
@@ -78,7 +82,7 @@ function EventStory() {
                         opacity-0
                         w-full
                         h-full
-
+                        z-20
                         -translate-x-1/2
                         -translate-y-1/2
 
@@ -88,6 +92,19 @@ function EventStory() {
                         md:aspect-16/10
                         md:mx-auto
                     "
+                    style={{
+                        WebkitMaskImage: "url('/images/landing/noise.png')",
+                        maskImage: "url('/images/landing/noise.png')",
+
+                        WebkitMaskSize: '200% 200%',
+                        maskSize: '200% 200%',
+
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                    }}
                 >
                     <img
                         src="/images/landing/marche-desk.webp"
@@ -96,7 +113,7 @@ function EventStory() {
                     />
                 </picture>
                 <h2 className="
-                    absolute
+                    absolute z-15
                     inset-0
                     flex
                     items-center
@@ -106,7 +123,7 @@ function EventStory() {
                     text-white/90
                     text-7xl
                 ">
-                    Venez nous rencontrer !!!
+                    Venez nous rencontrer
                 </h2>
             </div>
 
@@ -139,7 +156,7 @@ function EventStory() {
                         opacity-0
                         w-full
                         h-full
-
+                        z-20
                         -translate-x-1/2
                         -translate-y-1/2
 
@@ -149,6 +166,19 @@ function EventStory() {
                         md:aspect-16/10
                         md:mx-auto
                     "
+                    style={{
+                        WebkitMaskImage: "url('/images/landing/noise.png')",
+                        maskImage: "url('/images/landing/noise.png')",
+
+                        WebkitMaskSize: '200% 200%',
+                        maskSize: '200% 200%',
+
+                        WebkitMaskPosition: 'center',
+                        maskPosition: 'center',
+
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskRepeat: 'no-repeat',
+                    }}
                 >
                     <img
                         src="/images/landing/marche-desk.webp"
@@ -166,8 +196,9 @@ function EventStory() {
                     font-semibold
                     text-white/90
                     text-7xl
+                    z-15
                 ">
-                    Venez nous rencontrer !!!
+                    Venez nous rencontrer
                 </h2>
             </div>
 
