@@ -5,6 +5,7 @@ import Event from "@/components/layout/landing/Event";
 import Faq from "@/components/layout/landing/Faq";
 import Hero from "@/components/layout/landing/Hero";
 import LumiLayaStory from "@/components/layout/landing/LumilayaStory";
+import BestComponent from "@/components/layout/landing/NewBestProducts";
 import NewHero from "@/components/layout/landing/NewHero";
 import Quality from "@/components/layout/landing/Quality";
 import Reviews from "@/components/layout/landing/Reviews";
@@ -20,8 +21,9 @@ export default function Home() {
 			{/* <Quality /> */}
 			<LumiLayaStory />
 			<Collections />
+			<BestComponent />
 			<Event />
-			<BestProducts />
+			{/* <BestProducts /> */}
 			<Reviews />
 			<Faq />
 		</>

@@ -4,7 +4,7 @@ import { IBestProduct } from "@/components/layout/landing/BestProducts";
 import Title from "@/components/ui/Title";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Award, ShoppingCart, Sparkles } from "lucide-react";
+import { Award, ChevronRight, ShoppingCart, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -124,7 +124,7 @@ function Best({ products }: IBest) {
       )}
 
       {/* ================= DESKTOP GRID ================= */}
-      <div className="hidden md:grid max-w-7xl mx-auto grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+      {/* <div className="hidden md:grid max-w-7xl mx-auto grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {products.map((product, index) => (
             <div key={index} className="bg-white rounded-2xl shadow-lg">
                 <Link href={`/bougies-${product.collection === "Terre" ? "rituel" : "emotion"}/${product.slug}`}>
@@ -178,6 +178,98 @@ function Best({ products }: IBest) {
                     </div>
                 </div>
             </div>
+        ))}
+      </div> */}
+      <div className="hidden md:grid max-w-7xl mx-auto grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {products.map((product, index) => (
+          <Link
+            key={index}
+            href={`/bougies-${
+              product.collection === "Terre" ? "rituel" : "emotion"
+            }/${product.slug}`}
+            className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#E8E6DF]"
+          >
+            {/* IMAGE */}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="
+                absolute inset-0
+                h-full w-full
+                object-cover
+                transition-transform duration-1000 ease-out
+                group-hover:scale-105
+              "
+            />
+
+            {/* OVERLAY */}
+            <div
+              className="
+                absolute inset-0
+                bg-gradient-to-t
+                from-black/70
+                via-black/10
+                to-transparent
+                opacity-80
+                transition-opacity duration-500
+                group-hover:opacity-100
+              "
+            />
+
+            {/* RANK */}
+            {isHome && (
+              <div className="absolute right-5 top-5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/10 backdrop-blur-md">
+                  <Award
+                    className="h-5 w-5"
+                    strokeWidth={1.5}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* COLLECTION */}
+            <div className="absolute left-5 top-5">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur-md">
+                <Sparkles className="h-3 w-3" />
+
+                {product.collection === "Terre"
+                  ? "Entre Terre & Ciel"
+                  : "Émotions & Plaisirs"}
+              </span>
+            </div>
+
+            {/* CONTENT */}
+            <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+              <p className="mb-2 text-xs uppercase tracking-[0.25em] text-white/60">
+                Lumi'laya
+              </p>
+
+              <h3 className="font-ballet text-4xl leading-none md:text-5xl">
+                {product.name}
+              </h3>
+
+              <div className="mt-5 flex items-end justify-between">
+                <p className="text-lg font-light">
+                  {product.variants[0].price.toFixed(2)} €
+                </p>
+
+                <span
+                  className="
+                    flex h-10 w-10
+                    items-center justify-center
+                    rounded-full
+                    border border-white/40
+                    transition-all duration-500
+                    group-hover:bg-white
+                    group-hover:text-[#44524c]
+                  "
+                >
+                  <ChevronRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
 
