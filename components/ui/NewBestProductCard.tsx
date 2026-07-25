@@ -184,7 +184,6 @@ export default function GoldCurtainProductCard({ productImage, productTitle, pro
                         start: "top 75%",
                         end: "top 25%",
                         scrub: 1,
-                        markers: true,
                     },
                 });
 

@@ -52,7 +52,7 @@ function BestComponent() {
     };
 
     return (
-        <section className="my-20 pb-20 bg-[#6F9083]">
+        <section className="my-20 py-20 bg-[#6F9083]">
             <div className="max-w-7xl mx-auto text-center mb-16 px-4">
                 <Title ref={titleRefs} title="Nos Best-Sellers" id="best-seller" />
                 <p className="mt-6 text-[#2C2C2C]/70 max-w-2xl mx-auto">
@@ -76,7 +76,7 @@ function BestComponent() {
                     md:justify-center
                 "
             >
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
                     <GoldCurtainProductCard
                         productImage="/images/products/liberation.webp"
                         productTitle="Bougie Libération"
@@ -87,7 +87,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
                     <GoldCurtainProductCard
                         productImage="/images/products/protection.webp"
                         productTitle="Bougie Protection"
@@ -98,7 +98,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-transparent">
                     <GoldCurtainProductCard
                         productImage="/images/products/instantete.webp"
                         productTitle="Bougie Instant d'été"
