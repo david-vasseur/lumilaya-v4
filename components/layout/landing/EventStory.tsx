@@ -48,7 +48,7 @@ function EventStory() {
                     w-full
                     h-full
 
-                    bg-[#6F9083]
+                    bg-[#5A7B6E]
                     overflow-hidden
                     z-10
                 "
@@ -95,7 +95,7 @@ function EventStory() {
                     w-full
                     h-full
 
-                    bg-[#6F9083]
+                    bg-[#5A7B6E]
                     overflow-hidden
                     z-10
                 "

@@ -111,7 +111,7 @@ function BestComponent() {
                     md:justify-center
                 "
             >
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/liberation.webp"
                         productTitle="Bougie Libération"
@@ -122,7 +122,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/protection.webp"
                         productTitle="Bougie Protection"
@@ -133,7 +133,7 @@ function BestComponent() {
                     />
                 </div>
         
-                <div className="shrink-0 w-[85vw] snap-center md:w-auto bg-[#6F9083] p-2">
+                <div className="shrink-0 w-[85vw] snap-center md:w-auto p-2">
                     <GoldCurtainProductCard
                         productImage="/images/products/instantete.webp"
                         productTitle="Bougie Instant d'été"
@@ -158,7 +158,7 @@ function BestComponent() {
                         }}
                         className={`w-2 h-2 rounded-full transition-all ${
                             activeIndex === index
-                                ? "bg-black scale-125"
+                                ? "bg-black/80 w-6"
                                 : "bg-black/30"
                         }`}
                     />
