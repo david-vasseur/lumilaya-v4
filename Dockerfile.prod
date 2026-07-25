@@ -24,7 +24,7 @@ FROM node:24-bullseye
 
 WORKDIR /app
 ENV NODE_ENV=production
-ENV NODE_OPTIONS="--max-old-space-size=256"
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 ENV NEXT_TELEMETRY_DISABLED=1
 # Copier node_modules et le code depuis le builder
 COPY --from=builder /app/ ./
