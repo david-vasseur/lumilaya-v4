@@ -7,6 +7,10 @@ function EventStory() {
 
     useGSAP(() => {
 
+        gsap.set('.event-image', {
+            opacity: 0
+        })
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: '.events-section',
@@ -18,15 +22,23 @@ function EventStory() {
             }
         })
 
+        // 1. Les images apparaissent
+        tl.to('.event-image', {
+            opacity: 1,
+            duration: 0.2,
+        }, 0.05)
+
+        // 2. Puis les rideaux s'ouvrent
         tl.to('.curtain-left', {
             xPercent: -100,
-        }, 0.05)
+        }, '+=0.05')
 
         tl.to('.curtain-right', {
             xPercent: 100,
-        }, 0.05)
+        }, '<')
 
     })
+
 
     return (
         <section className="
@@ -58,10 +70,11 @@ function EventStory() {
             >
                 <picture
                     className="
+                        event-image
                         absolute
                         top-1/2
                         left-1/2
-
+                        opacity-0
                         w-full
                         h-full
 
@@ -71,7 +84,7 @@ function EventStory() {
                         md:w-[80vw]
                         md:max-w-5xl
                         md:h-auto
-                        md:aspect-[16/10]
+                        md:aspect-16/10
                         md:mx-auto
                     "
                 >
@@ -81,6 +94,7 @@ function EventStory() {
                         alt=""
                     />
                 </picture>
+                <h2 className='absolute inset-0 font-semibold text-white/90 text-7xl'>Venez nous rencontrer !!!</h2>
             </div>
 
 
@@ -91,7 +105,7 @@ function EventStory() {
                     absolute
                     right-0
                     top-0
-
+                    opacity-0                            
                     w-full
                     h-full
 
@@ -105,6 +119,7 @@ function EventStory() {
             >
                 <picture
                     className="
+                        event-image
                         absolute
                         top-1/2
                         left-1/2
@@ -118,7 +133,7 @@ function EventStory() {
                         md:w-[80vw]
                         md:max-w-5xl
                         md:h-auto
-                        md:aspect-[16/10]
+                        md:aspect-16/10
                         md:mx-auto
                     "
                 >
@@ -128,6 +143,7 @@ function EventStory() {
                         alt=""
                     />
                 </picture>
+                <h2 className='absolute inset-0 font-semibold text-white/90 text-7xl'>Venez nous rencontrer !!!</h2>
             </div>
 
         </section>
