@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/all';
 import GoldCurtainProductCard from '@/components/ui/NewBestProductCard';
 import Title from '@/components/ui/Title';
+import gsap from 'gsap';
 
 function BestComponent() {
 
