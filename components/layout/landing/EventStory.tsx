@@ -47,6 +47,7 @@ function EventStory() {
             w-full
             h-lvh
             overflow-hidden
+            z-20
         ">
 
             {/* CONTENEUR GAUCHE */}
@@ -62,7 +63,7 @@ function EventStory() {
 
                     bg-[#5A7B6E]
                     overflow-hidden
-                    z-10
+                    z-20
                 "
                 style={{
                         clipPath: 'polygon(0 0, 50.1% 0, 50.1% 100%, 0 100%)'
@@ -94,7 +95,19 @@ function EventStory() {
                         alt=""
                     />
                 </picture>
-                <h2 className='absolute inset-0 font-semibold text-white/90 text-7xl'>Venez nous rencontrer !!!</h2>
+                <h2 className="
+                    absolute
+                    inset-0
+                    flex
+                    items-center
+                    justify-center
+                    text-center
+                    font-semibold
+                    text-white/90
+                    text-7xl
+                ">
+                    Venez nous rencontrer !!!
+                </h2>
             </div>
 
 
@@ -111,7 +124,7 @@ function EventStory() {
 
                     bg-[#5A7B6E]
                     overflow-hidden
-                    z-10
+                    z-20
                 "
                 style={{
                         clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)'
@@ -143,7 +156,19 @@ function EventStory() {
                         alt=""
                     />
                 </picture>
-                <h2 className='absolute inset-0 font-semibold text-white/90 text-7xl'>Venez nous rencontrer !!!</h2>
+                <h2 className="
+                    absolute
+                    inset-0
+                    flex
+                    items-center
+                    justify-center
+                    text-center
+                    font-semibold
+                    text-white/90
+                    text-7xl
+                ">
+                    Venez nous rencontrer !!!
+                </h2>
             </div>
 
         </section>
