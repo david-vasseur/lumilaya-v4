@@ -268,7 +268,7 @@ function CollectionHero({
                     <Link
                         ref={buttonRef}
                         href={`/${url}/#produits`}
-                        className="mt-10 inline-flex items-center gap-3 bg-white text-[#7A9B8E] px-8 py-4 rounded-full"
+                        className="mt-10 inline-flex items-center gap-3 bg-white text-[#7A9B8E] px-8 py-4 rounded-full pointer-events-auto"
                     >
                         <span>
                             Découvrir la collection
