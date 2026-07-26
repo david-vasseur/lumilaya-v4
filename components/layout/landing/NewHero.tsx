@@ -20,43 +20,41 @@ function NewHero() {
     const buttonsRef = useRef<HTMLDivElement | null>(null);
     const heroTitleRef = useRef<HTMLHeadingElement | null>(null);
 
-    useGSAP(() => {
-        const heroIntroTimeline = gsap.timeline();
+	useGSAP(() => {
 
-        heroIntroTimeline
-            .fromTo(
-                heroTitleRef.current,
-                {
-                    yPercent: 120,
-                    opacity: 0,
-                    clipPath: "inset(0 0 100% 0)",
-                },
-                {
-                    yPercent: 0,
-                    opacity: 1,
-                    clipPath: "inset(0 0 0% 0)",
-                    duration: 1.4,
-                    ease: "power4.out",
-                }
-            )
-            .fromTo(
-                buttonsRef.current,
-                {
-                    y: 40,
-                    opacity: 0,
-                },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "power3.out",
-                },
-                "-=0.7"
-            );
+		gsap.set(heroTitleRef.current, {
+			opacity: 0,
+			clipPath: "inset(0 0 100% 0)",
+		})
 
-    }, {
-        scope: heroSectionRef,
-});
+		gsap.set(buttonsRef.current, {
+			y: 40,
+			opacity: 0,
+		})
+
+		const heroIntroTimeline = gsap.timeline()
+
+		heroIntroTimeline
+			.to(heroTitleRef.current, {
+				opacity: 1,
+				clipPath: "inset(0 0 0% 0)",
+				duration: 1.4,
+				ease: "power4.out",
+			})
+			.to(
+				buttonsRef.current,
+				{
+					y: 0,
+					opacity: 1,
+					duration: 1,
+					ease: "power3.out",
+				},
+				"-=0.7"
+			)
+
+	}, {
+		scope: heroSectionRef,
+	});
 
 	useGSAP(() => {
 
@@ -169,12 +167,12 @@ function NewHero() {
 					>
 						<h1 
                             ref={heroTitleRef}
-                            className="font-bold text-[clamp(7rem,10vw,12rem)] font-ballet leading-none p-6"
+                            className="font-bold opacity-0 text-[clamp(7rem,10vw,12rem)] font-ballet leading-none p-6"
                         >
                             <em>Lumi'laya</em>
                         </h1>
                         {/* HERO-CTA */}
-                        <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 my-8 xl:my-30">
+                        <div ref={buttonsRef} className="flex opacity-0 flex-col sm:flex-row gap-4 my-8 xl:my-30">
                             <Link
                                 href="/#boutique"
                                 className="group relative inline-flex items-center gap-3 bg-white text-[#2C2C2C] 
