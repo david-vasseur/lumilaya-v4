@@ -38,7 +38,7 @@ function NewHero() {
 			.to(heroTitleRef.current, {
 				opacity: 1,
 				clipPath: "inset(0 0 0% 0)",
-				duration: 1.4,
+				duration: 3,
 				ease: "power4.out",
 			})
 			.to(
@@ -85,7 +85,7 @@ function NewHero() {
 		);
 		heroScrollTimeline.to(
 			heroRevealerRef.current,
-			{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.3 }, 0.15
+			{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.2 }, 0.15
 		);
 		heroScrollTimeline.to(
 			heroRevealerHeadingRef.current,
