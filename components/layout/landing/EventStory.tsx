@@ -371,7 +371,8 @@ function EventStory() {
     const gridCells = Array.from({ length: 1200 })
 
     return (
-        <section className="
+        <section className="*
+            z-20
             events-section
             relative
             w-full
@@ -392,7 +393,7 @@ function EventStory() {
 
                     bg-[#6F9083]
                     overflow-hidden
-                    z-10
+                    z-20
                 "
                 style={{
                     clipPath: 'polygon(0 0, 50.1% 0, 50.1% 100%, 0 100%)'
@@ -465,7 +466,7 @@ function EventStory() {
 
                     bg-[#6F9083]
                     overflow-hidden
-                    z-10
+                    z-20
                 "
                 style={{
                     clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)'

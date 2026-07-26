@@ -98,7 +98,7 @@ function Event() {
     })
 
     return (
-        <section className="events-section py-24 px-6 bg-[#F5F1EB]">
+        <section className="events-section py-[100svh] px-6 bg-[#F5F1EB]">
             <div className="max-w-7xl mx-auto">
 
                 <Title ref={titleRefs} title="Prochains événements" id='events' />
