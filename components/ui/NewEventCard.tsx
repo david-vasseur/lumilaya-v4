@@ -11,7 +11,6 @@ import {
 import Link from "next/link";
 import { useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
 
 export interface EventCardProps {
     id: number;
@@ -22,7 +21,6 @@ export interface EventCardProps {
     postalCode: string;
     image: string;
     url: string;
-    isActive?: boolean;
 }
 
 function EventCard({
@@ -32,8 +30,7 @@ function EventCard({
     city,
     postalCode,
     image,
-    url,
-    isActive = false,
+    url
 }: EventCardProps) {
 
     const sectionRef =
@@ -44,9 +41,6 @@ function EventCard({
 
     const shineRef =
         useRef<HTMLDivElement>(null);
-
-    const mobileTimelineRef =
-        useRef<gsap.core.Timeline | null>(null);
 
 
     /*
@@ -84,8 +78,7 @@ function EventCard({
     useGSAP(
         () => {
 
-            const mm =
-                gsap.matchMedia();
+            const mm = gsap.matchMedia();
 
 
             /*
@@ -96,10 +89,7 @@ function EventCard({
 
             mm.add("(max-width: 767px)", () => {
 
-                const timeline =
-                    gsap.timeline({
-                        paused: true,
-                    });
+                const timeline = gsap.timeline();
 
 
                 timeline.fromTo(
@@ -132,15 +122,6 @@ function EventCard({
                     "-=0.3"
                 );
 
-
-                mobileTimelineRef.current =
-                    timeline;
-
-
-                return () => {
-                    mobileTimelineRef.current = null;
-                };
-
             });
 
 
@@ -152,22 +133,15 @@ function EventCard({
 
             mm.add("(min-width: 768px)", () => {
 
-                const timeline =
-                    gsap.timeline({
-                        scrollTrigger: {
-                            trigger: sectionRef.current,
-                            start: "top 75%",
-                            end: "top 25%",
-                            scrub: 1,
-                        },
-                    });
+                const timeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 75%",
+                        end: "top 25%",
+                        scrub: 1,
+                    },
+                });
 
-
-                /*
-                ==============================
-                1. CARD
-                ==============================
-                */
 
                 timeline.fromTo(
                     cardRef.current,
@@ -183,12 +157,6 @@ function EventCard({
                     }
                 );
 
-
-                /*
-                ==============================
-                2. REFLET
-                ==============================
-                */
 
                 timeline.fromTo(
                     shineRef.current,
@@ -210,33 +178,6 @@ function EventCard({
         },
         {
             scope: sectionRef,
-        }
-    );
-
-
-    /*
-    =====================================================
-    MOBILE ACTIVE STATE
-    =====================================================
-    */
-
-    useGSAP(
-        () => {
-
-            const timeline =
-                mobileTimelineRef.current;
-
-            if (!timeline) return;
-
-            if (isActive) {
-                timeline.play();
-            } else {
-                timeline.reverse();
-            }
-
-        },
-        {
-            dependencies: [isActive],
         }
     );
 

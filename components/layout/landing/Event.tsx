@@ -108,15 +108,11 @@ function Event() {
                     salons bien-être et événements artisanaux.
                 </p>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 bg-[#5A7B6E] p-4 rounded-2xl shadow-xl">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
 
-                {/* {events.map((event, i) => (
-                    <EventCard key={i} {...event} />
-                ))} */}
-
-                {events.map((event, i) => (
-                    <EventCard key={i} {...event} />
-                ))}
+                    {events.map((event, i) => (
+                        <EventCard key={i} {...event} />
+                    ))}
 
                 </div>
 
