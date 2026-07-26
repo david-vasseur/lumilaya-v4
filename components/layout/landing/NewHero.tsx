@@ -25,14 +25,14 @@ function NewHero() {
 		gsap.set(heroTitleRef.current, {
 			opacity: 0,
 			clipPath: "inset(0 0 100% 0)",
-		})
+		});
 
 		gsap.set(buttonsRef.current, {
 			y: 40,
 			opacity: 0,
-		})
+		});
 
-		const heroIntroTimeline = gsap.timeline()
+		const heroIntroTimeline = gsap.timeline();
 
 		heroIntroTimeline
 			.to(heroTitleRef.current, {
@@ -49,8 +49,8 @@ function NewHero() {
 					duration: 1,
 					ease: "power3.out",
 				},
-				"-=0.2"
-			)
+				1
+			);
 
 	}, {
 		scope: heroSectionRef,

@@ -288,8 +288,15 @@ function EventCard({
                         absolute
                         inset-x-0
                         bottom-0
-                        p-7
+                        rounded-3xl
+                        border border-white/20
+                        bg-black/10
+                        p-6
                         text-white
+                        backdrop-blur-md
+                        transition-all
+                        duration-700
+                        group-hover:bg-white/15
                     "
                 >
 
@@ -310,7 +317,7 @@ function EventCard({
                             className="h-3.5 w-3.5"
                         />
 
-                        {formattedDate}
+                        {dateStart === dateEnd ? dateStart : `${dateStart} - ${dateEnd}`}
 
                     </div>
 
