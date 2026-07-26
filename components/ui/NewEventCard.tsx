@@ -286,8 +286,8 @@ function EventCard({
                 <div
                     className="
                         absolute
-                        inset-x-0
-                        bottom-0
+                        inset-x-5
+                        bottom-5
                         rounded-3xl
                         border border-white/20
                         bg-black/10
@@ -339,6 +339,9 @@ function EventCard({
                             flex
                             items-end
                             justify-between
+                            border-t
+                            border-white/20
+                            pt-4
                         "
                     >
 
