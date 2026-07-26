@@ -81,11 +81,11 @@ function NewHero() {
 		);
 		heroScrollTimeline.to(
 			heroRevealerRef.current,
-			{ clipPath: "polygon(49.9% 0%, 50.1% 0%, 50.1% 100%, 49.9% 100%)", duration: 0.1 }, 0
+			{ clipPath: "polygon(49.9% 0%, 50.1% 0%, 50.1% 100%, 49.9% 100%)", duration: 0.05 }, 0.01
 		);
 		heroScrollTimeline.to(
 			heroRevealerRef.current,
-			{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.3 }, 0.2
+			{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 0.3 }, 0.15
 		);
 		heroScrollTimeline.to(
 			heroRevealerHeadingRef.current,
