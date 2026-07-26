@@ -1,6 +1,6 @@
 "use client"
 
-import EventCard, { EventCardProps } from '@/components/ui/EventCard';
+import EventCard, { EventCardProps } from '@/components/ui/NewEventCard';
 import Title from '@/components/ui/Title';
 import { getEvents } from '@/lib/action/event.action';
 import { useGSAP } from '@gsap/react';
@@ -109,6 +109,10 @@ function Event() {
                 </p>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 bg-[#5A7B6E] p-4 rounded-2xl shadow-xl">
+
+                {/* {events.map((event, i) => (
+                    <EventCard key={i} {...event} />
+                ))} */}
 
                 {events.map((event, i) => (
                     <EventCard key={i} {...event} />
