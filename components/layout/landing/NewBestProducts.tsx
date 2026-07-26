@@ -103,7 +103,7 @@ function BestComponent() {
                     overflow-x-auto
                     snap-x
                     snap-mandatory
-                    scrollbar-none
+                    scrollbar-hide
                     p-[7.5vw]
                     md:overflow-visible
                     md:px-0
@@ -157,8 +157,8 @@ function BestComponent() {
                         }}
                         className={`w-2 h-2 rounded-full transition-all ${
                             activeIndex === index
-                                ? "bg-black/80 w-6"
-                                : "bg-black/30"
+                                ? "bg-white/50 w-6"
+                                : "bg-white/30"
                         }`}
                     />
                 ))}

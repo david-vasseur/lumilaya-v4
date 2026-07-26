@@ -68,7 +68,7 @@ function Collections() {
     })
 
     return (
-        <div className='mt-[450svh]'>
+        <div className='mt-[420svh]'>
             <Title ref={titleRefs} title='Nos Collections' id='boutique' />
             <section className="categories-section py-20 px-6">    
                 <div className="max-w-7xl mx-auto">

@@ -274,7 +274,7 @@ export default function LumiLayaStory({
 
                     {/* CONTENT */}
 
-                    <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:order-2 md:py-0">
+                    <div className="flex md:px-2 min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:order-2 md:py-0">
 
                         <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             01 — La matière
@@ -343,7 +343,7 @@ export default function LumiLayaStory({
 
                     {/* CONTENT */}
 
-                    <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
+                    <div className="flex md:px-2 min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
 
                         <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             02 — Le geste
@@ -412,7 +412,7 @@ export default function LumiLayaStory({
 
                     {/* CONTENT */}
 
-                    <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
+                    <div className="flex md:px-2 min-h-0 flex-1 flex-col justify-center overflow-hidden py-8 md:py-0">
 
                         <span className="text-xs uppercase tracking-[0.3em] text-white/60 md:text-sm hidden md:block">
                             03 — L'expérience
