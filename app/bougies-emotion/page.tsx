@@ -1,6 +1,4 @@
 import Final from '@/components/layout/product_list_page/Final';
-import Hero from '@/components/layout/product_list_page/Hero';
-import Interlude from '@/components/layout/product_list_page/Interlude';
 import CollectionHero from '@/components/layout/product_list_page/NewHero';
 import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { getProductsByCollection } from '@/lib/action/product.action';
@@ -13,21 +11,21 @@ export const dynamic = 'force-dynamic';
 ///// METADATAS SEO /////
 export async function generateMetadata() {
     return {
-        title: "Bougies parfumées émotions & plaisirs | Atmosphère chaleureuse",
+        title: "Bougies parfumées naturelles | Émotions & Plaisirs Lumilaya",
         description:
-            "Découvrez nos bougies parfumées aux senteurs naturelles. Cire végétale, parfums délicats pour créer une atmosphère apaisante et chaleureuse au quotidien.",
+            "Découvrez nos bougies parfumées naturelles en cire de soja et coco. Des créations aux senteurs délicates pensées pour apporter une ambiance chaleureuse, douce et réconfortante à votre intérieur.",
         keywords: [
-            "bougies parfumées",
-            "bougie naturelle",
-            "cire végétale",
+            "bougies parfumées naturelles",
+            "bougie cire de soja",
+            "bougie cire de coco",
             "bougie artisanale",
-            "ambiance cocooning",
+            "bougie naturelle",
             "parfum maison"
         ],
         openGraph: {
-            title: "Bougies émotions & plaisirs",
+            title: "Bougies parfumées naturelles | Émotions & Plaisirs Lumilaya",
             description:
-                "Des bougies parfumées qui éveillent les sens et apportent douceur et réconfort.",
+                "Découvrez nos bougies parfumées naturelles en cire de soja et coco. Des créations aux senteurs délicates pensées pour apporter une ambiance chaleureuse, douce et réconfortante à votre intérieur.",
             url: "https://lumilaya.fr/bougies-emotion",
             siteName: "Lumilaya",
             images: [
@@ -35,11 +33,23 @@ export async function generateMetadata() {
                     url: "https://lumilaya.fr/images/landing/emotion_collection.webp",
                     width: 1200,
                     height: 630,
-                    alt: "Bougies parfumées émotions",
+                    alt: "Collection de bougies parfumées naturelles Lumilaya",
                 },
             ],
             locale: "fr_FR",
             type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: "Bougies parfumées naturelles | Émotions & Plaisirs Lumilaya",
+            description: 
+                "Découvrez nos bougies parfumées naturelles en cire de soja et coco. Des créations aux senteurs délicates pensées pour apporter une ambiance chaleureuse, douce et réconfortante à votre intérieur.",
+            images: [
+                "https://lumilaya.fr/images/landing/emotion_collection.webp"
+            ],
+        },
+        alternates: {
+            canonical: "https://lumilaya.fr/bougies-emotion",
         },
     };
 }
@@ -81,12 +91,6 @@ async function page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            {/* <Hero 
-                image={"/images/landing/emotion_collection.webp"} 
-                url={"bougies-emotion"} 
-                title={"Emotions <br/>& <br/>Plaisirs"} 
-                subtitle={"Des bougies parfumées qui éveillent les sens et enveloppent le quotidien de douceur. <br/>Une invitation à créer une atmosphère chaleureuse et à savourer des instants de réconfort et de plaisir."} 
-            /> */}
             <CollectionHero 
                 image={"/images/landing/emotion_collection.webp"} 
                 url={"bougies-emotion"} 
@@ -94,7 +98,6 @@ async function page() {
                 subtitle={"Des bougies parfumées qui éveillent les sens et enveloppent le quotidien de douceur"} 
                 collection='Emotion'
             />
-            {/* <Interlude collection='Emotion' /> */}
             <ProductsList products={products} />
             <Final />
         </div>

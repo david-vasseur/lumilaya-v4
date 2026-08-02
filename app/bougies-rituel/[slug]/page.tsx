@@ -5,7 +5,12 @@ import Suggest from '@/components/layout/product_page/Suggest';
 import { getOneProductBySlug, getSuggestedProduct } from '@/lib/action/product.action';
 import { getReviewById } from '@/lib/action/review.action';
 import { unstable_noStore } from 'next/cache';
+import { PRODUCT_SEO } from '@/data/SEO';
+import { getImageUrl } from '@/utils/image';
+import { notFound } from 'next/navigation';
 
+
+///// ON TYPE LE PARAMS /////
 interface Props {
     params: { slug: string };
 }
@@ -15,6 +20,7 @@ interface Props {
 export const dynamic = "force-dynamic";
 
 
+
 ///// METADATAS DYNAMIQUES /////
 export async function generateMetadata({ params }: Props) {
 
@@ -22,27 +28,36 @@ export async function generateMetadata({ params }: Props) {
 
     const { slug } = await params;
 
+    const seo = PRODUCT_SEO[slug as keyof typeof PRODUCT_SEO];
+
     const product = await getOneProductBySlug(slug);
-    if (!product) return {};
+
+    if (!product || !seo) return {};
 
     return {
-        title: `${product.meta.name} | Bougie rituelle naturelle`,
-        description: product.meta.intro,
+        title: seo.title,
+        description: seo.description,
         openGraph: {
-            title: product.meta.name,
-            description: product.meta.intro,
+            title: seo.title,
+            description: seo.description,
             url: `https://lumilaya.fr/bougies-rituel/${product.meta.slug}`,
             siteName: "Lumilaya",
             images: [
                 {
-                    url: `https://lumilaya.fr${product.images?.[0] || ""}`,
+                    url: getImageUrl(product.images?.[0]),
                     width: 1200,
                     height: 630,
-                    alt: product.meta.name,
+                    alt: `image d'une bougie ${product.meta.name}`,
                 },
             ],
             locale: "fr_FR",
             type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: seo.title,
+            description: seo.description,
+            images: [getImageUrl(product.images?.[0])],
         },
         alternates: {
             canonical: `https://lumilaya.fr/bougies-rituel/${product.meta.slug}`,
@@ -56,9 +71,13 @@ async function page({ params }: Props) {
 
     const { slug } = await params;
 
+    const seo = PRODUCT_SEO[slug as keyof typeof PRODUCT_SEO];
+
     const product = await getOneProductBySlug(slug);
     
-    if (!product) return;
+    if (!product) {
+        notFound();
+    }
 
     const suggestedProducts = await getSuggestedProduct(product.id);
     
@@ -74,10 +93,11 @@ async function page({ params }: Props) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: product.meta.name,
-        description: product.meta.intro,
-        image: `https://lumilaya.fr${product.images?.[0] || ""}`,
-        sku: product.id,
+        name: `Bougie ${product.meta.name}`,
+        description: seo.description,
+        category: "Bougie énergétique",
+        image: product.images.map(getImageUrl),
+        sku: product.id.toString(),
         brand: {
             "@type": "Brand",
             name: "Lumilaya",
@@ -100,19 +120,16 @@ async function page({ params }: Props) {
 
     return (
         <div className="min-h-screen bg-[#FDFBF7] pt-24 pb-20 max-w-7xl mx-auto px-6">
-
              <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-
             <Principal product={product} reviews={reviews} />
             <ProductCar />
             <ProductConseil />
             <Suggest suggestedProducts={suggestedProducts} />
-        </div>
-        
+        </div>       
     )
 }
 

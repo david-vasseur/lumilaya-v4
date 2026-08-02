@@ -1,9 +1,8 @@
 import Final from '@/components/layout/product_list_page/Final';
-import Hero from '@/components/layout/product_list_page/Hero';
-import Interlude from '@/components/layout/product_list_page/Interlude';
 import CollectionHero from '@/components/layout/product_list_page/NewHero';
 import ProductsList from '@/components/layout/product_list_page/ProductsList';
 import { getProductsByCollection } from '@/lib/action/product.action';
+
 
 ///// FORCER LE SSR /////
 export const dynamic = 'force-dynamic';
@@ -12,21 +11,23 @@ export const dynamic = 'force-dynamic';
 ///// METADATAS SEO /////
 export async function generateMetadata() {
     return {
-        title: "Bougies rituelles & énergétiques | Ancrage et équilibre",
+        title: "Bougies énergétiques & rituelles | Pierres naturelles Lumilaya",
         description:
-            "Découvrez nos bougies rituelles aux parfums subtils et pierres naturelles. Des créations pensées pour accompagner l’ancrage, l’équilibre émotionnel et la connexion à soi.",
+            "Découvrez nos bougies énergétiques avec pierres naturelles. Des créations à intention pensées pour accompagner l’ancrage, la protection, la libération émotionnelle et les moments de reconnexion à soi.",
         keywords: [
-            "bougies rituelles",
+            "bougies énergétiques",
             "bougie énergétique",
+            "bougies rituelles",
             "bougie intention",
             "bougie pierre naturelle",
             "rituel bien-être",
-            "ancrage émotionnel"
+            "ancrage émotionnel",
+            "pierres naturelles"
         ],
         openGraph: {
-            title: "Bougies rituelles & énergétiques",
+            title: "Bougies énergétiques & rituelles | Pierres naturelles Lumilaya",
             description:
-                "Des bougies à intention qui accompagnent les moments de recentrage et de transformation intérieure.",
+                "Des bougies à intention associant cire naturelle, pierres et rituels pour accompagner les moments d’ancrage, de protection et de transformation intérieure.",
             url: "https://lumilaya.fr/bougies-rituel",
             siteName: "Lumilaya",
             images: [
@@ -34,11 +35,20 @@ export async function generateMetadata() {
                     url: "https://lumilaya.fr/images/landing/rituel_collection.webp",
                     width: 1200,
                     height: 630,
-                    alt: "Bougies rituelles et énergétiques",
+                    alt: "Collection de bougies énergétiques avec pierres naturelles Lumilaya",
                 },
             ],
             locale: "fr_FR",
             type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: "Bougies énergétiques & rituelles | Pierres naturelles Lumilaya",
+            description:
+                "Découvrez nos bougies énergétiques avec pierres naturelles. Des créations à intention pensées pour accompagner l’ancrage, la protection et la reconnexion à soi.",
+            images: [
+                "https://lumilaya.fr/images/landing/rituel_collection.webp"
+            ],
         },
         alternates: {
             canonical: "https://lumilaya.fr/bougies-rituel",
@@ -53,7 +63,7 @@ async function page() {
     const products = await getProductsByCollection('Terre');
     
     if (!products) {
-         return <div>Produits indisponibles</div>;
+        return <div>Produits indisponibles</div>;
     }
 
     ///// RICH SNIPPET GOOGLE /////
@@ -90,13 +100,6 @@ async function page() {
                 title={"Entre Terre <br/>& <br/>Ciel"} 
                 collection='Entre Terre et Ciel'
             />
-            {/* <Hero 
-                image={"/images/landing/rituel_collection.webp"} 
-                url={"bougies-rituel"} 
-                subtitle={"Des bougies à intention qui accompagnent les moments de recentrage et de transformation intérieure. <br/>Associant parfums subtils et pierres naturelles, elles soutiennent l’équilibre émotionnel et la connexion à soi."}
-                title={"Entre Terre <br/>& <br/>Ciel"} 
-            />
-            <Interlude collection='Rituel' /> */}
             <ProductsList products={products} />
             <Final />
         </div>

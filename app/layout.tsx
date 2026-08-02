@@ -22,7 +22,7 @@ const ballet = Herr_Von_Muellerhoff({
 	weight: ['400']
 })
 
-const BASE_URL = "https://www.lumilaya.fr"
+const BASE_URL = "https://lumilaya.fr"
 
 export const metadata: Metadata = {
 	title: "LUMILAYA • Bougies naturelles artisanales",

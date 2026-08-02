@@ -4,78 +4,100 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
 <url>
-  <loc>https://www.lumilaya.fr/</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-rituel</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-rituel</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-rituel/bougie-liberation</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-rituel/bougie-liberation</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-rituel/bougie-protection</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-rituel/bougie-protection</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion/bougie-tendresse</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-tendresse</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion/bougie-vitalite</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-vitalite</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion/bougie-harmonie</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-harmonie</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion/bougie-douceur</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-douceur</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-emotion/bougie-magique</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-magie</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-rituel/bougie-ancrage</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-rituel/bougie-ancrage</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/bougies-rituel/bougie-introspection</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/bougies-rituel/bougie-introspection</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.60</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/notre-histoire</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/notre-histoire</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.50</priority>
 </url>
 <url>
-  <loc>https://www.lumilaya.fr/contact</loc>
-  <lastmod>2025-12-15T08:25:51+00:00</lastmod>
+  <loc>https://lumilaya.fr/contact</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
   <priority>0.50</priority>
+</url>
+<url>
+  <loc>https://lumilaya.fr/bougies-rituel/coffret-rituel-protection</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
+  <priority>0.60</priority>
+</url>
+
+<url>
+  <loc>https://lumilaya.fr/bougies-emotion/coffret-decouverte</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
+  <priority>0.60</priority>
+</url>
+
+<url>
+  <loc>https://lumilaya.fr/bougies-emotion/bougie-instant-ete</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
+  <priority>0.60</priority>
+</url>
+
+<url>
+  <loc>https://lumilaya.fr/bougies-rituel/coffret-rituel-liberation</loc>
+  <lastmod>2026-07-11T15:05:54+00:00</lastmod>
+  <priority>0.60</priority>
 </url>
 
 
