@@ -21,11 +21,7 @@ interface GoldCurtainProductCardProps {
 
 export default function GoldCurtainProductCard({ productImage, productTitle, productPrice, productType = "Gold", isActive = false, href}: GoldCurtainProductCardProps) {
     
-    console.log( productType, isActive);
-    
-
     const sectionRef = useRef<HTMLElement>(null);
-
     const cardRef = useRef<HTMLAnchorElement | null>(null);
     const goldLeftRef = useRef<HTMLDivElement>(null);
     const goldRightRef = useRef<HTMLDivElement>(null);
