@@ -6,11 +6,8 @@ import gsap from 'gsap';
 import { motion } from 'framer-motion';
 import { 
     Leaf, 
-    Mountain, 
     Sparkles, 
     Heart, 
-    Users,
-    Award,
     Quote
 } from 'lucide-react';
 
@@ -104,7 +101,6 @@ const NotreHistoirePage = () => {
         // Chiffres clés avec counter
         const stats = gsap.utils.toArray('.stat-number') as HTMLElement[];
         stats.forEach((stat) => {
-            const value = parseInt(stat.getAttribute('data-value') || '0');
             gsap.from(stat, {
                 textContent: 0,
                 duration: 2,

@@ -22,21 +22,21 @@ function EventCard({
   url
 }: EventCardProps) {
 
-  const start = new Date(dateStart)
-  const end = new Date(dateEnd)
+  // const start = new Date(dateStart)
+  // const end = new Date(dateEnd)
 
-  const formattedDate =
-    start.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    }) +
-    (start.getTime() !== end.getTime()
-      ? ` - ${end.toLocaleDateString("fr-FR", {
-          day: "numeric",
-          month: "long"
-        })}`
-      : "")
+  // const formattedDate =
+  //   start.toLocaleDateString("fr-FR", {
+  //     day: "numeric",
+  //     month: "long",
+  //     year: "numeric"
+  //   }) +
+  //   (start.getTime() !== end.getTime()
+  //     ? ` - ${end.toLocaleDateString("fr-FR", {
+  //         day: "numeric",
+  //         month: "long"
+  //       })}`
+  //     : "")
 
   const content = (
     <div className="event-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">

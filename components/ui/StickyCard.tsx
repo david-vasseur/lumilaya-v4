@@ -69,14 +69,13 @@ function StickyCard({
   description,
   features,
   stats,
-  secondaryBadge,
   image,
 }: ISticky) {
 
 
-    const secondaryIcons = {
-        star: Star,
-    };
+    // const secondaryIcons = {
+    //     star: Star,
+    // };
 
     return (
         <div className="sticky-card relative h-svh w-full bg-linear-to-br from-[#FDFBF7] via-[#F9F6F0] to-[#F5F1EB] grid lg:grid-cols-12 gap-8 lg:gap-12 items-center will-change-transform overflow-hidden">

@@ -2,7 +2,7 @@
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Leaf, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Leaf, Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
 const Footer = () => {

@@ -4,7 +4,6 @@ import "./globals.css";
 import Nav from "@/components/features/navbar/Nav";
 import { Toaster } from "sonner";
 import Modal from "@/components/features/modal/Modal";
-import DiscountBanner from "@/components/features/modal/discount";
 import SmoothScroll from "@/hooks/lenis";
 
 const geistSans = Geist({

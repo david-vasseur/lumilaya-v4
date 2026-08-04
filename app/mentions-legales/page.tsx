@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { Scale, FileText, Shield, Lock, Mail, Calendar } from 'lucide-react';
+import { Scale, FileText, Shield, Lock, Mail } from 'lucide-react';
 
 const MentionsLegalesPage = () => {
     const sectionRef = useRef<HTMLDivElement>(null);

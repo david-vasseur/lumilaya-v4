@@ -26,32 +26,32 @@ const ContactPage = async () => {
 
 
 
-    const socialPosts = [
-        {
-            id: 1,
-            platform: "tiktok",
-            url: "https://vm.tiktok.com/ZNRY8RgLC/",
-            thumbnail: "https://p16-sign.tiktokcdn.com/..."
-        },
-        {
-            id: 2,
-            platform: "tiktok",
-            url: "https://vm.tiktok.com/ZNRY8RgLC/",
-            thumbnail: "https://p16-sign.tiktokcdn.com/..."
-        },
-        {
-            id: 3,
-            platform: "tiktok",
-            url: "https://vm.tiktok.com/ZNRY8RgLC/",
-            thumbnail: "https://p16-sign.tiktokcdn.com/..."
-        },
-        {
-            id: 4,
-            platform: "tiktok",
-            url: "https://vm.tiktok.com/ZNRY8RgLC/",
-            thumbnail: "https://p16-sign.tiktokcdn.com/..."
-        }
-    ];
+    // const socialPosts = [
+    //     {
+    //         id: 1,
+    //         platform: "tiktok",
+    //         url: "https://vm.tiktok.com/ZNRY8RgLC/",
+    //         thumbnail: "https://p16-sign.tiktokcdn.com/..."
+    //     },
+    //     {
+    //         id: 2,
+    //         platform: "tiktok",
+    //         url: "https://vm.tiktok.com/ZNRY8RgLC/",
+    //         thumbnail: "https://p16-sign.tiktokcdn.com/..."
+    //     },
+    //     {
+    //         id: 3,
+    //         platform: "tiktok",
+    //         url: "https://vm.tiktok.com/ZNRY8RgLC/",
+    //         thumbnail: "https://p16-sign.tiktokcdn.com/..."
+    //     },
+    //     {
+    //         id: 4,
+    //         platform: "tiktok",
+    //         url: "https://vm.tiktok.com/ZNRY8RgLC/",
+    //         thumbnail: "https://p16-sign.tiktokcdn.com/..."
+    //     }
+    // ];
 
     return (
         <div className="min-h-screen bg-[#FDFBF7]">

@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 function Hero_page() {
 

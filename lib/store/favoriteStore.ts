@@ -1,6 +1,5 @@
 "use client"
 
-import { IProduct } from "@/types/product";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

@@ -392,7 +392,7 @@ function ProductForm() {
                             </div>
 
 
-                            {field.state.value && field.state.value.map((stone, index) => (
+                            {field.state.value && field.state.value.map((_, index) => (
                                 <div
                                     key={index}
                                     className="rounded-lg border p-4 space-y-4"

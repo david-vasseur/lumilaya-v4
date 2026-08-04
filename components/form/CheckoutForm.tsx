@@ -11,12 +11,12 @@ import { CheckoutSchema, ICheckout } from "@/schema/checkout";
 import { getShippingPrice, handleCheckout } from '@/lib/action/checkout.action';
 import { ShippingType } from '@/lib/generated/prisma/enums';
 
-type ServerItem = {
-  productId: number;
-  variantId: number;
-  name: string;
-  qty: number;
-};
+// type ServerItem = {
+//   productId: number;
+//   variantId: number;
+//   name: string;
+//   qty: number;
+// };
 
 const europeanCountries = [
     { code: "NULL", name: "Choisir" },
@@ -49,7 +49,7 @@ const shippingType = [
 export const CheckoutForm = () => {
 
     const [sameAddress, setSameAddress] = useState(false);
-    const { items, total, setShip, ship } = useCartStore();  
+    const { items, total, setShip } = useCartStore();  
     
     const form = useForm({
         defaultValues: {

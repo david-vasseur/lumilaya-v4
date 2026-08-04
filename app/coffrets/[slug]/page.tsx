@@ -2,10 +2,9 @@ import ProductCar from '@/components/features/product/ProductCar';
 import ProductConseil from '@/components/features/product/ProductConseil';
 import Principal from '@/components/layout/product_page/Principal';
 import BackButton from '@/components/ui/BackButton';
-import { getOneProductBySlug, getSuggestedProduct } from '@/lib/action/product.action';
+import { getOneProductBySlug } from '@/lib/action/product.action';
 import { getReviewById } from '@/lib/action/review.action';
-import { Info } from 'lucide-react';
-import React from 'react'
+
 
 interface Props {
     params: { slug: string };
@@ -22,7 +21,7 @@ async function page({ params }: Props) {
         return <div>Produit indisponible</div>;
     }
 
-    const suggestedProducts = await getSuggestedProduct(product.id);
+    // const suggestedProducts = await getSuggestedProduct(product.id);
 
     const reviews = await getReviewById(product.id);    
 

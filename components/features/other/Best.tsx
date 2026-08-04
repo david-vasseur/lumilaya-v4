@@ -1,12 +1,10 @@
 "use client";
 
 import { IBestProduct } from "@/components/layout/landing/BestProducts";
-import Title from "@/components/ui/Title";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Award, ChevronRight, ShoppingCart, Sparkles } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 interface IBest {
@@ -17,11 +15,11 @@ interface IBest {
 
 function Best({ products }: IBest) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const pathName = usePathname();
+//   const pathName = usePathname();
   const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const mobileTrackRef = useRef<HTMLDivElement>(null);
   const titleRefs = useRef<{ titleRef: HTMLHeadingElement | null; spanRef: HTMLSpanElement | null }>(null);
-  const isHome = pathName === "/";
+//   const isHome = pathName === "/";
   
 
   /* --------------------------------

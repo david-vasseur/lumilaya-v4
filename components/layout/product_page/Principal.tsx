@@ -6,7 +6,6 @@ import { useState } from 'react';
 import Description from './Description';
 import { IProduct } from '@/types/product';
 import { IReview } from '@/schema/review';
-import { log } from 'console';
 
 function Principal({ product, reviews }: { product: IProduct, reviews: IReview[] }) {
 

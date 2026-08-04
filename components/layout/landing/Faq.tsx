@@ -106,7 +106,7 @@ function Faq() {
                 </div>
 
                 <div className="faq-container space-y-4">
-                    {faqs.map((faq, index) => (
+                    {faqs.map((faq) => (
                         <div 
                             key={faq.id}
                             className="faq-item bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"

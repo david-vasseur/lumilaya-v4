@@ -1,5 +1,5 @@
 import { IProduct } from "@/types/product";
-import { Gem, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 
 function Description({ product, variant }: { product: IProduct, variant: number }) {

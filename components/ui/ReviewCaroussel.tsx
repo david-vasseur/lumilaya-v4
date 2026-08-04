@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReviewCard from './ReviewCard'
 import { IReview } from '../layout/landing/Reviews';
 
@@ -16,7 +16,21 @@ function ReviewCaroussel({ reviews }: { reviews: IReview[] }) {
         return window.innerWidth >= 1024 ? 3 : 1;
     };
 
-    const [visibleCount, setVisibleCount] = useState(getVisibleCount());
+    const [visibleCount, setVisibleCount] = useState(getVisibleCount);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setVisibleCount(getVisibleCount());
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (isPaused) return;
@@ -29,7 +43,7 @@ function ReviewCaroussel({ reviews }: { reviews: IReview[] }) {
         }, 5000); 
 
         return () => clearInterval(interval);
-    }, [isPaused, visibleCount]);
+    }, [isPaused, visibleCount, reviews.length]);
 
     const goToNext = () => {
         setCurrentIndex((prev) => {

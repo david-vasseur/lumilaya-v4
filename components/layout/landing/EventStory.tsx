@@ -368,7 +368,7 @@ function EventStory() {
     })
 
 
-    const gridCells = Array.from({ length: 1200 })
+    // const gridCells = Array.from({ length: 1200 })
 
     return (
         <section className="*

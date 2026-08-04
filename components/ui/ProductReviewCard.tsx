@@ -1,6 +1,4 @@
-import { IReviewBDD } from '@/app/avis/[slug]/page'
-import { IReview } from '@/schema/review'
-import React from 'react'
+import { IReviewBDD } from '@/app/avis/[slug]/page';
 
 function ProductReviewCard(review: IReviewBDD) {
     return (

@@ -1,5 +1,4 @@
 import EventForm from '@/components/form/admin/EventForm'
-import React from 'react'
 
 function page() {
     return (

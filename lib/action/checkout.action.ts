@@ -1,7 +1,6 @@
 "use server"
 
 import Stripe from "stripe";
-import { headers } from "next/headers";
 import { prisma } from "../prisma/prisma";
 import { CartItem } from "../store/cartStore";
 
@@ -9,12 +8,12 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2026-02-25.clover",
 });
 
-type PricePerProduct = {
-	productId: number;
-	variantId: number;
-	price: number; 
-	qty: number;
-};
+// type PricePerProduct = {
+// 	productId: number;
+// 	variantId: number;
+// 	price: number; 
+// 	qty: number;
+// };
 
 type CustomerInfo = {
 	firstName: string;
@@ -33,12 +32,12 @@ type CustomerInfo = {
 	acceptCGV: boolean;
 };
 
-type ServerItem = {
-	productId: number;
-	variantId: number;
-	qty: number;
-	name: string;
-};
+// type ServerItem = {
+// 	productId: number;
+// 	variantId: number;
+// 	qty: number;
+// 	name: string;
+// };
 
 ////////////////////// OBTENIR PRIX DE LIVRAISON ///////////////////////////
 
@@ -161,8 +160,8 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 
 	try {
 
-		const h = await headers();
-		const ipRaw = (h.get("x-forwarded-for") || h.get("x-real-ip") || "0.0.0.0").split(",")[0].trim();
+		// const h = await headers();
+		// const ipRaw = (h.get("x-forwarded-for") || h.get("x-real-ip") || "0.0.0.0").split(",")[0].trim();
 
 		// try {
 		// 	await rateLimiter.consume(ipRaw); // Throws si dépasse le quota
@@ -207,22 +206,22 @@ export async function handleCheckout(clientItems: CartItem[], customer: Customer
 		
 
 		// 3️⃣ Récupérer les produits pour Stripe
-		const productIds = securePrices.map((p) => p.productId);
-		const products = await prisma.product.findMany({
-			where: { id: { in: productIds } },
-			select: { 
-				id: true,
-				meta: {
-					select: {
-						name: true
-					}
-				}
-			},
-		});
+		// const productIds = securePrices.map((p) => p.productId);
+		// const products = await prisma.product.findMany({
+		// 	where: { id: { in: productIds } },
+		// 	select: { 
+		// 		id: true,
+		// 		meta: {
+		// 			select: {
+		// 				name: true
+		// 			}
+		// 		}
+		// 	},
+		// });
 
 		const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
 		...securePrices.map((item) => {
-			const product = products.find((p) => p.id === item.productId);
+			// const product = products.find((p) => p.id === item.productId);
 			// const productName = product ? `Bougie ${product.meta.name}` : `Produit ${item.productId}`;
 			const productName = item.name;
 			return {

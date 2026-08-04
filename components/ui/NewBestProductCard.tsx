@@ -2,8 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -41,60 +40,6 @@ export default function GoldCurtainProductCard({ productImage, productTitle, pro
         }
 
         return "bg-[#7A9B8E]";
-    };
-
-    const playAnimation = () => {
-
-        const timeline = gsap.timeline();
-
-        timeline.fromTo(
-            cardRef.current,
-            {
-                scale: 0.88,
-                opacity: 0,
-            },
-            {
-                scale: 1,
-                opacity: 1,
-                duration: 0.5,
-                ease: "power3.out",
-            }
-        );
-
-        timeline.to(
-            goldLeftRef.current,
-            {
-                xPercent: -100,
-                duration: 0.8,
-                ease: "power4.inOut",
-            },
-            0
-        );
-
-        timeline.to(
-            goldRightRef.current,
-            {
-                xPercent: 100,
-                duration: 0.8,
-                ease: "power4.inOut",
-            },
-            "<"
-        );
-
-        timeline.fromTo(
-            shineRef.current,
-            {
-                xPercent: -150,
-                opacity: 0,
-            },
-            {
-                xPercent: 150,
-                opacity: 0.8,
-                duration: 0.8,
-                ease: "power2.inOut",
-            },
-            "-=0.5"
-        );
     };
 
     useGSAP(
