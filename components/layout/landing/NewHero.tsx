@@ -96,6 +96,11 @@ function NewHero() {
 			{ opacity: 1, duration: 0.1 }, "<0.05"
 		);
 
+		heroScrollTimeline.set(
+			heroSectionRef.current, 
+			{ pointerEvents: "none" }, ">"
+		)
+
 		{/* Variables pour la cascade d'image */}
 		const cascadeStart = 0.4;
 		const cascadeStagger = 0.04;
