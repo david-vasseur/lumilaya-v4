@@ -9,13 +9,23 @@ import BestComponent from "@/components/layout/landing/NewBestProducts";
 import NewHero from "@/components/layout/landing/NewHero";
 import ScrollPopupTrigger from "@/components/layout/landing/PopUpPromo";
 import Reviews from "@/components/layout/landing/Reviews";
+import { prisma } from "@/lib/prisma/prisma";
 
 export const dynamic = "force-static";
 
-export default function Home() {
+export default async function Home() {
+
+	const productPromo = await prisma.product.findFirst({
+        where: { meta: { slug: "bougie-instant-ete" } },
+        select: { images: true }
+    });
+
+    // Fallback sur une image par défaut si jamais le produit n'est pas trouvé
+    const productImageUrl = productPromo?.images[0];
+
     return (
 		<>
-			<ScrollPopupTrigger />
+			<ScrollPopupTrigger productUrl={productImageUrl} />
 			<NewHero />
 			<CoffretDecouverte />
 			{/* <Quality /> */}

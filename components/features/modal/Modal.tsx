@@ -14,7 +14,7 @@ export default function Modal() {
     return (
         <ModalPortal>
             <div
-                className="fixed max-h-svh inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-1000000"
+                className="fixed inset-0 w-screen h-dvh bg-black/70 backdrop-blur-sm flex items-center overflow-y-auto justify-center z-1000000"
                 onClick={closeModal}
                 >
                 <div
