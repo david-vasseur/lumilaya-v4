@@ -7,6 +7,7 @@ import Faq from "@/components/layout/landing/Faq";
 import LumiLayaStory from "@/components/layout/landing/LumilayaStory";
 import BestComponent from "@/components/layout/landing/NewBestProducts";
 import NewHero from "@/components/layout/landing/NewHero";
+import ScrollPopupTrigger from "@/components/layout/landing/PopUpPromo";
 import Reviews from "@/components/layout/landing/Reviews";
 
 export const dynamic = "force-static";
@@ -14,7 +15,7 @@ export const dynamic = "force-static";
 export default function Home() {
     return (
 		<>
-			{/* <Hero /> */}
+			<ScrollPopupTrigger />
 			<NewHero />
 			<CoffretDecouverte />
 			{/* <Quality /> */}

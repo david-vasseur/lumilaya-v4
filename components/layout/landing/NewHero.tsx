@@ -135,6 +135,7 @@ function NewHero() {
     return (
         	<section
 					ref={heroSectionRef} 
+					id="hero"
 					className="hero relative w-vw h-lvh overflow-hidden z-2"
 				>
 
