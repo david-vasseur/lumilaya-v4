@@ -11,9 +11,10 @@ export interface ProductCardProps {
     duration: string
     intro: string
     price: number
+    promo: number | null
 }
 
-function ProductCard({ slug, collection, image, name, duration, intro, price }: ProductCardProps) {
+function ProductCard({ slug, collection, image, name, duration, intro, price, promo }: ProductCardProps) {
     return (
         <Link
             href={`/${collection === "Emotion" ? "bougies-emotion" : "bougies-rituel"}/${slug}`}
@@ -57,7 +58,22 @@ function ProductCard({ slug, collection, image, name, duration, intro, price }: 
                     <div className="flex items-center justify-between pt-4 border-t border-[#2C2C2C]/5">
                         <div>
                             <span className="text-xs text-[#2C2C2C]/50 block mb-1">À partir de</span>
-                            <span className="text-2xl font-light text-[#2C2C2C]">{price.toFixed(2)} €</span>
+                            {promo ? (
+                                <div className="flex items-center gap-2">
+                                    {/* Prix barré */}
+                                    <span className="text-lg font-light text-[#2C2C2C]/40 line-through">
+                                        {price.toFixed(2)} €
+                                    </span>
+                                    {/* Prix remisé */}
+                                    <span className="text-2xl font-light text-red-600">
+                                        {(price * (1 - promo / 100)).toFixed(2)} €
+                                    </span>
+                                </div>
+                            ) : (
+                                <span className="text-2xl font-light text-[#2C2C2C]">
+                                    {price.toFixed(2)} €
+                                </span>
+                            )}
                         </div>
                         <div className="flex items-center gap-2 text-[#7A9B8E] text-sm font-medium group-hover:gap-3 transition-all">
                             Découvrir

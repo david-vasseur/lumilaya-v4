@@ -22,7 +22,7 @@ export const getProductsByCollection = async (collection: string) => {
 				take: 1
 			},
 			meta: {
-				select: { slug: true, collection: true, name: true, intro: true }
+				select: { slug: true, collection: true, name: true, intro: true, promo: true }
 			}
 		}
 	})
@@ -34,7 +34,8 @@ export const getProductsByCollection = async (collection: string) => {
 		name: p.meta.name,
 		intro: p.meta.intro,
 		duration: `${p.variants[0]?.duration}`,
-		price: Number(p.variants[0]?.price) ?? 0
+		price: Number(p.variants[0]?.price) ?? 0,
+		promo: p.meta.promo
 	}))
 
 	return cards;
