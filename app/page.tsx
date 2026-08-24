@@ -11,7 +11,7 @@ import ScrollPopupTrigger from "@/components/layout/landing/PopUpPromo";
 import Reviews from "@/components/layout/landing/Reviews";
 import { prisma } from "@/lib/prisma/prisma";
 
-export const dynamic = "force-static";
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
 
