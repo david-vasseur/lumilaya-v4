@@ -28,6 +28,20 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app/ ./
 
+COPY --from=builder /app/ ./
+
+# --- SÉCURITÉ : UTILISATEUR NON-ROOT ---
+# 1. Créer un groupe et un utilisateur système dédiés
+RUN groupadd -g 1001 nodejs && \
+    useradd -u 1001 -g nodejs -s /bin/sh nextjs
+
+# 2. Transférer la propriété du dossier /app à cet utilisateur
+RUN chown -R nextjs:nodejs /app
+
+# 3. Basculer sur l'utilisateur non-privilégié
+USER nextjs
+# ---------------------------------------
+
 EXPOSE 4004
 
 CMD ["npm", "start"]

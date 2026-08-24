@@ -196,7 +196,7 @@ export default function LumiLayaStory({
     return (
         <section
             ref={sectionRef}
-            className="relative isolate z-10 h-lvh w-full overflow-hidden bg-transparent text-zinc-100"
+            className="relative isolate z-10 h-lvh w-full overflow-hidden bg-transparent text-zinc-100 pointer-events-none"
         >
             {/* =====================================================
                 INTRO
