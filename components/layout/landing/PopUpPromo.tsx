@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useModalStore } from "@/lib/store/modalStore";
 import Link from "next/link";
 
-export default function ScrollPopupTrigger({ productUrl }: { productUrl : string}) {
+export default function ScrollPopupTrigger({ productUrl }: { productUrl : string | undefined}) {
     const { openModal, closeModal } = useModalStore();
 
     useEffect(() => {
@@ -24,11 +24,14 @@ export default function ScrollPopupTrigger({ productUrl }: { productUrl : string
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center py-2">
                             {/* Image visuelle */}
                             <div className="relative aspect-4/5 rounded-xl overflow-hidden shadow-md">
-                                <img
-                                    src="/images/landing/hero-1.webp" 
-                                    alt="Bougie Instant d'été"
-                                    className="w-full h-full object-cover"
-                                />
+                                {productUrl && (
+                                    <img
+                                        src={productUrl} 
+                                        alt="Bougie Instant d'été"
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
+                                
                                 <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#7A9B8E] text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
                                     Édition Limitée
                                 </div>
@@ -51,7 +54,7 @@ export default function ScrollPopupTrigger({ productUrl }: { productUrl : string
                                 <div className="pt-3">
                                     <Link
                                         className="inline-flex items-center justify-center w-full bg-[#7A9B8E] hover:bg-[#658276] text-white text-sm md:text-base font-medium py-3.5 px-6 rounded-full transition-colors shadow-md"
-                                        href={productUrl}
+                                        href={"/bougies-emotion/bougie-instant-ete"}
                                         onClick={closeModal}
                                     >
                                         Découvrir l'offre
