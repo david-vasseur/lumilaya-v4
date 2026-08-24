@@ -140,7 +140,7 @@ export default function RootLayout({
 				<SmoothScroll />
 				<Toaster />
 				{/* <DiscountBanner /> */}
-				<Nav />				
+				<Nav />		
 				{children}
 				<Modal />
 			</body>
