@@ -17,7 +17,21 @@ export default function SmoothScroll() {
         const lenis = new Lenis();
         lenisRef.current = lenis;
 
+        // 1. Mise à jour de ScrollTrigger
         lenis.on("scroll", ScrollTrigger.update);
+
+        // 2. Nettoyage automatique de l'ancre (#) dès que l'utilisateur commence à scroller
+        const handleScrollCleanHash = () => {
+            if (window.location.hash) {
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname + window.location.search
+                );
+            }
+        };
+
+        lenis.on("scroll", handleScrollCleanHash);
 
         const tickerCallback = (time: number) => {
             lenis.raf(time * 1000);
