@@ -167,7 +167,7 @@ export async function getFavoriteProductsByIds(ids: number[]) {
 				take: 1
 			},
 			meta: {
-				select: { slug: true, collection: true, name: true, intro: true }
+				select: { slug: true, collection: true, name: true, intro: true, promo: true }
 			}
 		}
 	})
@@ -179,7 +179,8 @@ export async function getFavoriteProductsByIds(ids: number[]) {
 		name: p.meta.name,
 		intro: p.meta.intro,
 		duration: `${p.variants[0]?.duration}`,
-		price: p.variants[0]?.price.toNumber()
+		price: p.variants[0]?.price.toNumber(),
+		promo: p.meta.promo
 	}))
 
 	return cards;
