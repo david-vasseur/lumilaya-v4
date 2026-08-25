@@ -17,21 +17,8 @@ export default function SmoothScroll() {
         const lenis = new Lenis();
         lenisRef.current = lenis;
 
-        // 1. Mise à jour de ScrollTrigger
+        // Mise à jour de ScrollTrigger
         lenis.on("scroll", ScrollTrigger.update);
-
-        // 2. Nettoyage automatique de l'ancre (#) dès que l'utilisateur commence à scroller
-        const handleScrollCleanHash = () => {
-            if (window.location.hash) {
-                window.history.replaceState(
-                    null,
-                    "",
-                    window.location.pathname + window.location.search
-                );
-            }
-        };
-
-        lenis.on("scroll", handleScrollCleanHash);
 
         const tickerCallback = (time: number) => {
             lenis.raf(time * 1000);
@@ -54,5 +41,45 @@ export default function SmoothScroll() {
         }
     }, [pathname]);
 
+    // Retour en haut de page instantané sur la même page
+    useEffect(() => {
+        const handleScrollToTop = () => {
+            if (lenisRef.current) {
+                lenisRef.current.scrollTo(0, { immediate: true });
+            }
+        };
+
+        window.addEventListener("triggerScrollTop", handleScrollToTop);
+
+        return () => {
+            window.removeEventListener("triggerScrollTop", handleScrollToTop);
+        }
+
+    }, [])
+
+    // Nettoyage automatique du hash de l'ancre
+    useEffect(() => {
+        const handleScrollCleanHash = () => {
+            if (window.location.hash) {
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname + window.location.search
+                );
+            }
+        };
+
+        if (lenisRef.current) {
+            lenisRef.current.on("scroll", handleScrollCleanHash);
+        }
+
+        return () => {
+            if (lenisRef.current) {
+                lenisRef.current.off("scroll", handleScrollCleanHash);
+            }
+        };
+
+    }, [])
+        
     return null;
 }

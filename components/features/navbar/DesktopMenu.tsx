@@ -13,11 +13,23 @@ function DesktopMenu({ items }: {items: INavItem[]}) {
     const path = usePathname();
 
     const { openModal } = useModalStore();
-    const cartItems = useCartStore((state) => state.items)
+    const cartItems = useCartStore((state) => state.items);
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        
+        if (path === href) {
+            e.preventDefault(); 
+            window.dispatchEvent(new CustomEvent("triggerScrollTop")); // Event rattaché a mon hook Lenis.tsx
+        }
+    };
 
     return (
         <div className="mx-auto px-6 py-4 flex items-center justify-between bg-[#FDFBF7]/90 backdrop-blur-sm border-b border-[#2C2C2C]/10">
-            <Link href={"/"} className="flex items-center gap-2 group">
+            <Link 
+                href={"/"} 
+                className="flex items-center gap-2 group"
+                onClick={(e) => handleNavClick(e, "/")}
+            >
                 <div className="aspect-1137/710 w-20 relative -my-4">
                     <img
                         src="/images/logo.webp"
@@ -36,6 +48,7 @@ function DesktopMenu({ items }: {items: INavItem[]}) {
                     <Link
                         key={item.href}
                         href={item.href}
+                        onClick={(e) => handleNavClick(e, item.href)}
                         className={`text-sm tracking-wide transition-colors ${
                             path === item.href
                                 ? "text-[#2C2C2C] font-medium"
