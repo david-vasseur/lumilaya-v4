@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 export default function ShareButton({ product }: { product: IProduct }) {
 
-    const url = `https://www.lumilaya.fr/${
+    const url = `https://lumilaya.fr/${
         product.meta.collection === "Terre"
         ? "bougies-rituel"
         : "bougies-emotion"

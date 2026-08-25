@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 		siteName: "LUMILAYA",
 		images: [
 		{
-			url: "https://www.lumilaya.fr/images/landing/logo.webp",
+			url: "https://lumilaya.fr/images/landing/logo.webp",
 			width: 1200,
 			height: 630,
 			alt: "Bougie naturelle LUMILAYA",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
 		title: "LUMILAYA • Bougies naturelles artisanales",
 		description:
 		"Bougies naturelles parfumées, cire végétale, fabrication artisanale française. Explorez les émotions en lumière.",
-		images: ["https://www.lumilaya.fr/images/landing/logo.webp"],
+		images: ["https://lumilaya.fr/images/landing/logo.webp"],
 	},
 	robots: {
 			index: true,

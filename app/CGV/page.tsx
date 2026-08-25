@@ -72,7 +72,7 @@ const CGVPage = () => {
                             au RCS de Nîmes sous le numéro 832 950 570 00024, dont le siège social est situé 
                             141, rue Anne Franck 30900 Nîmes, France (ci-après "le Vendeur"), et toute 
                             personne physique ou morale souhaitant procéder à un achat via le site internet 
-                            www.lumilaya.fr (ci-après "le Client").
+                            lumilaya.fr (ci-après "le Client").
                         </p>
                         <p>
                             Le fait de passer commande implique l'adhésion entière et sans réserve du Client aux 
@@ -103,7 +103,7 @@ const CGVPage = () => {
                     </h2>
                     <div className="prose prose-sm md:prose-base max-w-none text-[#2C2C2C]/70 leading-relaxed space-y-4">
                         <p>
-                            Les produits proposés à la vente sont ceux qui figurent sur le site www.lumilaya.fr. 
+                            Les produits proposés à la vente sont ceux qui figurent sur le site lumilaya.fr. 
                             Les photographies, descriptions et caractéristiques sont données à titre indicatif et 
                             peuvent être modifiées sans préavis. Le Vendeur se réserve le droit de modifier les 
                             caractéristiques et les prix à tout moment.
@@ -142,7 +142,7 @@ const CGVPage = () => {
                     </h2>
                     <div className="prose prose-sm md:prose-base max-w-none text-[#2C2C2C]/70 leading-relaxed space-y-4">
                         <p>
-                            Le Client passe commande en ligne sur le site www.lumilaya.fr. Pour être valide, la 
+                            Le Client passe commande en ligne sur le site lumilaya.fr. Pour être valide, la 
                             commande doit être confirmée par le paiement intégral du prix. Le Vendeur confirme 
                             l'enregistrement de la commande par l'envoi d'un email de confirmation.
                         </p>

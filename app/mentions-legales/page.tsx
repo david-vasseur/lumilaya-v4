@@ -90,9 +90,10 @@ const MentionsLegalesPage = () => {
                     <h2 className="text-2xl font-light text-[#2C2C2C] mb-4">Hébergement</h2>
                     <p className="text-[#2C2C2C]/70">
                         Le site est hébergé par : <br />
-                        <strong>Vercel Inc.</strong><br />
-                        340 S Lemon Ave #4133, Walnut, CA 91789, USA<br />
-                        www.vercel.com
+                        <strong>OVH SAS</strong><br />
+                        2 rue Kellermann<br />
+                        59100 Roubaix, France<br />
+                        www.ovhcloud.com
                     </p>
                 </div>
 
