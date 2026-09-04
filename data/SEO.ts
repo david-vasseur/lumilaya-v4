@@ -76,4 +76,10 @@ export const PRODUCT_SEO = {
         description:
         "Un coffret comprenant une bougie énergétique, un bracelet en pierre naturelle, de la lavande et un rituel personnalisé pour accompagner le lâcher-prise et le renouveau.",
     },
+    
+    "bougie-abondance": {
+    title: "Bougie énergétique Abondance | Lumilaya",
+    description:
+        "Une bougie énergétique avec pierres naturelles pensée pour accompagner la créativité, la joie et l'abondance. Citrine et cornaline soutiennent vos rituels pour cultiver une énergie lumineuse et faire prospérer vos projets.",
+},
 } as const;
