@@ -78,8 +78,14 @@ export const PRODUCT_SEO = {
     },
     
     "bougie-abondance": {
-    title: "Bougie énergétique Abondance | Lumilaya",
-    description:
-        "Une bougie énergétique avec pierres naturelles pensée pour accompagner la créativité, la joie et l'abondance. Citrine et cornaline soutiennent vos rituels pour cultiver une énergie lumineuse et faire prospérer vos projets.",
-},
+        title: "Bougie énergétique Abondance | Lumilaya",
+        description:
+            "Une bougie énergétique avec pierres naturelles pensée pour accompagner la créativité, la joie et l'abondance. Citrine et cornaline soutiennent vos rituels pour cultiver une énergie lumineuse et faire prospérer vos projets.",
+    },
+
+    "bougie-reconfort": {
+        title: "Bougie parfumée naturelle Réconfort | Lumilaya",
+        description:
+            "Bougie parfumée à la citrouille, vanille et cannelle. Une création en cire de soja naturelle pour une ambiance chaleureuse, gourmande et réconfortante.",
+    },
 } as const;
