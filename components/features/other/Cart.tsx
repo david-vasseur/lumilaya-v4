@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 // Seuil de livraison offerte (à ajuster selon tes règles métier)
-const FREE_SHIPPING_THRESHOLD = 50;
+const FREE_SHIPPING_THRESHOLD = 65;
 
 function Cart() {
     const [totalwithShip, setTotalWithShip] = useState<number>(0);
@@ -68,9 +68,9 @@ function Cart() {
                                 <>
                                     <CheckCircle2 className="w-4 h-4 text-[#5A7B6E] shrink-0" />
                                     <span className="font-medium text-[#34423d]">
-                                        Félicitations ! Vous bénéficiez de la{" "}
+                                        Félicitations ! Vous bénéficiez d'un{" "}
                                         <strong className="font-semibold text-[#5A7B6E]">
-                                            livraison offerte
+                                            cadeau offert !!!
                                         </strong>
                                     </span>
                                 </>
@@ -82,7 +82,7 @@ function Cart() {
                                         <strong className="font-semibold text-[#2C2C2C]">
                                             {remainingForFreeShip.toFixed(2)} €
                                         </strong>{" "}
-                                        pour la livraison offerte
+                                        pour obtenir votre cadeau
                                     </span>
                                 </>
                             )}
