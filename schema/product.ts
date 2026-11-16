@@ -1,88 +1,67 @@
 import { z } from "zod";
 
-const wellnessSchema = z.union([
-    z.object({
-        stones: z.array(
-            z.object({
-                name: z.string(),
-                benefits: z.array(z.string())
-            })
-        ),
-        idealFor: z.array(z.string())
-    }),
-    z.object({})
-]);
-
+const wellnessSchema = z
+    .object({
+        stones: z
+            .array(
+                z.object({
+                    name: z.string(),
+                    benefits: z.array(z.string()),
+                })
+            )
+            .optional(),
+        idealFor: z.array(z.string()).optional(),
+    })
+    .optional();
 
 export const ProductSchema = z.object({
-
     description: z
-        .array(z.string())
-        .min(1, "Une description est requise"),
-
+        .array(z.string().min(1, "Le paragraphe ne peut pas être vide"))
+        .min(1, "Au moins un paragraphe de description est requis"),
 
     images: z
         .array(z.instanceof(File))
         .min(1, "Au moins une image est requise"),
 
-
-    wellness: wellnessSchema.optional(),
-
+    wellness: wellnessSchema,
 
     meta: z.object({
+        collection: z.string().min(1, "La collection est requise"),
 
-        collection: z.string()
-            .min(1, "La collection est requise"),
+        name: z.string().min(1, "Le nom est requis"),
 
-        name: z.string()
-            .min(1, "Le nom est requis"),
+        slug: z.string().min(1, "Le slug est requis"),
 
-        slug: z.string()
-            .min(1, "Le slug est requis"),
+        intro: z.string().min(1, "L'introduction est requise"),
 
-        intro: z.string()
-            .min(1, "L'introduction est requise"),
-
+        // z.string() simple : accepte "" sans créer de décalage input/output dans TanStack Form
         theme: z.object({
-
-            top: z.string()
-                .min(1, "Note de tête requise"),
-
-            heart: z.string()
-                .min(1, "Note de coeur requise"),
-
-            base: z.string()
-                .min(1, "Note de fond requise"),
-
+            top: z.string(),
+            heart: z.string(),
+            base: z.string(),
         }),
 
         content: z.array(z.string()).optional(),
 
         stock: z.boolean(),
 
-        promo: z.number()
-            .optional(),
+        promo: z.number().min(0).max(100).optional(),
 
-        like: z.number()
-            .optional(),
-
+        like: z.number().min(0).optional(),
     }),
 
+    variants: z
+        .array(
+            z.object({
+                name: z.string().min(1, "Le nom du format est requis"),
+                duration: z.number().min(0, "La durée ne peut pas être négative"),
+                weight: z.number().min(0, "Le poids ne peut pas être négatif"),
+                price: z.number().positive("Le prix doit être supérieur à 0 €"),
+            })
+        )
+        .min(1, "Au moins un format est requis"),
 
-    variants: z.array(
-        z.object({
-            name: z.string().min(1),
-            duration: z.number().positive(),
-            weight: z.number().positive(),
-            price: z.number().positive(),
-        })
-    )
-    .min(1, "Au moins un format est requis"),
-
-
-    tags: z.array(z.string())
-
+    tags: z.array(z.string()),
 });
-
 
 export type IProduct = z.infer<typeof ProductSchema>;
