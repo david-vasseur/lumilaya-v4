@@ -3,8 +3,7 @@
 import ShipStatusForm from '@/components/form/admin/ShipStatusForm';
 import BackButton from '@/components/ui/BackButton';
 import { getOneOrderById } from '@/lib/action/admin.action';
-import { Order, OrderItem } from '@/lib/generated/prisma/client';
-import { ShippingStatus } from '@/lib/generated/prisma/enums';
+import { ShippingStatus, ShippingType } from '@/lib/generated/prisma/enums';
 import { generateFingerprint } from '@/utils/dbFunction';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -30,9 +29,41 @@ import {
     type LucideIcon
 } from 'lucide-react';
 
-type OrderWithItems = Order & {
-    items: OrderItem[];
-};
+// Typage explicite basé sur ton schema.prisma (compatible Decimal / JSON)
+export interface IOrderItem {
+    id: number;
+    orderId: number;
+    productId: number;
+    variantId: number;
+    name: string;
+    price: number | string | { toString(): string };
+    quantity: number;
+    options?: Record<string, unknown> | null;
+}
+
+export interface IOrderWithItems {
+    id: number;
+    stripeSessionId: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    shippingAddress: string;
+    shippingCity: string;
+    shippingPostalCode: string;
+    shippingCountry: string;
+    shippingType: ShippingType;
+    shippingPrice: number | string | { toString(): string };
+    shippingStatus: ShippingStatus;
+    billingAddress: string;
+    billingCity: string;
+    billingPostalCode: string;
+    billingCountry: string;
+    acceptCGV: boolean;
+    total: number | string | { toString(): string };
+    items: IOrderItem[];
+    createdAt: Date | string;
+}
 
 // Configuration des statuts
 const STATUS_DETAILS: Record<string, {
@@ -93,18 +124,12 @@ const SHIPPING_TYPE_LABELS: Record<string, string> = {
     OFF: "Livraison offerte / Retrait",
 };
 
-/**
- * Helper de formatage des prix :
- * Ajuster "/ 100" si tes Decimal Prisma sont déjà stockés en Euros (ex: 29.90)
- * ou en centimes (ex: 2990).
- */
 function formatPrice(value: unknown, divideBy100 = true): string {
     const num = Number(value || 0);
     const amount = divideBy100 ? num / 100 : num;
     return `${amount.toFixed(2)} €`;
 }
 
-// Helper pour afficher proprement le champ JSON "options" d'un OrderItem
 function renderItemOptions(options: unknown) {
     if (!options || typeof options !== "object") return null;
     const entries = Object.entries(options as Record<string, unknown>);
@@ -112,7 +137,7 @@ function renderItemOptions(options: unknown) {
 
     return (
         <div className="flex flex-wrap gap-1.5 mt-1.5">
-            {entries.map(([key, val]) => (
+            {entries.map(([key, val]: [string, unknown]) => (
                 <span
                     key={key}
                     className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-600"
@@ -129,7 +154,7 @@ export default function OrderDetailPage() {
     const params = useParams();
     const slug = params.slug as string;
 
-    const [order, setOrder] = useState<OrderWithItems | null>(null);
+    const [order, setOrder] = useState<IOrderWithItems | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [copiedStripe, setCopiedStripe] = useState<boolean>(false);
 
@@ -147,7 +172,7 @@ export default function OrderDetailPage() {
             try {
                 const res = await getOneOrderById(token, fingerprint, slug);
                 if (res?.order) {
-                    setOrder(res.order);
+                    setOrder(res.order as unknown as IOrderWithItems);
                 }
             } catch (error) {
                 console.error("Error loading order", error);
@@ -168,7 +193,6 @@ export default function OrderDetailPage() {
         setTimeout(() => setCopiedStripe(false), 2000);
     };
 
-    // Squelette de chargement
     if (isLoading) {
         return (
             <div className="min-h-screen bg-slate-50/70 p-4 sm:p-6 md:p-10">
@@ -184,7 +208,6 @@ export default function OrderDetailPage() {
         );
     }
 
-    // Commande introuvable
     if (!order) {
         return (
             <div className="min-h-screen bg-slate-50/70 p-4 sm:p-6 md:p-10 flex items-center justify-center">
@@ -207,13 +230,17 @@ export default function OrderDetailPage() {
     const statusInfo = STATUS_DETAILS[order.shippingStatus] || STATUS_DETAILS.PENDING;
     const StatusIcon = statusInfo.icon;
 
-    // Calcul du sous-total des articles (hors livraison)
+    // Typage explicite de acc et item
     const itemsSubtotal = order.items.reduce(
-        (acc, item) => acc + Number(item.price) * item.quantity,
+        (acc: number, item: IOrderItem) => acc + Number(item.price) * item.quantity,
         0
     );
 
-    // Vérifie si l'adresse de facturation est identique à celle de livraison
+    const totalItemsCount = order.items.reduce(
+        (sum: number, item: IOrderItem) => sum + item.quantity,
+        0
+    );
+
     const isSameBillingAddress =
         order.shippingAddress === order.billingAddress &&
         order.shippingPostalCode === order.billingPostalCode &&
@@ -221,12 +248,10 @@ export default function OrderDetailPage() {
 
     return (
         <div className="min-h-screen bg-slate-50/70 text-slate-900 p-4 sm:p-6 md:p-10">
-            {/* Fond subtil */}
             <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-50 pointer-events-none" />
 
             <div className="max-w-6xl mx-auto pt-4 sm:pt-8 space-y-6">
 
-                {/* BOUTON RETOUR */}
                 <div>
                     <BackButton />
                 </div>
@@ -261,7 +286,6 @@ export default function OrderDetailPage() {
                             </p>
                         </div>
 
-                        {/* Badge Stripe Session avec copie */}
                         <div className="flex items-center gap-2 self-start sm:self-auto bg-slate-50 border border-slate-200/80 rounded-xl px-3 py-2">
                             <CreditCard className="w-4 h-4 text-slate-400 shrink-0" />
                             <div className="text-xs">
@@ -296,7 +320,7 @@ export default function OrderDetailPage() {
                     ) : (
                         <div className="pt-4 border-t border-slate-100">
                             <div className="grid grid-cols-5 gap-2">
-                                {PROGRESS_STEPS.map((step, index) => {
+                                {PROGRESS_STEPS.map((step, index: number) => {
                                     const StepIcon = step.icon;
                                     const isCompleted = index <= statusInfo.stepIndex;
                                     const isCurrent = index === statusInfo.stepIndex;
@@ -304,7 +328,6 @@ export default function OrderDetailPage() {
                                     return (
                                         <div key={step.key} className="flex flex-col items-center text-center">
                                             <div className="w-full flex items-center justify-center relative mb-2">
-                                                {/* Ligne de connexion gauche */}
                                                 {index > 0 && (
                                                     <div
                                                         className={`hidden sm:block absolute right-1/2 top-1/2 -translate-y-1/2 w-full h-0.5 -z-0 ${
@@ -345,7 +368,7 @@ export default function OrderDetailPage() {
                     )}
                 </div>
 
-                {/* GRILLE PRINCIPALE : 2 COLONNES SUR DESKTOP */}
+                {/* GRILLE PRINCIPALE */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
                     {/* COLONNE GAUCHE (2/3) : ARTICLES & TOTAL */}
@@ -361,13 +384,12 @@ export default function OrderDetailPage() {
                                     </h2>
                                 </div>
                                 <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
-                                    {order.items.reduce((sum, i) => sum + i.quantity, 0)} article(s)
+                                    {totalItemsCount} article(s)
                                 </span>
                             </div>
 
-                            {/* Liste des articles (Responsive : cartes sur mobile, lignes sur desktop) */}
                             <div className="divide-y divide-slate-100">
-                                {order.items.map((item) => {
+                                {order.items.map((item: IOrderItem) => {
                                     const lineTotal = Number(item.price) * item.quantity;
 
                                     return (
@@ -385,7 +407,6 @@ export default function OrderDetailPage() {
                                                     </span>
                                                 </div>
 
-                                                {/* Affichage des options JSON si présentes */}
                                                 {renderItemOptions(item.options)}
 
                                                 <p className="text-xs text-slate-500 pt-0.5">
@@ -442,16 +463,16 @@ export default function OrderDetailPage() {
                     {/* COLONNE DROITE (1/3) : STATUT, CLIENT, ADRESSES */}
                     <div className="space-y-6">
 
-                        {/* 1. Formulaire de changement de statut */}
                         <ShipStatusForm
                             status={order.shippingStatus}
                             id={String(order.id)}
                             onStatusUpdated={(newStatus: ShippingStatus) =>
-                                setOrder((prev) => (prev ? { ...prev, shippingStatus: newStatus } : prev))
+                                setOrder((prev: IOrderWithItems | null) =>
+                                    prev ? { ...prev, shippingStatus: newStatus } : null
+                                )
                             }
                         />
 
-                        {/* 2. Fiche Client */}
                         <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-2xs space-y-4">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -494,7 +515,6 @@ export default function OrderDetailPage() {
                             </div>
                         </div>
 
-                        {/* 3. Adresse de livraison */}
                         <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-2xs space-y-3">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -524,7 +544,6 @@ export default function OrderDetailPage() {
                             </div>
                         </div>
 
-                        {/* 4. Adresse de facturation */}
                         <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-2xs space-y-3">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">

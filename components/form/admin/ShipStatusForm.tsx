@@ -108,15 +108,19 @@ function ShipStatusForm({ status, id, onStatusUpdated }: ShipStatusFormProps) {
             </form.Field>
 
             <form.Subscribe
-                selector={(state) => [state.canSubmit, state.isSubmitting, state.values.shippingStatus]}
+                selector={(state) => ({
+                    canSubmit: state.canSubmit,
+                    isSubmitting: state.isSubmitting,
+                    currentVal: state.values.shippingStatus,
+                })}
             >
-                {([canSubmit, isSubmitting, currentVal]) => {
+                {({ canSubmit, isSubmitting, currentVal }) => {
                     const isUnchanged = currentVal === status;
 
                     return (
                         <button
                             type="submit"
-                            disabled={!canSubmit || isSubmitting || isUnchanged}
+                            disabled={Boolean(!canSubmit || isSubmitting || isUnchanged)}
                             className="w-full bg-slate-900 text-white py-2.5 px-4 rounded-xl font-medium text-sm hover:bg-slate-800 active:scale-[0.99] transition-all shadow-2xs disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2 cursor-pointer"
                         >
                             {isSubmitting ? (
