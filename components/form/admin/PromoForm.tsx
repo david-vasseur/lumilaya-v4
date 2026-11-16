@@ -8,7 +8,6 @@ import {
     Palette,
     Image as ImageIcon,
     Eye,
-    Sparkles,
     Upload,
     Trash2,
     CheckCircle2,
