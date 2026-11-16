@@ -11,13 +11,13 @@ function page() {
             title: "Coffret Découverte",
             description: "Une sélection de nos bougies emblématiques pour découvrir l'univers Lumi'laya.",
             image: "/images/landing/coffret.webp",
-            href: "/coffrets/coffret-decouverte"
+            href: "/coffrets-accessoires/coffret-decouverte"
         },
         {
             title: "Coffret Rituel Protection",
             description: "Un coffret pensé pour accompagner vos moments de recentrage et de bien-être.",
             image: "/images/landing/coffret_rit1.webp",
-            href: "/coffrets/coffret-rituel-protection"
+            href: "/coffrets-accessoires/coffret-rituel-protection"
         },
     ];
 
@@ -25,7 +25,7 @@ function page() {
         <div className="min-h-screen bg-[#FDFBF7]">
             <Hero_page />
             <CoffretsIntro />
-            <Title id='noscoffrets' title='Nos coffrets' />
+            <Title id='noscoffrets' title='Nos coffrets & Accessoires' />
 
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">

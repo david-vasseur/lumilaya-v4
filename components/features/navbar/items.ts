@@ -8,6 +8,7 @@ export const items: INavItem[] = [
     { label: "Notre histoire", href: "/notre-histoire" },
     { label: "Bougies Emotions & Plaisirs", href: "/bougies-emotion" },
     { label: "Bougies Entre Terre & Ciel", href: "/bougies-rituel" },
+    { label: "Coffrets & Accessoires", href: "/coffrets-accessoires" },
     { label: "Mes favoris", href: "/favoris" },
     { label: "Nous contacter", href: "/contact" },
 ]
