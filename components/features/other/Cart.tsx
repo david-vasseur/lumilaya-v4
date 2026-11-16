@@ -125,7 +125,8 @@ function Cart() {
                         )}
                     </div>
                 ) : (
-                    <>
+                    <div className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain touch-pan-y py-3 pr-1 flex flex-col gap-3">
+
                         {items.map((item, index) => (
                             <div
                                 key={`${item.id}-${index}`}
@@ -148,7 +149,7 @@ function Cart() {
                                 <ShipItem />
                             </div>
                         )}
-                    </>
+                    </div>
                 )}
             </div>
 
