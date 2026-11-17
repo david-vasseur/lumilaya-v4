@@ -6,12 +6,16 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+const formatEuro = (cents: number) =>
+    (cents / 100).toFixed(2).replace(".", ",");
+    
+
 export const sendOrderEmailToCompany = async (order: OrderEmailData, products: OrderProduct[]) => {
     const productsListHtml = products
         .map(
             (p) => `
             <li style="margin-bottom: 10px;">
-                <strong>${p.qty} x ${p.name}</strong> — ${p.price}€
+                <strong>${p.qty} x ${p.name}</strong> — ${formatEuro(p.price)}€
                 ${
                     p.options?.length
                         ? `<div style="font-size: 12px; color: #666; margin-top: 4px;">
