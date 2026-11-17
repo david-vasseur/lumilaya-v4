@@ -59,7 +59,7 @@ function CartItem({
                         className="w-full h-full object-cover"
                     />
                     {qty > 1 && (
-                        <span className="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 px-1.5 rounded-bl-lg bg-[#7A9B8E] text-white text-[11px] font-bold flex items-center justify-center shadow-2xs">
+                        <span className="absolute -top-0.5 -right-0.5 min-w-5 h-5 px-1.5 rounded-bl-lg bg-[#7A9B8E] text-white text-[11px] font-bold flex items-center justify-center shadow-2xs">
                             x{qty}
                         </span>
                     )}

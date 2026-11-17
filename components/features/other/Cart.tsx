@@ -91,7 +91,7 @@ function Cart() {
                         {/* Jauge */}
                         <div className="w-full h-1.5 bg-[#7A9B8E]/15 rounded-full overflow-hidden">
                             <div
-                                className="h-full bg-gradient-to-r from-[#7A9B8E] to-[#5A7B6E] rounded-full transition-all duration-500 ease-out"
+                                className="h-full bg-linear-to-r from-[#7A9B8E] to-[#5A7B6E] rounded-full transition-all duration-500 ease-out"
                                 style={{ width: `${progressPercent}%` }}
                             />
                         </div>

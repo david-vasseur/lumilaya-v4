@@ -38,7 +38,7 @@ export default function Modal() {
     return (
         <ModalPortal>
             <div
-                className="fixed inset-0 w-screen h-dvh bg-black/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-[1000000]"
+                className="fixed inset-0 w-screen h-dvh bg-black/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-1000000"
                 onClick={closeModal}
             >
                 <div

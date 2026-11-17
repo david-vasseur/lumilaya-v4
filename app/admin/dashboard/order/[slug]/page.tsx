@@ -248,7 +248,7 @@ export default function OrderDetailPage() {
 
     return (
         <div className="min-h-screen bg-slate-50/70 text-slate-900 p-4 sm:p-6 md:p-10">
-            <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-50 pointer-events-none" />
+            <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-size-[20px_20px] opacity-50 pointer-events-none" />
 
             <div className="max-w-6xl mx-auto pt-4 sm:pt-8 space-y-6">
 
@@ -330,7 +330,7 @@ export default function OrderDetailPage() {
                                             <div className="w-full flex items-center justify-center relative mb-2">
                                                 {index > 0 && (
                                                     <div
-                                                        className={`hidden sm:block absolute right-1/2 top-1/2 -translate-y-1/2 w-full h-0.5 -z-0 ${
+                                                        className={`hidden sm:block absolute right-1/2 top-1/2 -translate-y-1/2 w-full h-0.5 z-0 ${
                                                             index <= statusInfo.stepIndex
                                                                 ? "bg-slate-900"
                                                                 : "bg-slate-200"
@@ -418,7 +418,7 @@ export default function OrderDetailPage() {
                                                 <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
                                                     x{item.quantity}
                                                 </span>
-                                                <span className="font-bold text-slate-900 text-sm sm:text-base min-w-[75px] text-right">
+                                                <span className="font-bold text-slate-900 text-sm sm:text-base min-w-18.75 text-right">
                                                     {formatPrice(lineTotal)}
                                                 </span>
                                             </div>

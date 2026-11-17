@@ -1191,7 +1191,7 @@ function ProductForm({ onSuccess }: ProductFormProps) {
                         <button
                             type="submit"
                             disabled={Boolean(!canSubmit || isSubmitting)}
-                            className="w-full sm:w-auto min-w-[240px] bg-slate-900 text-white py-3.5 px-6 rounded-xl font-semibold text-sm hover:bg-slate-800 transition shadow-sm disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2 cursor-pointer"
+                            className="w-full sm:w-auto min-w-60 bg-slate-900 text-white py-3.5 px-6 rounded-xl font-semibold text-sm hover:bg-slate-800 transition shadow-sm disabled:opacity-40 disabled:pointer-events-none flex items-center justify-center gap-2 cursor-pointer"
                         >
                             {isSubmitting ? (
                                 <>
