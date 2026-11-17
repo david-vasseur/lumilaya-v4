@@ -1,18 +1,23 @@
-// components/DiscountBanner.tsx
 
 import { prisma } from "@/lib/prisma/prisma";
 import DiscountBannerClient from "./DiscountBannerClient";
 
 export default async function DiscountBanner() {
-  const promo = await prisma.promo.findUnique({
-    where: { id: 1 },
-  });
+  let promo = null;
+
+  try {
+    promo = await prisma.promo.findUnique({
+      where: { id: 1 },
+    });
+  } catch {
+    // Pendant le docker build, le conteneur postgres n'est pas joignable
+    return null;
+  }
 
   if (!promo || !promo.active || !promo.title) {
     return null;
   }
 
-  // Vérification de la plage de dates si renseignée
   const now = new Date();
   if (promo.dateStart && now < new Date(promo.dateStart)) return null;
   if (promo.dateEnd && now > new Date(promo.dateEnd)) return null;
