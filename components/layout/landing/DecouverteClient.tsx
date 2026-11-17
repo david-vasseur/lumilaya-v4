@@ -3,11 +3,9 @@
 import { ChevronRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import Link from "next/link";
 
-gsap.registerPlugin(ScrollTrigger);
 
 export interface ShowcaseSlide {
     id: string | number;
@@ -51,109 +49,94 @@ export default function CoffretDecouverteClient({
         }))
     );
 
-    // 1. Carrousel automatique images + textes synchronisés
+    // 1. Carrousel d'images uniquement (pilote activeSlide proprement)
     useGSAP(
         () => {
             const images = imagesRef.current.filter(Boolean);
-            const contents = slideRefs.current.filter(Boolean);
-
-            if (!images.length || !contents.length) return;
+            if (!images.length) return;
 
             gsap.set(images, { opacity: 0 });
             gsap.set(images[0], { opacity: 1 });
-
-            gsap.set(contents, { autoAlpha: 0, x: 24 });
-            gsap.set(contents[0], { autoAlpha: 1, x: 0 });
 
             if (flatImages.length <= 1) return;
 
             const tl = gsap.timeline({ repeat: -1 });
 
-            flatImages.forEach((item, i) => {
+            flatImages.forEach((_, i) => {
                 const nextIndex = (i + 1) % flatImages.length;
-                const nextItem = flatImages[nextIndex];
-                const currentImg = images[i];
-                const nextImg = images[nextIndex];
+                const nextSlideIdx = flatImages[nextIndex].slideIdx;
 
                 tl.to(
-                    nextImg,
+                    images[nextIndex],
                     {
                         opacity: 1,
-                        duration: 1.5,
+                        duration: 1.2,
                         ease: "power2.inOut",
-                        onStart: () => setActiveSlide(nextItem.slideIdx),
+                        onStart: () => setActiveSlide(nextSlideIdx),
                     },
-                    "+=3"
-                );
-
-                tl.to(
-                    currentImg,
+                    "+=3.5"
+                ).to(
+                    images[i],
                     {
                         opacity: 0,
-                        duration: 1.5,
+                        duration: 1.2,
                         ease: "power2.inOut",
                     },
                     "<"
                 );
+            });
+        },
+        { scope: sectionRef, dependencies: [slides.length, flatImages.length] }
+    );
 
-                if (item.slideIdx !== nextItem.slideIdx) {
-                    const currentContent = contents[item.slideIdx];
-                    const nextContent = contents[nextItem.slideIdx];
+    // 2. Transition fluide du texte à chaque changement de activeSlide (aucun conflit de boucle)
+    useGSAP(
+        () => {
+            const contents = slideRefs.current.filter(Boolean);
+            if (!contents.length) return;
 
-                    tl.to(
-                        currentContent,
-                        {
-                            autoAlpha: 0,
-                            x: -24,
-                            duration: 0.6,
-                            ease: "power3.inOut",
-                        },
-                        "<"
-                    );
-
-                    tl.fromTo(
-                        nextContent,
-                        { autoAlpha: 0, x: 24 },
-                        {
-                            autoAlpha: 1,
-                            x: 0,
-                            duration: 0.8,
-                            ease: "power3.out",
-                        },
-                        "-=0.2"
-                    );
+            contents.forEach((el, idx) => {
+                if (idx === activeSlide) {
+                    gsap.to(el, {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.65,
+                        ease: "power3.out",
+                        overwrite: "auto",
+                    });
+                } else {
+                    gsap.to(el, {
+                        autoAlpha: 0,
+                        y: 12,
+                        duration: 0.35,
+                        ease: "power2.in",
+                        overwrite: "auto",
+                    });
                 }
             });
         },
-        { scope: sectionRef, dependencies: [slides] }
+        { scope: sectionRef, dependencies: [activeSlide, slides.length] }
     );
 
-    // 2. Animation d'apparition au scroll
+    // 3. Animation d'entrée de la section au scroll (sans reverse brutal qui masque le texte)
     useGSAP(
         () => {
-            const elements = gsap.utils.toArray(".coffret-reveal");
-
             gsap.fromTo(
-                elements,
+                ".coffret-reveal",
                 {
-                    y: 40,
+                    y: 35,
                     opacity: 0,
-                    scale: 0.95,
-                    filter: "blur(6px)",
                 },
                 {
                     y: 0,
                     opacity: 1,
-                    scale: 1,
-                    filter: "blur(0px)",
-                    stagger: 0.15,
-                    duration: 0.9,
+                    stagger: 0.12,
+                    duration: 0.85,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 70%",
-                        end: "bottom 30%",
-                        toggleActions: "play reverse play reverse",
+                        start: "top 75%",
+                        once: true,
                     },
                 }
             );
@@ -204,7 +187,7 @@ export default function CoffretDecouverteClient({
                         />
                     ))}
 
-                    <div className="absolute inset-0 bg-[#5A7B6E]/10" />
+                    <div className="absolute inset-0 bg-[#5A7B6E]/10 pointer-events-none" />
 
                     {/* Badge pourcentage en mode promo */}
                     {mode === "promo" && currentSlideData?.discountPercent && (
@@ -213,16 +196,19 @@ export default function CoffretDecouverteClient({
                         </span>
                     )}
 
-                    {/* Petits indicateurs si plusieurs slides */}
+                    {/* Indicateurs cliquables */}
                     {slides.length > 1 && (
-                        <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1.5 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-full">
+                        <div className="absolute bottom-4 left-4 z-10 flex items-center gap-1.5 bg-white/85 backdrop-blur-xs px-3 py-1.5 rounded-full">
                             {slides.map((s, idx) => (
-                                <span
+                                <button
                                     key={s.id}
-                                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                                    type="button"
+                                    aria-label={`Voir ${s.title}`}
+                                    onClick={() => setActiveSlide(idx)}
+                                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                                         activeSlide === idx
                                             ? "w-6 bg-[#5A7B6E]"
-                                            : "w-1.5 bg-[#5A7B6E]/35"
+                                            : "w-1.5 bg-[#5A7B6E]/35 hover:bg-[#5A7B6E]/60"
                                     }`}
                                 />
                             ))}
@@ -250,24 +236,29 @@ export default function CoffretDecouverteClient({
                         </span>
                     </h3>
 
-                    {/* Conteneur superposé des slides */}
-                    <div className="relative w-full">
+                    {/* Grille superposée (tous les slides gardent la hauteur max, zéro saut) */}
+                    <div className="grid grid-cols-1 grid-rows-1 w-full">
                         {slides.map((slide, idx) => (
                             <div
                                 key={slide.id}
                                 ref={(el) => {
                                     if (el) slideRefs.current[idx] = el;
                                 }}
-                                className={`${
-                                    idx === 0 ? "relative" : "absolute inset-0"
-                                } flex flex-col gap-5`}
+                                style={{
+                                    opacity: idx === 0 ? 1 : 0,
+                                    visibility: idx === 0 ? "visible" : "hidden",
+                                }}
+                                className={`col-start-1 row-start-1 flex flex-col gap-5 ${
+                                    activeSlide === idx
+                                        ? "pointer-events-auto z-10"
+                                        : "pointer-events-none z-0"
+                                }`}
                             >
                                 <div className="flex flex-wrap items-baseline gap-3">
                                     <h4 className="text-xl font-medium text-[#2C2C2C]">
                                         {slide.title}
                                     </h4>
 
-                                    {/* Affichage prix barré / prix promo */}
                                     {slide.finalPrice && (
                                         <div className="flex items-baseline gap-2">
                                             <span className="text-lg font-bold text-[#5A7B6E]">
