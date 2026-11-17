@@ -160,7 +160,7 @@ export default function CoffretHero({
                 scrollTrigger: {
                     trigger: heroRef.current,
                     start: "top top",
-                    end: () => `+=${window.innerHeight * 1.5}`,
+                    end: () => `+=${window.innerHeight * 1}`,
                     pin: true,
                     pinSpacing: false,
                     scrub: true,
