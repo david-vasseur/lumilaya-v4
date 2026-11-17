@@ -1,4 +1,3 @@
-
 import { getImageUrl } from "@/utils/image";
 import CoffretDecouverteClient, { ShowcaseSlide } from "./DecouverteClient";
 import { prisma } from "@/lib/prisma/prisma";
@@ -50,11 +49,7 @@ async function fetchPromoProducts() {
             },
         },
         include: {
-            meta: {
-                include: {
-                    images: true,
-                },
-            },
+            meta: true,
             variants: {
                 orderBy: { price: "asc" },
             },
@@ -78,10 +73,9 @@ export default async function CoffretDecouverte() {
             const basePriceCents = product.variants[0]?.price ?? 0;
             const discountedPriceCents = Math.round(basePriceCents * (1 - discount / 100));
 
-            const rawImages = product.meta?.images ?? [];
             const productImages =
-                rawImages.length > 0
-                    ? rawImages.slice(0, 2).map((img) => getImageUrl(img.url))
+                product.images.length > 0
+                    ? product.images.slice(0, 2).map((img) => getImageUrl(img))
                     : ["/images/landing/coffret.webp"];
 
             return {
