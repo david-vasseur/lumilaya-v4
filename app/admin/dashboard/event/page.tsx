@@ -22,7 +22,7 @@ import {
     Loader2,
 } from "lucide-react";
 import { generateFingerprint } from "@/utils/dbFunction";
-import { createBanner, IPromoBannerPayload } from "@/lib/action/admin.action";
+import { createBanner, getEvents, IPromoBannerPayload } from "@/lib/action/admin.action";
 
 interface IAdminEvent {
     id: number;
