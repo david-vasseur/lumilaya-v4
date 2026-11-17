@@ -69,8 +69,8 @@ export default async function CoffretDecouverte() {
 
     if (promoProducts.length > 0) {
         const promoSlides: ShowcaseSlide[] = promoProducts.map((product) => {
-            const discount = product.meta?.promo ?? 0;
-            const basePriceCents = product.variants[0]?.price ?? 0;
+            const discount = Number(product.meta?.promo ?? 0);
+            const basePriceCents = Number(product.variants[0]?.price ?? 0);
             const discountedPriceCents = Math.round(basePriceCents * (1 - discount / 100));
 
             const productImages =
