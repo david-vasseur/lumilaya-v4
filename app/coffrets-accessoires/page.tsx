@@ -1,4 +1,5 @@
-import Hero_page from '@/components/features/other/Hero_page';
+
+import CoffretHero, { HeroSlide } from '@/components/layout/product_list_page/CoffretHero';
 import CoffretsIntro from '@/components/ui/CoffretIntro';
 import CoffretsFuture from '@/components/ui/CoffretSuggestion';
 import Title from '@/components/ui/Title';
@@ -11,9 +12,20 @@ export const dynamic = "force-dynamic";
 async function Page() {
     const items = await getProductsByCollection("Coffret");
 
+    const slides: HeroSlide[] = items.map((coffret) => ({
+        id: coffret.id,
+        title: coffret.meta.name.replace(" ", "<br />"),
+        subtitle: coffret.meta.intro,
+        ctaLabel: coffret.meta.content?.length
+            ? "Composer votre coffret"
+            : "Découvrir le coffret",
+        ctaHref: `/coffrets-accessoires/${coffret.meta.slug}`,
+        images: coffret.images.slice(0, 2), // 2 photos par coffret qui défilent avant le slide suivant
+    }));
+
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
-            <Hero_page />
+            <CoffretHero slides={slides} />
             <CoffretsIntro />
             <Title id="noscoffrets" title="Nos coffrets & Accessoires" />
 
