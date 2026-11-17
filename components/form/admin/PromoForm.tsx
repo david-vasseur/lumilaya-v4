@@ -1,15 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
     Megaphone,
     Calendar,
     Palette,
-    Image as ImageIcon,
     Eye,
-    Upload,
-    Trash2,
     CheckCircle2,
     Clock,
     AlertCircle,
@@ -19,7 +17,9 @@ import {
     Save,
     Smartphone,
     Monitor,
+    Loader2,
 } from "lucide-react";
+import { createBanner, IPromoBannerPayload } from "@/lib/action/admin.action";
 
 export interface IPromoBannerData {
     active: boolean;
@@ -31,14 +31,13 @@ export interface IPromoBannerData {
     dateEnd: string;
     bgColor: string;
     textColor: string;
-    imageUrl: string | null;
-    imageMode: "background" | "thumbnail";
-    overlayOpacity: number;
 }
 
 interface PromoFormProps {
     promo: IPromoBannerData;
-    onUpdatePromo: (newPromo: IPromoBannerData) => void;
+    token: string;
+    fingerprint: string;
+    onUpdatePromo?: (newPromo: IPromoBannerData) => void;
 }
 
 const COLOR_PRESETS = [
@@ -49,7 +48,6 @@ const COLOR_PRESETS = [
     { name: "Forêt Profonde", bg: "#14532D", text: "#FFFFFF" },
 ];
 
-// Calcule le statut réel de la promo selon le switch + les dates
 export function getPromoStatus(promo: IPromoBannerData): {
     code: "ACTIVE" | "SCHEDULED" | "EXPIRED" | "DISABLED";
     label: string;
@@ -102,10 +100,26 @@ export function getPromoStatus(promo: IPromoBannerData): {
     };
 }
 
-export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
-    const [formData, setFormData] = useState<IPromoBannerData>(promo);
+export default function PromoForm({
+    promo,
+    token,
+    fingerprint,
+    onUpdatePromo,
+}: PromoFormProps) {
+    const router = useRouter();
+    const [formData, setFormData] = useState<IPromoBannerData>({
+        active: promo?.active ?? false,
+        title: promo?.title ?? "",
+        promoCode: promo?.promoCode ?? "",
+        linkUrl: promo?.linkUrl ?? "",
+        linkLabel: promo?.linkLabel ?? "",
+        dateStart: promo?.dateStart ? promo.dateStart.slice(0, 10) : "",
+        dateEnd: promo?.dateEnd ? promo.dateEnd.slice(0, 10) : "",
+        bgColor: promo?.bgColor || "#7A9B8E",
+        textColor: promo?.textColor || "#FFFFFF",
+    });
     const [previewDevice, setPreviewDevice] = useState<"desktop" | "mobile">("desktop");
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const status = getPromoStatus(formData);
 
@@ -113,35 +127,60 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
         key: K,
         value: IPromoBannerData[K]
     ) => {
-        const updated = { ...formData, [key]: value };
-        setFormData(updated);
+        setFormData((prev) => ({ ...prev, [key]: value }));
     };
 
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        // Prévisualisation locale immédiate (sans backend)
-        const localPreviewUrl = URL.createObjectURL(file);
-        updateField("imageUrl", localPreviewUrl);
-        toast.success("Image chargée dans l'aperçu");
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!token || !fingerprint) {
+            toast.error("Session expirée, veuillez vous reconnecter.");
+            return;
+        }
+
+        if (formData.active && !formData.title.trim()) {
+            toast.error("Veuillez saisir un texte pour la bannière avant de l'activer.");
+            return;
+        }
 
         if (
             formData.dateStart &&
             formData.dateEnd &&
             new Date(formData.dateStart) > new Date(formData.dateEnd)
         ) {
-            toast.error("La date de fin doit être postérieure à la date de début");
+            toast.error("La date de fin doit être postérieure à la date de début.");
             return;
         }
 
-        onUpdatePromo(formData);
-        toast.success("Configuration de la bannière mise à jour (Mode démo)");
+        setIsSubmitting(true);
+
+        try {
+            const payload: IPromoBannerPayload = {
+                active: formData.active,
+                title: formData.title.trim(),
+                promoCode: formData.promoCode.trim() || null,
+                linkUrl: formData.linkUrl.trim() || null,
+                linkLabel: formData.linkLabel.trim() || null,
+                dateStart: formData.dateStart ? new Date(formData.dateStart).toISOString() : null,
+                dateEnd: formData.dateEnd ? new Date(formData.dateEnd).toISOString() : null,
+                bgColor: formData.bgColor,
+                textColor: formData.textColor,
+            };
+
+            await createBanner(token, fingerprint, payload);
+
+            onUpdatePromo?.(formData);
+            router.refresh();
+            toast.success("Bannière promotionnelle enregistrée et mise à jour !");
+        } catch (error) {
+            toast.error(
+                error instanceof Error ? error.message : "Impossible de sauvegarder la bannière."
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
 
     return (
         <div className="space-y-6">
@@ -162,7 +201,6 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                         </div>
                     </div>
 
-                    {/* Sélecteur d'aperçu Desktop / Mobile + Badge Statut */}
                     <div className="flex items-center gap-2">
                         <span
                             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${status.badgeClass}`}
@@ -206,7 +244,7 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                 {/* Conteneur de simulation de la bannière */}
                 <div className="bg-slate-100/80 rounded-2xl p-4 sm:p-6 flex justify-center border border-slate-200/60">
                     <div
-                        className={`w-full transition-all duration-300 rounded-xl overflow-hidden shadow-md relative ${
+                        className={`w-full transition-all duration-300 rounded-xl overflow-hidden shadow-md ${
                             previewDevice === "mobile" ? "max-w-[360px]" : "w-full"
                         }`}
                         style={{
@@ -214,54 +252,24 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                             color: formData.textColor,
                         }}
                     >
-                        {/* Image en mode FOND (Background) */}
-                        {formData.imageUrl && formData.imageMode === "background" && (
-                            <>
-                                <img
-                                    src={formData.imageUrl}
-                                    alt="Fond bannière"
-                                    className="absolute inset-0 w-full h-full object-cover z-0"
-                                />
-                                <div
-                                    className="absolute inset-0 z-0 transition-opacity"
-                                    style={{
-                                        backgroundColor: formData.bgColor,
-                                        opacity: formData.overlayOpacity / 100,
-                                    }}
-                                />
-                            </>
-                        )}
+                        <div className="px-4 py-3 sm:px-6 sm:py-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-center">
+                            <span className="font-medium text-xs sm:text-sm leading-snug">
+                                {formData.title || "Saisissez le texte de votre annonce..."}
+                            </span>
 
-                        {/* Contenu de la bannière */}
-                        <div className="relative z-10 px-4 py-3.5 sm:px-6 sm:py-4 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
-                            {/* Image en mode VIGNETTE (Thumbnail) */}
-                            {formData.imageUrl && formData.imageMode === "thumbnail" && (
-                                <img
-                                    src={formData.imageUrl}
-                                    alt="Visuel promo"
-                                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-white/30 shadow-xs shrink-0"
-                                />
+                            {formData.promoCode && (
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/15 backdrop-blur-xs border border-current/25 text-xs font-mono font-bold tracking-wider uppercase">
+                                    <Tag className="w-3 h-3" />
+                                    {formData.promoCode}
+                                </span>
                             )}
 
-                            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-                                <span className="font-medium text-xs sm:text-sm leading-snug">
-                                    {formData.title || "Saisissez le texte de votre annonce..."}
+                            {formData.linkLabel && (
+                                <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold underline underline-offset-4">
+                                    {formData.linkLabel}
+                                    <ExternalLink className="w-3.5 h-3.5" />
                                 </span>
-
-                                {formData.promoCode && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-white/20 backdrop-blur-xs border border-white/30 text-xs font-mono font-bold tracking-wider uppercase">
-                                        <Tag className="w-3 h-3" />
-                                        {formData.promoCode}
-                                    </span>
-                                )}
-
-                                {formData.linkLabel && (
-                                    <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold underline underline-offset-4 cursor-pointer hover:opacity-80">
-                                        {formData.linkLabel}
-                                        <ExternalLink className="w-3.5 h-3.5" />
-                                    </span>
-                                )}
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -271,10 +279,8 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
             {/* FORMULAIRE D'ÉDITION DE LA BANNIÈRE                   */}
             {/* ===================================================== */}
             <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
                 {/* COLONNE GAUCHE (2/3) : TEXTES & DATES */}
                 <div className="lg:col-span-2 space-y-6">
-                    
                     {/* 1. Contenu & Liens */}
                     <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs space-y-4">
                         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -287,7 +293,6 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                                 </h2>
                             </div>
 
-                            {/* Switch Actif / Inactif */}
                             <label className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer">
                                 <input
                                     type="checkbox"
@@ -339,7 +344,7 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                                         type="text"
                                         value={formData.linkLabel}
                                         onChange={(e) => updateField("linkLabel", e.target.value)}
-                                        placeholder="Ex: En profiter →"
+                                        placeholder="Ex: En profiter"
                                         className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-900 focus:bg-white focus:border-slate-900 focus:outline-none transition"
                                     />
                                 </div>
@@ -371,7 +376,7 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                                     Période de validité
                                 </h2>
                                 <p className="text-xs text-slate-500">
-                                    Définissez quand la bannière doit s&apos;afficher et s&apos;arrêter automatiquement.
+                                    Laissez vide pour afficher sans limite de date tant que le switch est activé.
                                 </p>
                             </div>
                         </div>
@@ -404,10 +409,8 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                     </div>
                 </div>
 
-                {/* COLONNE DROITE (1/3) : COULEURS & IMAGE */}
-                <div className="space-y-6">
-                    
-                    {/* 3. Couleurs & Thème */}
+                {/* COLONNE DROITE (1/3) : COULEURS & VALIDATION */}
+                <div className="space-y-6 flex flex-col justify-between">
                     <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs space-y-4">
                         <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
                             <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
@@ -418,7 +421,6 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                             </h2>
                         </div>
 
-                        {/* Presets rapides */}
                         <div className="space-y-2">
                             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">
                                 Thèmes rapides
@@ -447,7 +449,6 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                             </div>
                         </div>
 
-                        {/* Color pickers personnalisés */}
                         <div className="grid grid-cols-2 gap-3 pt-2">
                             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
                                 <label className="block text-[11px] font-semibold uppercase text-slate-500 mb-1.5">
@@ -491,120 +492,24 @@ export default function PromoForm({ promo, onUpdatePromo }: PromoFormProps) {
                         </div>
                     </div>
 
-                    {/* 4. Image de bannière */}
-                    <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs space-y-4">
-                        <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
-                            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                                <ImageIcon className="w-4 h-4" />
-                            </div>
-                            <div>
-                                <h2 className="text-base font-semibold text-slate-900">
-                                    Image d&apos;illustration
-                                </h2>
-                                <p className="text-xs text-slate-500">
-                                    En fond de bannière ou en vignette.
-                                </p>
-                            </div>
-                        </div>
-
-                        <input
-                            ref={fileInputRef}
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={handleImageUpload}
-                        />
-
-                        {formData.imageUrl ? (
-                            <div className="space-y-3">
-                                <div className="relative h-28 w-full rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
-                                    <img
-                                        src={formData.imageUrl}
-                                        alt="Aperçu upload"
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => updateField("imageUrl", null)}
-                                        className="absolute top-2 right-2 p-1.5 rounded-lg bg-rose-600 text-white hover:bg-rose-700 transition cursor-pointer shadow-xs"
-                                        title="Retirer l'image"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </button>
-                                </div>
-
-                                {/* Mode d'affichage de l'image */}
-                                <div className="grid grid-cols-2 gap-2">
-                                    <button
-                                        type="button"
-                                        onClick={() => updateField("imageMode", "background")}
-                                        className={`py-2 px-3 rounded-xl text-xs font-semibold border transition cursor-pointer ${
-                                            formData.imageMode === "background"
-                                                ? "bg-slate-900 text-white border-slate-900"
-                                                : "bg-slate-50 text-slate-600 border-slate-200"
-                                        }`}
-                                    >
-                                        Image de fond
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => updateField("imageMode", "thumbnail")}
-                                        className={`py-2 px-3 rounded-xl text-xs font-semibold border transition cursor-pointer ${
-                                            formData.imageMode === "thumbnail"
-                                                ? "bg-slate-900 text-white border-slate-900"
-                                                : "bg-slate-50 text-slate-600 border-slate-200"
-                                        }`}
-                                    >
-                                        Vignette côté texte
-                                    </button>
-                                </div>
-
-                                {/* Réglage de l'opacité du voile si mode background */}
-                                {formData.imageMode === "background" && (
-                                    <div className="space-y-1 pt-1">
-                                        <div className="flex justify-between text-xs">
-                                            <span className="text-slate-500">Voile de couleur</span>
-                                            <span className="font-semibold text-slate-700">
-                                                {formData.overlayOpacity}%
-                                            </span>
-                                        </div>
-                                        <input
-                                            type="range"
-                                            min={20}
-                                            max={95}
-                                            value={formData.overlayOpacity}
-                                            onChange={(e) =>
-                                                updateField("overlayOpacity", Number(e.target.value))
-                                            }
-                                            className="w-full accent-slate-900 cursor-pointer"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                className="w-full py-6 px-4 rounded-xl border-2 border-dashed border-slate-200 hover:border-slate-400 bg-slate-50/50 hover:bg-slate-100/60 transition flex flex-col items-center justify-center gap-2 text-slate-500 cursor-pointer"
-                            >
-                                <Upload className="w-5 h-5 text-slate-400" />
-                                <span className="text-xs font-medium">
-                                    Cliquez pour ajouter une image
-                                </span>
-                            </button>
-                        )}
-                    </div>
-
-                    {/* Bouton de validation */}
                     <button
                         type="submit"
-                        className="w-full py-3.5 px-5 rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 active:scale-[0.99] transition shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                        disabled={isSubmitting}
+                        className="w-full py-3.5 px-5 rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 disabled:opacity-60 active:scale-[0.99] transition shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                     >
-                        <Save className="w-4 h-4" />
-                        <span>Appliquer la bannière</span>
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                <span>Enregistrement...</span>
+                            </>
+                        ) : (
+                            <>
+                                <Save className="w-4 h-4" />
+                                <span>Appliquer la bannière</span>
+                            </>
+                        )}
                     </button>
                 </div>
-
             </form>
         </div>
     );

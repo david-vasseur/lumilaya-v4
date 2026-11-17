@@ -3,6 +3,21 @@
 import { IEvent } from "@/schema/event";
 import { ShippingStatus } from "../generated/prisma/enums";
 import { IProduct } from "@/schema/product";
+import { revalidatePath } from "next/cache";
+import { prisma } from "@/lib/prisma/prisma";
+
+export interface IPromoBannerPayload {
+    active: boolean;
+    title: string;
+    promoCode?: string | null;
+    linkUrl?: string | null;
+    linkLabel?: string | null;
+    dateStart?: string | null;
+    dateEnd?: string | null;
+    bgColor: string;
+    textColor: string;
+}
+
 
 export const verifyToken = async (token: string, fingerprint: string) => {
 
@@ -426,3 +441,48 @@ export async function updateVariant(
 
         return result;
     }
+
+    export const createBanner = async (
+        token: string,
+        fingerprint: string,
+        data: IPromoBannerPayload
+    ) => {
+        const response = await fetch("http://lumilaya_service:4005/event/create-banner", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-fingerprint": fingerprint,
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            const error = await response.json().catch(() => null);
+            throw new Error(error?.message || `API error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        // Purge immédiate du cache Next.js sur tout le site pour afficher/masquer la bannière sans attendre
+        revalidatePath("/", "layout");
+
+        return result;
+    };
+
+    export const getBanner = async () => {
+    const promo = await prisma.promo.findUnique({ where: { id: 1 } });
+    if (!promo) return null;
+
+    return {
+        active: promo.active,
+        title: promo.title,
+        promoCode: promo.promoCode ?? "",
+        linkLabel: promo.linkLabel ?? "",
+        linkUrl: promo.linkUrl ?? "",
+        dateStart: promo.dateStart ? promo.dateStart.toISOString().slice(0, 10) : "",
+        dateEnd: promo.dateEnd ? promo.dateEnd.toISOString().slice(0, 10) : "",
+        bgColor: promo.bgColor,
+        textColor: promo.textColor,
+    };
+};

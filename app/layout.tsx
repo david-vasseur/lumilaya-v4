@@ -5,6 +5,7 @@ import Nav from "@/components/features/navbar/Nav";
 import { Toaster } from "sonner";
 import Modal from "@/components/features/modal/Modal";
 import SmoothScroll from "@/hooks/lenis";
+import DiscountBanner from "@/components/features/modal/DiscountBanner";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -139,8 +140,10 @@ export default function RootLayout({
 			>
 				<SmoothScroll />
 				<Toaster />
-				{/* <DiscountBanner /> */}
-				<Nav />		
+				<header className="fixed top-0 left-0 right-0 z-50">
+					<DiscountBanner />
+					<Nav />
+				</header>	
 				{children}
 				<Modal />
 			</body>

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import BackButton from "@/components/ui/BackButton";
 import EventForm from "@/components/form/admin/EventForm";
 import PromoForm, {
@@ -17,9 +19,12 @@ import {
     PowerOff,
     Tag,
     Trash2,
+    Loader2,
 } from "lucide-react";
+import { generateFingerprint } from "@/utils/dbFunction";
+import { createBanner, IPromoBannerPayload } from "@/lib/action/admin.action";
 
-interface IDemoEvent {
+interface IAdminEvent {
     id: number;
     name: string;
     address: string;
@@ -31,59 +36,122 @@ interface IDemoEvent {
     imagePreview?: string | null;
 }
 
-// --- DONNÉES EN DUR INITIALES POUR TESTER LE RENDU ---
-const INITIAL_PROMO: IPromoBannerData = {
-    active: true,
-    title: "✨ Offre Bien-être : -15% sur les coffrets rituels et livraison offerte dès 50€",
-    promoCode: "LUMI15",
-    linkLabel: "Découvrir les coffrets",
-    linkUrl: "/bougies-rituel",
-    dateStart: "2026-11-01",
-    dateEnd: "2026-12-31",
+const DEFAULT_PROMO: IPromoBannerData = {
+    active: false,
+    title: "",
+    promoCode: "",
+    linkLabel: "",
+    linkUrl: "",
+    dateStart: "",
+    dateEnd: "",
     bgColor: "#7A9B8E",
     textColor: "#FFFFFF",
-    imageUrl: null,
-    imageMode: "background",
-    overlayOpacity: 75,
 };
 
-const INITIAL_EVENTS: IDemoEvent[] = [
-    {
-        id: 1,
-        name: "Salon Bien-Être & Minéraux",
-        address: "Parc des Expositions",
-        city: "Avignon",
-        postalCode: "84000",
-        dateStart: "2026-11-28",
-        dateEnd: "2026-11-29",
-        url: "https://lumilaya.fr",
-    },
-    {
-        id: 2,
-        name: "Marché des Créateurs de Noël",
-        address: "Place de l'Horloge",
-        city: "Nîmes",
-        postalCode: "30000",
-        dateStart: "2026-12-12",
-        dateEnd: "2026-12-13",
-        url: "#",
-    },
-];
-
 export default function EventAndPromoPage() {
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState<"promo" | "events">("promo");
-    const [promo, setPromo] = useState<IPromoBannerData>(INITIAL_PROMO);
-    const [events, setEvents] = useState<IDemoEvent[]>(INITIAL_EVENTS);
+    const [loading, setLoading] = useState(true);
+    const [togglingBanner, setTogglingBanner] = useState(false);
+
+    // Auth stockée en state pour la passer aux formulaires enfants
+    const [token, setToken] = useState<string>("");
+    const [fingerprint, setFingerprint] = useState<string>("");
+
+    const [promo, setPromo] = useState<IPromoBannerData>(DEFAULT_PROMO);
+    const [events, setEvents] = useState<IAdminEvent[]>([]);
+
+    // --- CHARGEMENT INITIAL (même pattern que Product) ---
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            const fp = generateFingerprint();
+            const adminToken = sessionStorage.getItem("admin-token");
+
+            if (!adminToken || !fp) {
+                setLoading(false);
+                return;
+            }
+
+            setToken(adminToken);
+            setFingerprint(fp);
+
+            try {
+                // Charge les événements (et la bannière si ton endpoint ou une Server Action la retourne)
+                const eventsData = await getEvents(adminToken, fp);
+                if (Array.isArray(eventsData)) {
+                    setEvents(eventsData);
+                }
+
+                // Si tu as une Server Action getBanner() (ex: via Prisma), décommente :
+                // const bannerData = await getBanner();
+                // if (bannerData) setPromo(bannerData);
+            } catch (e) {
+                console.error("Error loading events/promo", e);
+                toast.error("Erreur lors du chargement des données");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
+
+    // --- BOUTON RAPIDE ACTIVER / COUPER LA BANNIÈRE ---
+    const handleQuickToggleBanner = async () => {
+        if (!token || !fingerprint) {
+            toast.error("Session expirée, veuillez vous reconnecter.");
+            return;
+        }
+
+        const nextActive = !promo.active;
+
+        if (nextActive && !promo.title.trim()) {
+            toast.error("Saisissez d'abord un texte de bannière avant de l'activer.");
+            return;
+        }
+
+        setTogglingBanner(true);
+        try {
+            const payload: IPromoBannerPayload = {
+                active: nextActive,
+                title: promo.title.trim(),
+                promoCode: promo.promoCode.trim() || null,
+                linkUrl: promo.linkUrl.trim() || null,
+                linkLabel: promo.linkLabel.trim() || null,
+                dateStart: promo.dateStart ? new Date(promo.dateStart).toISOString() : null,
+                dateEnd: promo.dateEnd ? new Date(promo.dateEnd).toISOString() : null,
+                bgColor: promo.bgColor,
+                textColor: promo.textColor,
+            };
+
+            await createBanner(token, fingerprint, payload);
+            setPromo((prev) => ({ ...prev, active: nextActive }));
+            router.refresh();
+            toast.success(nextActive ? "Bannière activée en ligne !" : "Bannière coupée.");
+        } catch (error) {
+            console.error(error);
+            toast.error("Impossible de mettre à jour la bannière.");
+        } finally {
+            setTogglingBanner(false);
+        }
+    };
 
     const promoStatus = getPromoStatus(promo);
 
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50/70">
+                <Loader2 className="w-8 h-8 animate-spin text-slate-700" />
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-slate-50/70 text-slate-900 p-4 sm:p-6 md:p-10 pb-24">
-            {/* Fond à motifs */}
             <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-size-[20px_20px] opacity-50 pointer-events-none" />
 
             <div className="max-w-6xl mx-auto pt-4 sm:pt-8 space-y-6 sm:space-y-8">
-                
                 {/* BOUTON RETOUR & TITRE */}
                 <div className="space-y-4">
                     <div className="self-start">
@@ -100,9 +168,7 @@ export default function EventAndPromoPage() {
                     </div>
                 </div>
 
-                {/* ========================================================= */}
-                {/* RÉCAPITULATIF EN DIRECT (STATUT DE LA PROMO EN COURS)     */}
-                {/* ========================================================= */}
+                {/* RÉCAPITULATIF EN DIRECT */}
                 <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-5">
                     <div className="flex items-start sm:items-center gap-4">
                         <div
@@ -120,18 +186,10 @@ export default function EventAndPromoPage() {
                                 <span
                                     className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${promoStatus.badgeClass}`}
                                 >
-                                    {promoStatus.code === "ACTIVE" && (
-                                        <CheckCircle2 className="w-3.5 h-3.5" />
-                                    )}
-                                    {promoStatus.code === "SCHEDULED" && (
-                                        <Clock className="w-3.5 h-3.5" />
-                                    )}
-                                    {promoStatus.code === "EXPIRED" && (
-                                        <AlertCircle className="w-3.5 h-3.5" />
-                                    )}
-                                    {promoStatus.code === "DISABLED" && (
-                                        <PowerOff className="w-3.5 h-3.5" />
-                                    )}
+                                    {promoStatus.code === "ACTIVE" && <CheckCircle2 className="w-3.5 h-3.5" />}
+                                    {promoStatus.code === "SCHEDULED" && <Clock className="w-3.5 h-3.5" />}
+                                    {promoStatus.code === "EXPIRED" && <AlertCircle className="w-3.5 h-3.5" />}
+                                    {promoStatus.code === "DISABLED" && <PowerOff className="w-3.5 h-3.5" />}
                                     {promoStatus.label}
                                 </span>
 
@@ -144,34 +202,28 @@ export default function EventAndPromoPage() {
                             </div>
 
                             <p className="text-sm font-semibold text-slate-900 line-clamp-1">
-                                {promo.title}
+                                {promo.title || "Aucune annonce configurée"}
                             </p>
 
                             <p className="text-xs text-slate-500">
                                 Du{" "}
                                 <span className="font-medium text-slate-700">
-                                    {promo.dateStart
-                                        ? new Date(promo.dateStart).toLocaleDateString("fr-FR")
-                                        : "—"}
+                                    {promo.dateStart ? new Date(promo.dateStart).toLocaleDateString("fr-FR") : "—"}
                                 </span>{" "}
                                 au{" "}
                                 <span className="font-medium text-slate-700">
-                                    {promo.dateEnd
-                                        ? new Date(promo.dateEnd).toLocaleDateString("fr-FR")
-                                        : "—"}
+                                    {promo.dateEnd ? new Date(promo.dateEnd).toLocaleDateString("fr-FR") : "—"}
                                 </span>
                             </p>
                         </div>
                     </div>
 
-                    {/* Action rapide Activer / Couper la promo */}
                     <div className="flex items-center gap-3 self-start lg:self-auto">
                         <button
                             type="button"
-                            onClick={() =>
-                                setPromo((prev) => ({ ...prev, active: !prev.active }))
-                            }
-                            className={`px-4 py-2 rounded-xl text-xs font-semibold border transition cursor-pointer ${
+                            disabled={togglingBanner}
+                            onClick={handleQuickToggleBanner}
+                            className={`px-4 py-2 rounded-xl text-xs font-semibold border transition cursor-pointer disabled:opacity-60 ${
                                 promo.active
                                     ? "bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100"
                                     : "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
@@ -182,9 +234,7 @@ export default function EventAndPromoPage() {
                     </div>
                 </div>
 
-                {/* ========================================================= */}
-                {/* NAVIGATION PAR ONGLETS                                    */}
-                {/* ========================================================= */}
+                {/* NAVIGATION PAR ONGLETS */}
                 <div className="flex items-center gap-2 border-b border-slate-200/80 pb-4">
                     <button
                         type="button"
@@ -222,15 +272,17 @@ export default function EventAndPromoPage() {
                     </button>
                 </div>
 
-                {/* ========================================================= */}
-                {/* CONTENU DE L'ONGLET SÉLECTIONNÉ                           */}
-                {/* ========================================================= */}
+                {/* CONTENU DE L'ONGLET SÉLECTIONNÉ */}
                 {activeTab === "promo" ? (
-                    <PromoForm promo={promo} onUpdatePromo={setPromo} />
+                    <PromoForm
+                        key={JSON.stringify(promo)}
+                        promo={promo}
+                        token={token}
+                        fingerprint={fingerprint}
+                        onUpdatePromo={setPromo}
+                    />
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                        
-                        {/* Formulaire d'ajout d'événement (2/3) */}
                         <div className="lg:col-span-2">
                             <EventForm
                                 onEventCreated={(newEv) =>
@@ -239,7 +291,6 @@ export default function EventAndPromoPage() {
                             />
                         </div>
 
-                        {/* Liste des événements programmés (1/3) */}
                         <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs space-y-4">
                             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                                 <h3 className="text-base font-bold text-slate-900">
@@ -248,7 +299,7 @@ export default function EventAndPromoPage() {
                             </div>
 
                             <div className="space-y-3">
-                                {events.map((ev: IDemoEvent) => (
+                                {events.map((ev: IAdminEvent) => (
                                     <div
                                         key={ev.id}
                                         className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 space-y-2 relative group"
@@ -273,7 +324,7 @@ export default function EventAndPromoPage() {
                                                     )
                                                 }
                                                 className="text-slate-400 hover:text-rose-600 transition cursor-pointer"
-                                                title="Supprimer (Démo)"
+                                                title="Supprimer"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
@@ -299,10 +350,8 @@ export default function EventAndPromoPage() {
                                 ))}
                             </div>
                         </div>
-
                     </div>
                 )}
-
             </div>
         </div>
     );
