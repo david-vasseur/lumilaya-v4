@@ -1,225 +1,129 @@
-"use client"
 
-import { ChevronRight } from 'lucide-react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { useRef } from 'react';
-import Link from 'next/link';
+import { getImageUrl } from "@/utils/image";
+import { prisma } from "@/lib/prisma/prisma";
+import CoffretDecouverteClient, { ShowcaseSlide } from "./DecouverteClient";
 
-function CoffretDecouverte() {
-
-    const imagesRef = useRef<HTMLImageElement[]>([]);
-    const contentTrackRef = useRef<HTMLDivElement>(null);
-
-
-    useGSAP(() => {
-
-        const images = imagesRef.current
-        const contentTrack = contentTrackRef.current
-
-        if (!images.length || !contentTrack) return
-
-        gsap.set(images, { opacity: 0 })
-        gsap.set(images[0], { opacity: 1 })
-
-        const tl = gsap.timeline({ repeat: -1 })
-
-        images.forEach((img, i) => {
-
-            const next = images[(i + 1) % images.length]
-
-            tl.to(next, {
-                opacity: 1,
-                duration: 1.5,
-                ease: "power2.inOut"
-            }, "+=3")
-
-            tl.to(img, {
-                opacity: 0,
-                duration: 1.5,
-                ease: "power2.inOut"
-            }, "<")
-
-            // slide contenu
-            if (i === 1) {
-                tl.to(contentTrack, {
-                    x: "-50%",
-                    duration: 0.8,
-                    ease: "power3.inOut"
-                }, "<")
-            }
-
-            if (i === 3) {
-                tl.to(contentTrack, {
-                    x: "0%",
-                    duration: 0.8,
-                    ease: "power3.inOut"
-                }, "<")
-            }
-
-        })
-
-    }, [])
-
-    useGSAP(() => {
-
-        const elements = gsap.utils.toArray('.coffret-content > *')
-
-        gsap.fromTo(
-            elements,
-            {
-                y: 40,
-                opacity: 0,
-                scale: 0.95,
-                filter: "blur(6px)"
-            },
-            {
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)",
-                stagger: 0.15,
-                duration: 0.9,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: ".coffret-section",
-                    start: "top 70%",
-                    end: "bottom 30%",
-                    toggleActions: "play reverse play reverse"
-                }
-            }
-        )
-
-    }, [])
-
-    return (
-        <>
-            <section className="coffret-section py-20 px-6 bg-[#FDFBF7] overflow-hidden mt-[500svh]" id='coffrets'>
-                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-                    {/* Badge + Titre : au-dessus de l'image sur mobile, dans le contenu sur desktop */}
-                    <div className="flex flex-col gap-4 md:hidden">
-                        <span className="text-xs tracking-widest uppercase text-[#5A7B6E] border border-[#5A7B6E] rounded-full px-4 py-1 w-fit">
-                            Idée cadeau
-                        </span>
-                        <h3 className="text-4xl font-light text-[#3a4a44] leading-snug">
-                            L'essentiel{' '}
-                            <span className="font-ballet text-5xl text-[#5A7B6E]">Lumi'laya</span>
-                        </h3>
-                    </div>
-
-                    {/* Image avec fondu enchaîné */}
-                    <div className="relative rounded-lg overflow-hidden aspect-4/3 shadow-xl">
-                        <img
-                            ref={(el) => {el && (imagesRef.current[0] = el)}}
-                            src="/images/landing/coffret.webp"
-                            alt="Coffret découverte Lumi'laya"
-                            className="absolute inset-0 w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        <img
-                            ref={(el) => {el && (imagesRef.current[1] = el)}}
-                            src="/images/landing/coffret1.webp"
-                            alt="Coffret découverte Lumi'laya vue 2"
-                            className="absolute inset-0 w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        <img
-                            ref={(el) => {el && (imagesRef.current[2] = el)}}
-                            src="/images/landing/coffret_rit1.webp"
-                            alt="Coffret découverte Lumi'laya vue 2"
-                            className="absolute inset-0 w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        <img
-                            ref={(el) => {el && (imagesRef.current[3] = el)}}
-                            src="/images/landing/coffret_rit2.webp"
-                            alt="Coffret découverte Lumi'laya vue 2"
-                            className="absolute inset-0 w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-[#5A7B6E]/10" />
-                    </div>
-
-                    {/* Contenu */}
-                    <div className="flex flex-col gap-6">
-
-                        {/* Badge + Titre : caché sur mobile (affiché au-dessus), visible sur desktop */}
-                        <span className="hidden md:inline-flex text-xs tracking-widest uppercase text-[#5A7B6E] border border-[#5A7B6E] rounded-full px-4 py-1 w-fit">
-                            Idée cadeau
-                        </span>
-                        <h3 className="hidden md:block text-4xl font-light text-[#3a4a44] leading-snug">
-                            L'essentiel{' '}
-                            <span className="font-ballet text-5xl text-[#5A7B6E]">Lumi'laya</span>
-                        </h3>
-
-                        <div className="relative overflow-hidden w-full">
-                            <div ref={contentTrackRef} className="flex w-[200%]">
-
-                                {/* Slide 1 */}
-                                <div className="w-1/2 flex flex-col gap-6 coffret-content">
-                                    <h4>Le coffret Découverte</h4>
-                                    <p className="text-gray-500 leading-relaxed max-w-md">
-                                        Offrez une expérience sensorielle complète avec notre coffret découverte : quatre bougies soigneusement sélectionnées pour s'initier en douceur à l'univers <em>Émotions & Plaisirs</em>.
-                                    </p>
-
-                                    <ul className="flex flex-col gap-2 text-sm text-gray-600">
-                                        {[
-                                            '4 bougies issues de la collection "Émotions & Plaisirs"',
-                                            'Coffret recyclable premium',
-                                            'Livraison soignée, prête à offrir',
-                                        ].map((item) => (
-                                            <li key={item} className="flex items-center gap-3">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#5A7B6E] shrink-0" />
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <Link
-                                        href="/coffrets"
-                                        className="group mt-2 inline-flex items-center gap-2 bg-[#5A7B6E] hover:bg-[#4a6b5e] text-[#FDFBF7] rounded-full px-8 py-3.5 text-sm tracking-wide transition-colors duration-300 w-fit"
-                                    >
-                                        Composez votre coffret
-                                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                                    </Link>
-                                </div>
-
-                                {/* Slide 2 */}
-                                <div className="w-1/2 flex flex-col gap-6 coffret-content">
-                                    <h4>Le coffret Rituel</h4>
-                                    <p className="text-gray-500 leading-relaxed max-w-md">
-                                        Offrez une expérience sensorielle complète avec notre coffret Rituel.
-                                    </p>
-
-                                    <ul className="flex flex-col gap-2 text-sm text-gray-600">
-                                        {[
-                                            '1 bougie de la collection "Entre terre & ciel"',
-                                            "1 bouquet de sauge, une carte rituel et 1 sachet d'herbes sacrés",
-                                            'Livraison soignée, prête à offrir',
-                                        ].map((item) => (
-                                            <li key={item} className="flex items-center gap-3">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-[#5A7B6E] shrink-0" />
-                                                {item}
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <Link
-                                        href="/coffrets"
-                                        className="group mt-2 inline-flex items-center gap-2 bg-[#5A7B6E] hover:bg-[#4a6b5e] text-[#FDFBF7] rounded-full px-8 py-3.5 text-sm tracking-wide transition-colors duration-300 w-fit"
-                                    >
-                                        Découvrir les coffrets
-                                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-            </section>
-        </>
-    )
+function getProductRoute(collection: string, slug: string) {
+    const col = collection.toLowerCase();
+    if (col.includes("coffret")) return `/coffrets-accessoires/${slug}`;
+    if (col.includes("terre") || col.includes("ciel")) return `/entre-terre-et-ciel/${slug}`;
+    return `/emotion/${slug}`; // adapte selon tes slugs de routes collections
 }
 
-export default CoffretDecouverte;
+const DEFAULT_COFFRET_SLIDES: ShowcaseSlide[] = [
+    {
+        id: "coffret-decouverte",
+        title: "Le coffret Découverte",
+        description:
+            "Offrez une expérience sensorielle complète avec notre coffret découverte : quatre bougies soigneusement sélectionnées pour s'initier en douceur à l'univers Émotions & Plaisirs.",
+        bullets: [
+            '4 bougies issues de la collection "Émotions & Plaisirs"',
+            "Coffret recyclable premium",
+            "Livraison soignée, prête à offrir",
+        ],
+        ctaLabel: "Composez votre coffret",
+        ctaHref: "/coffrets-accessoires/coffret-decouverte",
+        images: ["/images/landing/coffret.webp", "/images/landing/coffret1.webp"],
+    },
+    {
+        id: "coffret-rituel",
+        title: "Le coffret Rituel",
+        description:
+            "Offrez une expérience sensorielle complète avec notre coffret Rituel.",
+        bullets: [
+            '1 bougie de la collection "Entre terre & ciel"',
+            "1 bouquet de sauge, une carte rituel et 1 sachet d'herbes sacrées",
+            "Livraison soignée, prête à offrir",
+        ],
+        ctaLabel: "Découvrir les coffrets",
+        ctaHref: "/coffrets-accessoires",
+        images: ["/images/landing/coffret_rit1.webp", "/images/landing/coffret_rit2.webp"],
+    },
+];
+
+export default async function CoffretDecouverte() {
+    let promoProducts = [];
+
+    try {
+        promoProducts = await prisma.product.findMany({
+            where: {
+                meta: {
+                    promo: { gt: 0 },
+                    stock: true,
+                },
+            },
+            include: {
+                meta: true,
+                images: true,
+                variants: {
+                    orderBy: { price: "asc" },
+                },
+            },
+            take: 4,
+        });
+    } catch {
+        // Fallback silencieux si la BDD n'est pas joignable au docker build
+        promoProducts = [];
+    }
+
+    if (promoProducts.length > 0) {
+        const promoSlides: ShowcaseSlide[] = promoProducts.map((product) => {
+            const discount = product.meta?.promo ?? 0;
+            const basePriceCents = product.variants[0]?.price ?? 0;
+            const discountedPriceCents = Math.round(basePriceCents * (1 - discount / 100));
+
+            const productImages =
+                product.images.length > 0
+                    ? product.images.slice(0, 2).map((img) => getImageUrl(img.url))
+                    : ["/images/landing/coffret.webp"];
+
+            return {
+                id: product.id,
+                title: product.meta?.name ?? "Création en promotion",
+                description:
+                    product.meta?.intro ??
+                    "Profitez d'une remise exclusive sur cette création artisanale Lumi'laya.",
+                discountPercent: discount,
+                originalPrice:
+                    basePriceCents > 0
+                        ? `${(basePriceCents / 100).toFixed(2).replace(".", ",")} €`
+                        : undefined,
+                finalPrice:
+                    discountedPriceCents > 0
+                        ? `${(discountedPriceCents / 100).toFixed(2).replace(".", ",")} €`
+                        : undefined,
+                bullets: [
+                    `Remise immédiate de -${discount}% appliquée`,
+                    "Cire 100% végétale & fabrication artisanale dans le Gard",
+                    "Quantités limitées",
+                ],
+                ctaLabel: "Profiter de l'offre",
+                ctaHref: getProductRoute(
+                    product.meta?.collection ?? "",
+                    product.meta?.slug ?? ""
+                ),
+                images: productImages,
+            };
+        });
+
+        return (
+            <CoffretDecouverteClient
+                mode="promo"
+                badge="Offres du moment"
+                headingRegular="Nos créations"
+                headingScript="à prix doux"
+                slides={promoSlides}
+            />
+        );
+    }
+
+    return (
+        <CoffretDecouverteClient
+            mode="coffret"
+            badge="Idée cadeau"
+            headingRegular="L'essentiel"
+            headingScript="Lumi'laya"
+            slides={DEFAULT_COFFRET_SLIDES}
+        />
+    );
+}
