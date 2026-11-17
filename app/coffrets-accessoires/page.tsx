@@ -12,16 +12,34 @@ export const dynamic = "force-dynamic";
 async function Page() {
     const items = await getProductsByCollection("Coffret");
 
-    const slides: HeroSlide[] = items.map((coffret) => ({
-        id: coffret.id,
-        title: coffret.meta.name.replace(" ", "<br />"),
-        subtitle: coffret.meta.intro,
-        ctaLabel: coffret.meta.content?.length
-            ? "Composer votre coffret"
-            : "Découvrir le coffret",
-        ctaHref: `/coffrets-accessoires/${coffret.meta.slug}`,
-        images: coffret.images.slice(0, 2), // 2 photos par coffret qui défilent avant le slide suivant
-    }));
+    const slides: HeroSlide[] =
+    items.length > 0
+        ? items.map((coffret) => ({
+              id: coffret.slug,
+              title: coffret.name.replace(" ", "<br />"),
+              subtitle: coffret.intro,
+              ctaLabel: coffret.slug.includes("decouverte")
+                  ? "Composer votre coffret"
+                  : "Découvrir le coffret",
+              ctaHref: `/coffrets-accessoires/${coffret.slug}`,
+              images: [
+                  coffret.image
+                      ? getImageUrl(coffret.image)
+                      : "/images/landing/coffret.webp",
+              ],
+          }))
+        : [
+              {
+                  id: "fallback",
+                  title: "Nos Coffrets<br />& Rituels",
+                  subtitle:
+                      "Des créations artisanales pensées pour offrir ou prolonger l'expérience Lumi'laya.",
+                  ctaLabel: "Découvrir la sélection",
+                  ctaHref: "#noscoffrets",
+                  images: ["/images/landing/coffret.webp"],
+              },
+          ];
+
 
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
