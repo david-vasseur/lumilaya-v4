@@ -10,7 +10,7 @@ import Link from 'next/link';
 export const dynamic = "force-dynamic";
 
 async function Page() {
-    const items = await getProductsByCollection("Coffret");
+    const items = await getProductsByCollection(["Coffret", "Autre"]);
 
     const slides: HeroSlide[] =
     items.length > 0
